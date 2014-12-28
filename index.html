@@ -2,25 +2,21 @@
 <html>
 <head>
     <title>Evolving car</title>
-    <script src="scripts/require.js"></script>
+    <script src="scripts/vendor/require.js"></script>
     <script>
         require.config({
-            baseUrl: './',
+            baseUrl: './scripts',
             packages: [
                 {
                     name: 'physicsjs',
-                    location: '/scripts',
+                    location: 'vendor',
                     main: 'physicsjs-full.min'
-                },{
-                    name: 'pixi',
-                    location: '/scripts',
-                    main: 'pixi'
                 }
             ]
         });
     </script>
     <script>
-        require(['scripts/helloWorld']);
+        require(['helloWorld']);
     </script>
     <style>
         html,body{
