@@ -1,7 +1,7 @@
-define(['helloWorld'], function(hw){
+define(['environment/world'], function(world){
 	var App = function(){};
 	App.prototype.run = function(){
-		hw();
+		world();
 	};
 	return App;
 });
