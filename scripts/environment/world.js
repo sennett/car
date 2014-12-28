@@ -1,4 +1,4 @@
-define(['physicsjs'], function(Physics) {
+define(['physicsjs', 'underscore'], function(Physics, _) {
 
 	var World = function World() {
 		var _this = this;
@@ -29,7 +29,7 @@ define(['physicsjs'], function(Physics) {
 			window.addEventListener('resize', function () {
 
 				// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
-				viewportBounds = Physics.aabb(0, 0, renderer.width, renderer.height);
+				viewportBounds = Physics.aabb(0, 0, _this.renderer.width, _this.renderer.height);
 				// update the boundaries
 				edgeBounce.setAABB(viewportBounds);
 
@@ -54,6 +54,14 @@ define(['physicsjs'], function(Physics) {
 			_this.world.add([
 				Physics.behavior('interactive', {el: _this.renderer.container}), Physics.behavior('constant-acceleration'), Physics.behavior('body-impulse-response'), _this.edgeBounce
 			]);
+		};
+
+		this.setGround = function(ground){
+			_.each(ground.points, function(){
+				_this.world.add(Physics.body('rectangle', {
+
+				}));
+			});
 		};
 
 		this.start = function(){
