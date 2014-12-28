@@ -11,7 +11,7 @@ require(['physicsjs'], function(Physics) {
 
 		// create a renderer
 		renderer = Physics.renderer('canvas', {
-			el: document.body
+			el: 'viewport'
 		});
 
 		// add the renderer
