@@ -7,9 +7,9 @@ define(['scripts/environment/groundBodyGenerator'], function(groundBodyGenerator
 
 	describe("groundBodyGenerator", function () {
 		describe('generate', function(){
-			it("should call constructor", function () {
-				this.groundBodyGenerator.generate();
-				expect(this.constructorMock.construct).toHaveBeenCalled();
+			it("should create horizontal", function () {
+				this.groundBodyGenerator.generate({x: 100, y: 100}, {x: 200, y: 100});
+				expect(this.constructorMock.construct).toHaveBeenCalledWith(100, 0, 150, 100);
 			});
 		});
 	});
