@@ -1,7 +1,9 @@
-define(['environment/world'], function(world){
+define(['environment/world'], function(World){
 	var App = function(){};
 	App.prototype.run = function(){
-		world();
+		var world = new World();
+		world.setCar();
+		world.start();
 	};
 	return App;
 });
