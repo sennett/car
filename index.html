@@ -16,7 +16,9 @@
         });
     </script>
     <script>
-        require(['helloWorld']);
+        require(['app'], function(App){
+            new App().run();
+        });
     </script>
     <style>
         html,body{
