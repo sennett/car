@@ -125,22 +125,6 @@ require(['physicsjs'], function(Physics) {
 
 		world.on('step', wrapY);
 
-		// slowly fade in the numbers
-		function fadeIn() {
-			zero.view.alpha = 0;
-			seven.view.alpha = 0;
-
-			new TWEEN.Tween({alpha: 0})
-				.to({alpha: 1}, 1000)
-				.onUpdate(function () {
-					zero.view.alpha = this.alpha;
-					point.view.alpha = this.alpha;
-					seven.view.alpha = this.alpha;
-				})
-				.start()
-			;
-		}
-
 		world.one('render', function () {
 			// set the alpha on children to 1
 			function setAlpha(c) {
@@ -152,8 +136,8 @@ require(['physicsjs'], function(Physics) {
 			zero.view.alpha = 0;
 			seven.view.alpha = 0;
 
-			// fade in after 2 seconds
-			setTimeout(fadeIn, 3000);
+			zero.view.alpha = 1;
+			seven.view.alpha = 1;
 		});
 
 		// after 10 seconds to some more fun
@@ -178,20 +162,8 @@ require(['physicsjs'], function(Physics) {
 		]);
 
 		Physics.util.ticker.on(function (time) {
-			//TWEEN.update();
 			world.step(time);
 		});
-		// For this example, we'll use a tweening engine
-		// to transition the alpha
-		//require(['assets/scripts/vendor/tween.js'], function () {
-		//	// only start the sim when tweening engine is ready
-		//
-		//	// subscribe to ticker to advance the simulation
-		//	Physics.util.ticker.on(function (time) {
-		//		TWEEN.update();
-		//		world.step(time);
-		//	});
-		//});
 	});
 
 	// go ahead... expand the code and play around...
