@@ -48,24 +48,6 @@ define(['physicsjs'], function(Physics) {
 				}
 			}));
 
-			// add some fun interaction
-			var attractor = Physics.behavior('attractor', {
-				order: 0,
-				strength: 0.002
-			});
-			world.on({
-				'interact:poke': function (pos) {
-					world.wakeUpAll();
-					attractor.position(pos);
-					world.add(attractor);
-				}, 'interact:move': function (pos) {
-					attractor.position(pos);
-				}, 'interact:release': function () {
-					world.wakeUpAll();
-					world.remove(attractor);
-				}
-			});
-
 			// add things to the world
 			world.add([
 				Physics.behavior('interactive', {el: renderer.container}), Physics.behavior('constant-acceleration'), Physics.behavior('body-impulse-response'), edgeBounce
