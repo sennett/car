@@ -1,4 +1,4 @@
-define(['scripts/environment/groundSegmentProvider'], function(groundSegmentProvider) {
+define(['scripts/environment/provider/groundSegmentProvider'], function(groundSegmentProvider) {
 	describe("groundBodyGenerator", function () {
 		beforeEach(function(){
 			this.constructorMock = jasmine.createSpyObj('bodyConstructor', ['construct']);
