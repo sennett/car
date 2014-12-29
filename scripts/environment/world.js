@@ -8,8 +8,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 
 		this.world = this.physicsWorldProvider.world(function (world) {
 			// bounds of the window
-			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight), edgeBounce,
-				;
+			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight), edgeBounce;
 
 			// create a renderer
 			_this.renderer = Physics.renderer('canvas', {
