@@ -19,6 +19,18 @@ require.config({
   // dynamically load all test files
   deps: allTestFiles,
 
+	packages: [
+		{
+			name: 'physicsjs',
+			location: 'scripts/vendor',
+			main: 'physicsjs-full.min'
+		},{
+			name: 'underscore',
+			location: 'scripts/vendor',
+			main: 'underscore'
+		}
+	],
+
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start
 });
