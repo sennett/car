@@ -1,9 +1,12 @@
 define(['physicsjs', 'underscore'], function(Physics, _) {
 
-	var World = function World() {
+	var World = function World(groundSegmentProvider, physicsWorldProvider) {
 		var _this = this;
 
-		this.world = new Physics.world(function (world) {
+		this.groundSegmentProvider = groundSegmentProvider;
+		this.physicsWorldProvider = physicsWorldProvider;
+
+		this.world = this.physicsWorldProvider.world(function (world) {
 			// bounds of the window
 			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight), edgeBounce, renderer
 				;
@@ -58,9 +61,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 
 		this.setGround = function(ground){
 			_.each(ground.points, function(){
-				_this.world.add(Physics.body('rectangle', {
-
-				}));
+				_this.world.add(_this.groundSegmentProvider.makeGroundSegment);
 			});
 		};
 
