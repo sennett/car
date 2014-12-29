@@ -6,4 +6,4 @@ define(['scripts/environment/world'], function(World){
 			});
 		});
 	});
-})
+});
