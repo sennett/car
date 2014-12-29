@@ -2,28 +2,7 @@
 <html>
 <head>
     <title>Evolving car</title>
-    <script src="scripts/vendor/require.js"></script>
-    <script>
-        require.config({
-            baseUrl: './scripts',
-            packages: [
-                {
-                    name: 'physicsjs',
-                    location: 'vendor',
-                    main: 'physicsjs-full.min'
-                },{
-                    name: 'underscore',
-                    location: 'vendor',
-                    main: 'underscore'
-                }
-            ]
-        });
-    </script>
-    <script>
-        require(['app'], function(App){
-            new App().run();
-        });
-    </script>
+    <script src="scripts/vendor/require.js" data-main="/scripts/main.js"></script>
     <style>
         html,body{
             height:100%;
