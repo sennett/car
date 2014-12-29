@@ -13,11 +13,12 @@ define(['scripts/environment/world'], function(World){
 		describe('setGround', function(){
 			it('creates bodies between the points', function(){
 				var ground = {
-					points: ['point one', 'point two']
+					points: ['point one', 'point two', 'point three']
 				};
 				this.world.setGround(ground);
 				expect(this.mockGroundSegmentProvider.makeGroundSegment).toHaveBeenCalledWith('point one', 'point two');
-				expect(this.mockGroundSegmentProvider.makeGroundSegment.calls.count()).toEqual(1);
+				expect(this.mockGroundSegmentProvider.makeGroundSegment).toHaveBeenCalledWith('point two', 'point three');
+				expect(this.mockGroundSegmentProvider.makeGroundSegment.calls.count()).toEqual(2);
 			});
 		});
 	});
