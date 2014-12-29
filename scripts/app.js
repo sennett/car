@@ -1,7 +1,7 @@
 define([
 	'environment/world',
 	'environment/groundData',
-	'environment/groundBodyGenerator',
+	'environment/groundSegmentProvider',
 	'environment/groundBodyConstructor',
 	'environment/provider/physicsWorldProvider'
 ], function(World, groundData, GroundBodyGenerator, groundBodyConstructor, physicsWorldProvider){

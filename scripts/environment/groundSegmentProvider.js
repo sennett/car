@@ -5,7 +5,7 @@ define(function(){
 
 		this.groundBodyConstructor = groundBodyConstructor;
 
-		this.generate = function(point1, point2){
+		this.makeGroundSegment = function(point1, point2){
 			//function(length, angle, x, y){
 			var length = point2.x - point1.x,
 				angle = 0,
