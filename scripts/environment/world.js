@@ -8,7 +8,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 
 		this.world = this.physicsWorldProvider.world(function (world) {
 			// bounds of the window
-			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight), edgeBounce, renderer
+			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight), edgeBounce,
 				;
 
 			// create a renderer
@@ -55,7 +55,12 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 
 			// add things to the world
 			_this.world.add([
-				Physics.behavior('interactive', {el: _this.renderer.container}), Physics.behavior('constant-acceleration'), Physics.behavior('body-impulse-response'), _this.edgeBounce
+				Physics.behavior('interactive', {el: _this.renderer.container}),
+				Physics.behavior('constant-acceleration'),
+				Physics.behavior('body-impulse-response'),
+				_this.edgeBounce,
+				Physics.behavior('body-collision-detection'),
+				Physics.behavior('sweep-prune')
 			]);
 		};
 
