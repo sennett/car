@@ -3,7 +3,7 @@ define(function(){
 	return {
 		points: [{
 			x: 200,
-			y: 150
+			y: 550
 		},{
 			x: 300,
 			y: 250

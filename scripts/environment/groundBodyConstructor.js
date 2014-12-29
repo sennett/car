@@ -7,6 +7,7 @@ define(['physicsjs'], function(Physics){
 				width: length,
 				height: 10,
 				angle: angle,
+				treatment: 'static',
 				styles: {
 					fillStyle: 'black', angleIndicator: '#3b3e6b'
 				}
