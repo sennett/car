@@ -9,7 +9,9 @@ define(['physicsjs'], function(Physics){
 				angle: angle,
 				treatment: 'static',
 				styles: {
-					fillStyle: 'black', angleIndicator: '#3b3e6b'
+					fillStyle: 'gray',
+					border: 'red',
+					angleIndicator: '#3b3e6b'
 				}
 			});
 		}
