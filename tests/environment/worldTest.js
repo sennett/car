@@ -2,6 +2,7 @@ define(['scripts/environment/world'], function(World){
 	describe('world', function(){
 		beforeEach(function(){
 			this.mockGroundSegmentProvider = jasmine.createSpyObj('mockGroundSegmentProvider', ['makeGroundSegment']);
+			this.mockGroundSegmentProvider.makeGroundSegment.and.returnValue({getPhysicsBody:function(){}});
 			mockPhysicsWorldProvider = jasmine.createSpyObj('mockPhysicsWorldProvider', ['world']);
 			mockPhysicsWorldProvider.world.and.returnValue({
 				add: function(){},
