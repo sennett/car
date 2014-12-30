@@ -1,3 +1,5 @@
+// this used to test code that was in the ground provider, but has since been moved
+
 define(['scripts/environment/provider/groundSegmentProvider'], function(groundSegmentProvider) {
 	xdescribe("groundBodyGenerator", function () {
 		var assert = function(assertion){

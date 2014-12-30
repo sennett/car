@@ -67,7 +67,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 			_.each(ground.points, function(point, index){
 				var nextPoint = ground.points[index + 1];
 				if (nextPoint)
-					_this.world.add(_this.groundSegmentProvider.makeGroundSegment(point, nextPoint));
+					_this.world.add(_this.groundSegmentProvider.makeGroundSegment(point, nextPoint).getPhysicsBody());
 			});
 		};
 
