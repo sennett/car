@@ -62,7 +62,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 				}
 			}));
 
-
+			_this.world.add(car.getPhysicsBodies());
 		};
 
 		this.setGround = function(ground){
