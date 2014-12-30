@@ -36,6 +36,16 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 				_this.edgeBounce.setAABB(viewportBounds);
 
 			}, true);
+
+			// add things to the world
+			world.add([
+				Physics.behavior('interactive', {el: _this.renderer.container}),
+				Physics.behavior('constant-acceleration'),
+				Physics.behavior('body-impulse-response'),
+				_this.edgeBounce,
+				Physics.behavior('body-collision-detection'),
+				Physics.behavior('sweep-prune')
+			]);
 		});
 
 		this.setCar = function(car){
@@ -52,15 +62,7 @@ define(['physicsjs', 'underscore'], function(Physics, _) {
 				}
 			}));
 
-			// add things to the world
-			_this.world.add([
-				Physics.behavior('interactive', {el: _this.renderer.container}),
-				Physics.behavior('constant-acceleration'),
-				Physics.behavior('body-impulse-response'),
-				_this.edgeBounce,
-				Physics.behavior('body-collision-detection'),
-				Physics.behavior('sweep-prune')
-			]);
+
 		};
 
 		this.setGround = function(ground){
