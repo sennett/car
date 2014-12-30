@@ -1,5 +1,5 @@
-define(function () {
-	return function(point1, point2, bodyProvider) {
+define(['physicsjs'], function (Physics) {
+	return function(point1, point2) {
 		var _this = this;
 		this.point1 = point1;
 		this.point2 = point2;
@@ -11,7 +11,19 @@ define(function () {
 				angle = Math.atan2(ydiff, xdiff),
 				xLocation = (point2.x + point1.x) / 2,
 				yLocation = (point2.y + point1.y) / 2;
-			return bodyProvider.construct(length, angle, xLocation, yLocation);
+			return Physics.body('rectangle', {
+				x: xLocation,
+				y: yLocation,
+				width: length,
+				height: 10,
+				angle: angle,
+				treatment: 'static',
+				styles: {
+					fillStyle: 'gray',
+					border: 'red',
+					angleIndicator: '#3b3e6b'
+				}
+			});
 		};
 
 		this.getPhysicsBody = function(){
