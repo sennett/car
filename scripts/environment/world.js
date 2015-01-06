@@ -1,5 +1,5 @@
-define(['physicsjs', 'underscore'], function(Physics, _) {
-
+define(['physicsjs', 'underscore', 'box2dweb'], function(Physics, _, box2dweb) {
+	console.log(box2dweb);
 	var World = function World(groundSegmentProvider, physicsWorldProvider) {
 		var _this = this;
 
