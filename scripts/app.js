@@ -8,7 +8,7 @@ define([
 	var App = function(){};
 	App.prototype.run = function(){
 		var world = new World(new GroundSegmentProvider(), physicsWorldProvider);
-		//world.setCar(car);
+		world.setCar(car);
 		world.setGround(groundData);
 		world.start();
 	};

@@ -1,5 +1,6 @@
 define(['box2dweb'], function (Box2D) {
 	var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+	var b2Body = Box2D.Dynamics.b2Body
 	var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
@@ -19,7 +20,7 @@ define(['box2dweb'], function (Box2D) {
 
 		var getBodyDef = function(){
 			var bodyDef = new b2BodyDef();
-			bodyDef.type = b2BodyDef.b2_staticBody;
+			bodyDef.type = b2Body.b2_staticBody;
 			bodyDef.position.Set(this.xLocation, this.yLocation);
 			bodyDef.angle = this.angle;
 			return bodyDef;

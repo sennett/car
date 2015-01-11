@@ -21,20 +21,7 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		})(this.world);
 
 		this.setCar = function(car){
-			// create some bodies
-			_this.world.add(Physics.body('circle', {
-				x: _this.renderer.width * 0.4, y: _this.renderer.height * 0.3, vx: 0.3, radius: 80, styles: {
-					fillStyle: '#cb4b16', angleIndicator: '#72240d'
-				}
-			}));
-
-			_this.world.add(Physics.body('circle', {
-				x: _this.renderer.width * 0.7, y: _this.renderer.height * 0.3, vx: -0.3, radius: 40, styles: {
-					fillStyle: '#6c71c4', angleIndicator: '#3b3e6b'
-				}
-			}));
-
-			_this.world.add(car.getPhysicsBodies());
+			car.createPhysicsBody(_this.world);
 		};
 
 		this.setGround = function(ground){
@@ -47,7 +34,7 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 
 		this.start = function(){
 			// update
-			window.setInterval( function update() {
+			window.setInterval( function(){
 				_this.world.Step(
 					1 / 60   //frame-rate
 					,  10       //velocity iterations
