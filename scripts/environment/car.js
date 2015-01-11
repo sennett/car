@@ -5,7 +5,6 @@ define(['box2dweb'], function(Box2D){
 	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
-	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 
 	var createCarBody = function(world){
 		var bodyDef = new b2BodyDef();
