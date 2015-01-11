@@ -1,24 +1,11 @@
 define(function(){
-	// defines the ground.  a collection of points to be joined by immovable straight lines
-	return {
-		points: [{
-			x: 2,
-			y: 16
-		},{
-			x: 5,
-			y: 17
-		},{
-			x: 9,
-			y: 17
-		},{
-			x: 11,
-			y: 18
-		},{
-			x: 15,
-			y: 16
-		},{
-			x: 19,
-			y: 17
-		}]
+	var ground = {
+		points: []
 	};
+	for (var i = 0; i < 100; i++) {
+		var previousPoint = ground.points[i - 1];
+		var newPoint = !previousPoint ? {x:2, y:16} : {x: previousPoint.x + 2, y: Math.random() * 3 - 1.5 + previousPoint.y};
+		ground.points.push(newPoint);
+	}
+	return ground;
 });
