@@ -1,7 +1,7 @@
-define(['box2dweb'], function (box2dweb) {
-	var b2BodyDef = box2dweb.Dynamics.b2BodyDef;
-	var b2FixtureDef = box2dweb.Dynamics.b2FixtureDef;
-	var b2PolygonShape = box2dweb.Collision.Shapes.b2PolygonShape;
+define(['box2dweb'], function (Box2D) {
+	var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+	var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
 	return function(point1, point2) {
 		var _this = this;
