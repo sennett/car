@@ -2,26 +2,23 @@ define(function(){
 	// defines the ground.  a collection of points to be joined by immovable straight lines
 	return {
 		points: [{
-			x: 0,
-			y: 600
+			x: 2,
+			y: 2
 		},{
-			x: 100,
-			y: 610
+			x: 5,
+			y: 5
 		},{
-			x: 200,
-			y: 630
+			x: 9,
+			y: 5
 		},{
-			x: 300,
-			y: 600
+			x: 11,
+			y: 6
 		},{
-			x: 400,
-			y: 630
+			x: 15,
+			y: 4
 		},{
-			x: 500,
-			y: 550
-		},{
-			x: 650,
-			y: 650
+			x: 19,
+			y: 5
 		}]
 	};
 });
