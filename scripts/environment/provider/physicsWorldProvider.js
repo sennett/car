@@ -1,15 +1,11 @@
-define(['physicsjs'], function(Physics) {
+define(['box2dweb'], function(box2dweb) {
 	return {
 		world: function(){
 			// http://stackoverflow.com/a/1608546/614523
-			function construct(constructor, args) {
-				function F() {
-					return constructor.apply(this, args);
-				}
-				F.prototype = constructor.prototype;
-				return new F();
-			}
-			return construct(Physics.world, arguments);
+			return new Box2D.Dynamics.b2World(
+				new box2dweb.Common.Math.b2Vec2(0, 9.8),
+				true
+			)
 		}
 	};
 });

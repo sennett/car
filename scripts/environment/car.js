@@ -1,4 +1,4 @@
-define(['physicsjs'], function(Physics){
+define(['box2dweb'], function(box2dweb){
 	return {
 		getPhysicsBodies: function(){
 			var wheel1, wheel2, body, constraints;

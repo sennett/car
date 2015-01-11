@@ -1,4 +1,4 @@
-define(['physicsjs'], function (Physics) {
+define(['box2dweb'], function (box2dweb) {
 	return function(point1, point2) {
 		var _this = this;
 		this.point1 = point1;

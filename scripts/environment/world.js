@@ -1,11 +1,11 @@
-define(['physicsjs', 'underscore', 'box2dweb'], function(Physics, _, box2dweb) {
-	console.log(box2dweb);
+define(['underscore', 'box2dweb'], function(_, box2dweb) {
+
 	var World = function World(groundSegmentProvider, physicsWorldProvider) {
 		var _this = this;
 
 		this.groundSegmentProvider = groundSegmentProvider;
 		this.physicsWorldProvider = physicsWorldProvider;
-
+		
 		this.world = this.physicsWorldProvider.world(function (world) {
 			// bounds of the window
 			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight);
