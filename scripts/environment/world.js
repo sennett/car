@@ -6,47 +6,65 @@ define(['underscore', 'box2dweb'], function(_, box2dweb) {
 		this.groundSegmentProvider = groundSegmentProvider;
 		this.physicsWorldProvider = physicsWorldProvider;
 		
-		this.world = this.physicsWorldProvider.world(function (world) {
-			// bounds of the window
-			var viewportBounds = Physics.aabb(0, 0, window.innerWidth, window.innerHeight);
+		this.world = this.physicsWorldProvider.world();
 
-			// create a renderer
-			_this.renderer = Physics.renderer('canvas', {
-				el: 'viewport'
-			});
 
-			// add the renderer
-			world.add(_this.renderer);
-			// render on each step
-			world.on('step', function () {
-				world.render();
-			});
+		var   b2Vec2 = Box2D.Common.Math.b2Vec2
+			,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+			,	b2Body = Box2D.Dynamics.b2Body
+			,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+			,	b2Fixture = Box2D.Dynamics.b2Fixture
+			,	b2World = Box2D.Dynamics.b2World
+			,	b2MassData = Box2D.Collision.Shapes.b2MassData
+			,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+			,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+			,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
-			// constrain objects to these bounds
-			_this.edgeBounce = Physics.behavior('edge-collision-detection', {
-				aabb: viewportBounds, restitution: 0.99, cof: 0.8
-			});
+		(function (world) {
 
-			// resize events
-			window.addEventListener('resize', function () {
+			var debugDraw = new Box2D.Dynamics.b2DebugDraw();
+			debugDraw.SetSprite(document.getElementById("worldRender").getContext("2d"));
+			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetFillAlpha(0.3);
+			debugDraw.SetLineThickness(1.0);
+			debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
+			world.SetDebugDraw(debugDraw);
 
-				// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
-				viewportBounds = Physics.aabb(0, 0, _this.renderer.width, _this.renderer.height);
-				// update the boundaries
-				_this.edgeBounce.setAABB(viewportBounds);
 
-			}, true);
+			var fixDef = new b2FixtureDef;
+			fixDef.density = 1.0;
+			fixDef.friction = 0.5;
+			fixDef.restitution = 0.2;
 
-			// add things to the world
-			world.add([
-				Physics.behavior('interactive', {el: _this.renderer.container}),
-				Physics.behavior('constant-acceleration'),
-				Physics.behavior('body-impulse-response'),
-				_this.edgeBounce,
-				Physics.behavior('body-collision-detection'),
-				Physics.behavior('sweep-prune')
-			]);
-		});
+			var bodyDef = new b2BodyDef;
+
+			//create ground
+			bodyDef.type = b2Body.b2_staticBody;
+			bodyDef.position.x = 9;
+			bodyDef.position.y = 13;
+			fixDef.shape = new b2PolygonShape;
+			fixDef.shape.SetAsBox(10, 0.5);
+			world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+			//create some objects
+			bodyDef.type = b2Body.b2_dynamicBody;
+			for(var i = 0; i < 10; ++i) {
+				if(Math.random() > 0.5) {
+					fixDef.shape = new b2PolygonShape;
+					fixDef.shape.SetAsBox(
+						Math.random() + 0.1 //half width
+						,  Math.random() + 0.1 //half height
+					);
+				} else {
+					fixDef.shape = new b2CircleShape(
+						Math.random() + 0.1 //radius
+					);
+				}
+				bodyDef.position.x = Math.random() * 10;
+				bodyDef.position.y = Math.random() * 10;
+				world.CreateBody(bodyDef).CreateFixture(fixDef);
+			}
+		})(this.world);
 
 		this.setCar = function(car){
 			// create some bodies
@@ -74,9 +92,16 @@ define(['underscore', 'box2dweb'], function(_, box2dweb) {
 		};
 
 		this.start = function(){
-			Physics.util.ticker.on(function (time) {
-				_this.world.step(time);
-			});
+			// update
+			window.setInterval( function update() {
+				_this.world.Step(
+					1 / 60   //frame-rate
+					,  10       //velocity iterations
+					,  10       //position iterations
+				);
+				_this.world.DrawDebugData();
+				_this.world.ClearForces();
+			}, 1000 / 60);
 		};
 
 	};
