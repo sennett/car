@@ -10,7 +10,7 @@ define(['box2dweb'], function (box2dweb) {
 		(function(){
 			var xdiff = point2.x - point1.x,
 				ydiff = point2.y - point1.y,
-				length = Math.sqrt(Math.pow(xdiff, 2) + Math.pow(ydiff, 2)),
+				length = (Math.sqrt(Math.pow(xdiff, 2) + Math.pow(ydiff, 2))) / 2,
 				angle = Math.atan2(ydiff, xdiff),
 				xLocation = (point2.x + point1.x) / 2,
 				yLocation = (point2.y + point1.y) / 2;
@@ -19,6 +19,7 @@ define(['box2dweb'], function (box2dweb) {
 			this.angle = angle;
 			this.xLocation = xLocation;
 			this.yLocation = yLocation;
+			console.log(this);
 		}).call(this);
 
 		var getBodyDef = function(){
