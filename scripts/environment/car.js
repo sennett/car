@@ -73,6 +73,7 @@ define(['box2dweb'], function(Box2D){
 			var carBody = createCarBody(world);
 			createFrontWheel(world, carBody);
 			createBackWheel(world, carBody);
+			return carBody;
 		}
 	};
 });

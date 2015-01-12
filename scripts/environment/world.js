@@ -8,20 +8,22 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		
 		this.world = this.physicsWorldProvider.world();
 
-		(function (world) {
-
+		(function () {
+			_this.drawContext = document.getElementById("worldRender").getContext("2d");
 			var debugDraw = new Box2D.Dynamics.b2DebugDraw();
-			debugDraw.SetSprite(document.getElementById("worldRender").getContext("2d"));
-			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetSprite(_this.drawContext);
+			debugDraw.SetDrawScale(30);
 			debugDraw.SetFillAlpha(0.3);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
-			world.SetDebugDraw(debugDraw);
+			_this.world.SetDebugDraw(debugDraw);
 
-		})(this.world);
+		})();
 
 		this.setCar = function(car){
-			car.createPhysicsBody(_this.world);
+			_this.carBody = car.createPhysicsBody(_this.world);
+			_this.previousCarX = _this.carBody.GetPosition().x;
+			_this.previousCarY = _this.carBody.GetPosition().y;
 		};
 
 		this.setGround = function(ground){
@@ -40,6 +42,13 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 					,  10       //velocity iterations
 					,  10       //position iterations
 				);
+
+				var xdiff = (_this.previousCarX - _this.carBody.GetPosition().x) * 30,
+					ydiff = (_this.previousCarY - _this.carBody.GetPosition().y) * 30;
+				_this.drawContext.translate(xdiff, ydiff);
+				_this.previousCarX = _this.carBody.GetPosition().x;
+				_this.previousCarY = _this.carBody.GetPosition().y;
+
 				_this.world.DrawDebugData();
 				_this.world.ClearForces();
 			}, 1000 / 60);
