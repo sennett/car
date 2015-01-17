@@ -2,7 +2,21 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 
 	var Simulation = function Simulation(groundSegmentProvider, physicsWorldProvider, renderer, ticker) {
 		var _this = this;
+		var contactListener = {
 
+			BeginContact: function(){
+				console.log('begin');
+			},
+			EndContact: function(){
+				console.log('end');
+			},
+			PostSolve:function(){
+
+			},
+			PreSolve:function(){
+
+			}
+		};
 		this.groundSegmentProvider = groundSegmentProvider;
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
@@ -39,6 +53,7 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		};
 
 		this.start = function(){
+			_this.world.SetContactListener(contactListener);
 			_this.renderer.initialise(_this.world);
 			_this.ticker.run(tick);
 		};
