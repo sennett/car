@@ -1,11 +1,9 @@
 define(function(){
-	var ground = {
-		points: []
-	};
+	var groundData = [];
 	for (var i = 0; i < 100; i++) {
-		var previousPoint = ground.points[i - 1];
+		var previousPoint = groundData[i - 1];
 		var newPoint = !previousPoint ? {x:2, y:16} : {x: previousPoint.x + 2, y: Math.random() * 3 - 1.5 + previousPoint.y};
-		ground.points.push(newPoint);
+		groundData.push(newPoint);
 	}
-	return ground;
+	return groundData;
 });
