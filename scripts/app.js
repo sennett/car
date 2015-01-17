@@ -1,13 +1,14 @@
 define([
-	'environment/world',
+	'environment/simulation',
 	'environment/groundData',
 	'environment/provider/groundSegmentProvider',
 	'environment/provider/physicsWorldProvider',
-	'environment/car'
-], function(World, groundData, GroundSegmentProvider, physicsWorldProvider, car){
+	'environment/car',
+	'environment/renderer'
+], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, car, renderer){
 	var App = function(){};
 	App.prototype.run = function(){
-		var world = new World(new GroundSegmentProvider(), physicsWorldProvider);
+		var world = new Simulation(new GroundSegmentProvider(), physicsWorldProvider, new renderer);
 		world.setCar(car);
 		world.setGround(groundData);
 		world.start();
