@@ -5,6 +5,6 @@ Evolving car.  Based on http://boxcar2d.com/.  Massively far from complete.
 
 TODO:
 
-- more ground
-- simulation follows car
+- render properly
+- detect furthest point moved: stop simulation
 - car created randomly
