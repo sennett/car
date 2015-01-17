@@ -1,13 +1,26 @@
 define(['underscore', 'box2dweb'], function(_, Box2D) {
 
-	var Simulation = function Simulation(groundSegmentProvider, physicsWorldProvider, renderer) {
+	var Simulation = function Simulation(groundSegmentProvider, physicsWorldProvider, renderer, ticker) {
 		var _this = this;
 
 		this.groundSegmentProvider = groundSegmentProvider;
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
+		this.ticker = ticker;
 
 		this.world = this.physicsWorldProvider.world();
+
+		var tick = function(){
+			//if (!_this.carBody.IsAwake())
+			//	alert('slept');
+			_this.world.Step(
+				1 / 60   //frame-rate
+				,  10       //velocity iterations
+				,  10       //position iterations
+			);
+			_this.renderer.render();
+			_this.world.ClearForces();
+		};
 
 		this.setCar = function(car){
 			_this.carBody = car.createPhysicsBody(_this.world);
@@ -24,18 +37,12 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 
 		this.start = function(){
 			_this.renderer.initialise(_this.world);
-			// update
-			window.setInterval( function(){
-				_this.world.Step(
-					1 / 60   //frame-rate
-					,  10       //velocity iterations
-					,  10       //position iterations
-				);
-				_this.renderer.render();
-				_this.world.ClearForces();
-			}, 1000 / 60);
+			_this.ticker.run(tick);
 		};
 
+		this.onStop = function(cb) {
+
+		};
 	};
 
 	return Simulation;
