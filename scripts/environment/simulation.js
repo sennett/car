@@ -11,8 +11,11 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		this.world = this.physicsWorldProvider.world();
 
 		var tick = function(){
-			//if (!_this.carBody.IsAwake())
-			//	alert('slept');
+			if (!_this.carBody.IsAwake()) {
+				_this.ticker.stop();
+				if (_this.stopCallback)
+					_this.stopCallback.call();
+			}
 			_this.world.Step(
 				1 / 60   //frame-rate
 				,  10       //velocity iterations
@@ -40,8 +43,8 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 			_this.ticker.run(tick);
 		};
 
-		this.onStop = function(cb) {
-
+		this.onStop = function(callback) {
+			_this.stopCallback = callback;
 		};
 	};
 

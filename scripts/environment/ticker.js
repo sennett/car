@@ -1,8 +1,11 @@
 define(function () {
-
+	var intervalId;
 	return {
 		run: function(tick){
-			window.setInterval(tick, 1000 / 60);
+			intervalId = window.setInterval(tick, 1000 / 60);
+		},
+		stop: function(){
+			window.clearInterval(intervalId);
 		}
 	};
 });

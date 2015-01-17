@@ -9,10 +9,13 @@ define([
 ], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, car, renderer, ticker){
 	var App = function(){};
 	App.prototype.run = function(){
-		var world = new Simulation(new GroundSegmentProvider(), physicsWorldProvider, new renderer,ticker);
-		world.setCar(car);
-		world.setGround(groundData);
-		world.start();
+		var simulation = new Simulation(new GroundSegmentProvider(), physicsWorldProvider, new renderer,ticker);
+		simulation.setCar(car);
+		simulation.setGround(groundData);
+		simulation.onStop(function(score){
+			alert('stopped');
+		});
+		simulation.start();
 	};
 	return App;
 });
