@@ -31,14 +31,16 @@ define(['box2dweb'], function (Box2D) {
 				currentBodyY = atRenderScale(_this.followedBody.GetPosition().y);
 			var xdiff = _this.previousBodyX - currentBodyX,
 				ydiff = _this.previousBodyY - currentBodyY;
-			//_this.drawContext.rect();
-			//_this.drawContext.clip();
 			_this.drawContext.translate(xdiff, ydiff);
+			_this.drawContext.save();
+			_this.drawContext.rect(xdiff, ydiff, _this.renderTarget.width, _this.renderTarget.height);
+			_this.drawContext.clip();
 			// try ctx.clip, .restore, .save
 			// http://stackoverflow.com/questions/24145535/html5-canvas-smearing-image-patterns-when-translating
 			_this.previousBodyX = currentBodyX;
 			_this.previousBodyY = currentBodyY;
 			_this.world.DrawDebugData();
+			_this.drawContext.restore();
 		};
 	};
 
