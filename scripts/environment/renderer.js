@@ -7,6 +7,10 @@ define(['box2dweb'], function (Box2D) {
 			return worldScale * _this.drawScale;
 		};
 
+		var getTranslateDiffs = function(){
+
+		};
+
 		this.initialise = function(world){
 			_this.world = world;
 			_this.renderTarget = document.getElementById("worldRender");
@@ -21,20 +25,20 @@ define(['box2dweb'], function (Box2D) {
 		};
 
 		this.followBody = function(body){
-			_this.followedBody = body;
-			_this.previousBodyX = atRenderScale(_this.followedBody.GetPosition().x);
-			_this.previousBodyY = atRenderScale(_this.followedBody.GetPosition().y);
+			_this.followedBodyPosition = body.GetPosition();
+			_this.previousBodyX = atRenderScale(_this.followedBodyPosition.x);
+			_this.previousBodyY = atRenderScale(_this.followedBodyPosition.y);
 		};
 
 		this.render = function(){
-			// http://stackoverflow.com/questions/24145535/html5-canvas-smearing-image-patterns-when-translating
-			var currentBodyX = atRenderScale(_this.followedBody.GetPosition().x),
-				currentBodyY = atRenderScale(_this.followedBody.GetPosition().y);
+			var currentBodyX = atRenderScale(_this.followedBodyPosition.x),
+				currentBodyY = atRenderScale(_this.followedBodyPosition.y);
 			var xdiff = _this.previousBodyX - currentBodyX,
 				ydiff = _this.previousBodyY - currentBodyY;
 			_this.drawContext.translate(xdiff, ydiff);
 			_this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
 			// TODO: clear properly
+			// http://stackoverflow.com/questions/24145535/html5-canvas-smearing-image-patterns-when-translating
 			//_this.drawContext.save();
 			//_this.drawContext.rect(xdiff, ydiff, _this.renderTarget.width, _this.renderTarget.height);
 			//_this.drawContext.clip();
@@ -42,6 +46,10 @@ define(['box2dweb'], function (Box2D) {
 			_this.previousBodyY = currentBodyY;
 			_this.world.DrawDebugData();
 			//_this.drawContext.restore();
+		};
+
+		this.reset = function(){
+
 		};
 	};
 

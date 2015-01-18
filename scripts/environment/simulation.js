@@ -24,18 +24,19 @@ define(function() {
 
 		this.initialise = function(ground){
 			ground.initialisePhysicsBodies(_this.world);
+			_this.renderer.initialise(_this.world);
 		};
 
 		this.start = function(car){
 			_this.carBody = car.createPhysicsBody(_this.world);
 			_this.renderer.followBody(_this.carBody);
-			_this.renderer.initialise(_this.world);
 			_this.endStateDetector.initialise(_this.carBody);
 			_this.ticker.run(tick);
 		};
 
 		this.end = function(){
 			_this.ticker.stop();
+			_this.renderer.reset();
 			if (_this.stopCallback)
 				_this.stopCallback(_this.carBody.GetPosition().x);
 		};

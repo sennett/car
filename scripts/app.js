@@ -16,7 +16,8 @@ define([
 		var simulation = new Simulation(physicsWorldProvider, new Renderer, ticker, new EndStateDetector());
 		simulation.initialise(ground);
 		simulation.onStop(function(score){
-			alert('stopped: travelled ' + score + 'm');
+			console.log('stopped: travelled ' + score + 'm');
+			//simulation.start(car);
 		});
 		simulation.start(car);
 	};
