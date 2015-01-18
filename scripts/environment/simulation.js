@@ -2,21 +2,7 @@ define(function() {
 
 	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker) {
 		var _this = this;
-		var contactListener = {
 
-			BeginContact: function(){
-				console.log('begin');
-			},
-			EndContact: function(){
-				console.log('end');
-			},
-			PostSolve:function(){
-
-			},
-			PreSolve:function(){
-
-			}
-		};
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
 		this.ticker = ticker;
@@ -48,7 +34,6 @@ define(function() {
 		};
 
 		this.start = function(){
-			_this.world.SetContactListener(contactListener);
 			_this.renderer.initialise(_this.world);
 			_this.ticker.run(tick);
 		};
