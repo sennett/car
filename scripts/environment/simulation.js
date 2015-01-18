@@ -1,6 +1,6 @@
 define(['underscore', 'box2dweb'], function(_, Box2D) {
 
-	var Simulation = function Simulation(groundSegmentProvider, physicsWorldProvider, renderer, ticker) {
+	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker) {
 		var _this = this;
 		var contactListener = {
 
@@ -17,7 +17,6 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 
 			}
 		};
-		this.groundSegmentProvider = groundSegmentProvider;
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
 		this.ticker = ticker;
@@ -45,11 +44,7 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		};
 
 		this.setGround = function(ground){
-			_.each(ground.points, function(point, index){
-				var nextPoint = ground.points[index + 1];
-				if (nextPoint)
-					_this.groundSegmentProvider.makeGroundSegment(point, nextPoint).createPhysicsBody(_this.world);
-			});
+			ground.initialise(_this.world);
 		};
 
 		this.start = function(){

@@ -7,12 +7,14 @@ define([
 	'environment/renderer',
 	'environment/ticker',
 	'environment/ground'
-], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, car, renderer, ticker, ground){
+], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, car, Renderer, ticker, Ground){
 	var App = function(){};
 	App.prototype.run = function(){
-		var simulation = new Simulation(new GroundSegmentProvider(), physicsWorldProvider, new renderer,ticker);
+		var ground = new Ground(new GroundSegmentProvider());
+		ground.setData(groundData);
+		var simulation = new Simulation(physicsWorldProvider, new Renderer, ticker);
 		simulation.setCar(car);
-		simulation.setGround(new ground(groundData));
+		simulation.setGround(ground);
 		simulation.onStop(function(score){
 			alert('stopped');
 		});
