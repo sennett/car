@@ -1,19 +1,20 @@
 define(function() {
 
-	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker) {
+	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker, endStateDetector) {
 		var _this = this;
 
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
 		this.ticker = ticker;
+		this.endStateDetector = endStateDetector;
 
 		this.world = this.physicsWorldProvider.world();
 
 		var tick = function(){
-			if (!_this.carBody.IsAwake()) {
+			if (_this.endStateDetector.simulationEnded()) {
 				_this.ticker.stop();
 				if (_this.stopCallback)
-					_this.stopCallback.call();
+					_this.stopCallback(_this.carBody.GetPosition().x);
 			}
 			_this.world.Step(
 				1 / 60   //frame-rate
@@ -35,6 +36,7 @@ define(function() {
 
 		this.start = function(){
 			_this.renderer.initialise(_this.world);
+			_this.endStateDetector.initialise(_this.carBody);
 			_this.ticker.run(tick);
 		};
 
