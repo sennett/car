@@ -5,9 +5,6 @@ define(['box2dweb'], function (Box2D) {
 	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
 	return function(point1, point2, index, world) {
-		var _this = this;
-
-
 
 		var getBodyDef = function(){
 			var bodyDef = new b2BodyDef();
@@ -24,9 +21,8 @@ define(['box2dweb'], function (Box2D) {
 			return fixtureDef;
 		};
 
-		var createPhysicsBody = function(){
-			this.body = _this.world.CreateBody(getBodyDef.call(this));
-			this.fixture = _this.body.CreateFixture(getFixtureDef.call(this));
+		var initialisePhysicsElements = function(){
+			this.fixture = this.world.CreateBody(getBodyDef.call(this)).CreateFixture(getFixtureDef.call(this));
 			this.fixture.SetUserData(this);
 		};
 
@@ -41,7 +37,7 @@ define(['box2dweb'], function (Box2D) {
 			this.yLocation = (point2.y + point1.y) / 2;
 			this.index = index;
 			this.world = world;
-			createPhysicsBody.call(this);
+			initialisePhysicsElements.call(this);
 		}).call(this);
 	};
 });
