@@ -3,7 +3,7 @@ define(['underscore'], function (_) {
 		var _this = this;
 		this.groundSegmentProvider = groundSegmentProvider;
 
-		this.initialise = function(world){
+		this.initialisePhysicsBodies = function(world){
 			_.each(_this.points, function(point, index){
 				var nextPoint = _this.points[index + 1];
 				if (nextPoint)

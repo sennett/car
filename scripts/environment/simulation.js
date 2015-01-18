@@ -44,7 +44,7 @@ define(['underscore', 'box2dweb'], function(_, Box2D) {
 		};
 
 		this.setGround = function(ground){
-			ground.initialise(_this.world);
+			ground.initialisePhysicsBodies(_this.world);
 		};
 
 		this.start = function(){
