@@ -17,7 +17,7 @@ define([
 		simulation.initialise(ground);
 		simulation.onStop(function(score){
 			console.log('stopped: travelled ' + score + 'm');
-			//simulation.start(car);
+			simulation.start(car);
 		});
 		simulation.start(car);
 	};

@@ -7,10 +7,6 @@ define(['box2dweb'], function (Box2D) {
 			return worldScale * _this.drawScale;
 		};
 
-		var getTranslateDiffs = function(){
-
-		};
-
 		this.initialise = function(world){
 			_this.world = world;
 			_this.renderTarget = document.getElementById("worldRender");
@@ -25,6 +21,7 @@ define(['box2dweb'], function (Box2D) {
 		};
 
 		this.followBody = function(body){
+			_this.drawContext.save();
 			_this.followedBodyPosition = body.GetPosition();
 			_this.previousBodyX = atRenderScale(_this.followedBodyPosition.x);
 			_this.previousBodyY = atRenderScale(_this.followedBodyPosition.y);
@@ -49,7 +46,8 @@ define(['box2dweb'], function (Box2D) {
 		};
 
 		this.reset = function(){
-
+			_this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
+			_this.drawContext.restore();
 		};
 	};
 
