@@ -14,12 +14,11 @@ define([
 		var ground = new Ground(new GroundSegmentProvider());
 		ground.setData(groundData);
 		var simulation = new Simulation(physicsWorldProvider, new Renderer, ticker, new EndStateDetector());
-		simulation.setCar(car);
-		simulation.setGround(ground);
+		simulation.initialise(ground);
 		simulation.onStop(function(score){
 			alert('stopped: travelled ' + score + 'm');
 		});
-		simulation.start();
+		simulation.start(car);
 	};
 	return App;
 });

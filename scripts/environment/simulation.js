@@ -22,16 +22,13 @@ define(function() {
 			_this.world.ClearForces();
 		};
 
-		this.setCar = function(car){
-			_this.carBody = car.createPhysicsBody(_this.world);
-			_this.renderer.followBody(_this.carBody);
-		};
-
-		this.setGround = function(ground){
+		this.initialise = function(ground){
 			ground.initialisePhysicsBodies(_this.world);
 		};
 
-		this.start = function(){
+		this.start = function(car){
+			_this.carBody = car.createPhysicsBody(_this.world);
+			_this.renderer.followBody(_this.carBody);
 			_this.renderer.initialise(_this.world);
 			_this.endStateDetector.initialise(_this.carBody);
 			_this.ticker.run(tick);
