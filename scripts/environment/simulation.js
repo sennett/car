@@ -12,9 +12,7 @@ define(function() {
 
 		var tick = function(){
 			if (_this.endStateDetector.simulationEnded()) {
-				_this.ticker.stop();
-				if (_this.stopCallback)
-					_this.stopCallback(_this.carBody.GetPosition().x);
+				_this.end();
 			}
 			_this.world.Step(
 				1 / 60   //frame-rate
@@ -38,6 +36,12 @@ define(function() {
 			_this.renderer.initialise(_this.world);
 			_this.endStateDetector.initialise(_this.carBody);
 			_this.ticker.run(tick);
+		};
+
+		this.end = function(){
+			_this.ticker.stop();
+			if (_this.stopCallback)
+				_this.stopCallback(_this.carBody.GetPosition().x);
 		};
 
 		this.onStop = function(callback) {
