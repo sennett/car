@@ -5,24 +5,7 @@ define(['underscore'], function (_) {
 
 		_this.segments = [];
 
-		var contactListener = {
-
-			BeginContact: function(){
-				console.log('begin');
-			},
-			EndContact: function(){
-				console.log('end');
-			},
-			PostSolve:function(){
-
-			},
-			PreSolve:function(){
-
-			}
-		};
-
 		this.initialisePhysicsBodies = function(world){
-			world.SetContactListener(contactListener);
 			_.each(_this.points, function(point, index){
 				var nextPoint = _this.points[index + 1];
 				if (nextPoint)

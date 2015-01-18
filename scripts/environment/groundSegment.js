@@ -23,7 +23,7 @@ define(['box2dweb'], function (Box2D) {
 
 		var initialisePhysicsElements = function(){
 			this.fixture = this.world.CreateBody(getBodyDef.call(this)).CreateFixture(getFixtureDef.call(this));
-			this.fixture.SetUserData(this);
+			this.fixture.SetUserData({ groundSegment: this });
 		};
 
 		(function(){
