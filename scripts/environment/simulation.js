@@ -11,9 +11,8 @@ define(function() {
 		this.world = this.physicsWorldProvider.world();
 
 		var tick = function(){
-			if (_this.endStateDetector.simulationEnded()) {
+			if (_this.endStateDetector.simulationEnded())
 				_this.end();
-			}
 			_this.world.Step(
 				1 / 60   //frame-rate
 				,  10       //velocity iterations
