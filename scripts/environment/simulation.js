@@ -1,4 +1,4 @@
-define(['underscore', 'box2dweb'], function(_, Box2D) {
+define(function() {
 
 	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker) {
 		var _this = this;
