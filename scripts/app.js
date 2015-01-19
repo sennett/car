@@ -1,17 +1,20 @@
 define([
 	'environment/simulationBuilder',
-	'environment/car'
-], function(simulationBuilder, car){
+	'environment/car',
+	'evolution/engineBuilder'
+], function(simulationBuilder, car, evolutionEngineBuilder){
+
 	var App = function(){};
 	App.prototype.run = function(){
-		var simulation = simulationBuilder.createSimulation();
+		var simulation = simulationBuilder.createSimulation(),
+			evolutionEngine = evolutionEngineBuilder.createEvolutionEngine();
 
 		simulation.onStop(function(score){
-			console.log('stopped: travelled ' + score + 'm');
-			simulation.start(car);
+			evolutionEngine.registerScore(score);
+			simulation.start(evolutionEngine.nextCar());
 		});
 
-		simulation.start(car);
+		simulation.start(evolutionEngine.nextCar());
 	};
 	return App;
 });
