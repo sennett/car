@@ -9,6 +9,7 @@ define(function() {
 		this.endStateDetector = endStateDetector;
 
 		this.world = this.physicsWorldProvider.world();
+		this.world.SetContactListener(endStateDetector);
 
 		var tick = function(){
 			if (_this.endStateDetector.simulationEnded())
