@@ -39,7 +39,7 @@ define(function() {
 		this.end = function(){
 			_this.ticker.stop();
 			_this.renderer.reset();
-			_this.car.destroy();
+			_this.car.destroyPhysicsBodies();
 			if (_this.stopCallback)
 				_this.stopCallback(_this.car.body.GetPosition().x);
 		};

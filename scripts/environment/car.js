@@ -49,7 +49,7 @@ define(['box2dweb'], function(Box2D){
 	};
 
 	return {
-		destroy: function(){
+		destroyPhysicsBodies: function(){
 			this.world.DestroyBody(this.body);
 			this.world.DestroyBody(this.frontWheel);
 			this.world.DestroyBody(this.backWheel);
