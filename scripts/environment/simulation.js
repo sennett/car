@@ -29,17 +29,19 @@ define(function() {
 		};
 
 		this.start = function(car){
-			_this.carBody = car.createPhysicsBody(_this.world);
-			_this.renderer.followBody(_this.carBody);
-			_this.endStateDetector.initialise(_this.carBody);
+			_this.car = car;
+			car.initialisePhysicsBodies(_this.world);
+			_this.renderer.followBody(_this.car.body);
+			_this.endStateDetector.initialise(_this.car.body);
 			_this.ticker.run(tick);
 		};
 
 		this.end = function(){
 			_this.ticker.stop();
 			_this.renderer.reset();
+			_this.car.destroy();
 			if (_this.stopCallback)
-				_this.stopCallback(_this.carBody.GetPosition().x);
+				_this.stopCallback(_this.car.body.GetPosition().x);
 		};
 
 		this.onStop = function(callback) {

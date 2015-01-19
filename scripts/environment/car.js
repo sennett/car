@@ -6,7 +6,7 @@ define(['box2dweb'], function(Box2D){
 	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 
-	var createCarBody = function(world){
+	var createCarBody = function(){
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.position.Set(5, 5);
@@ -18,12 +18,12 @@ define(['box2dweb'], function(Box2D){
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
 
-		var carBody = world.CreateBody(bodyDef);
+		var carBody = this.world.CreateBody(bodyDef);
 		carBody.CreateFixture(fixtureDef);
 		return carBody;
 	};
 
-	var createWheel = function(world, carBody, front){
+	var createWheel = function(front){
 
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
@@ -35,23 +35,30 @@ define(['box2dweb'], function(Box2D){
 		fixtureDef.friction = 1;
 		fixtureDef.restitution = 0.2;
 
-		var wheel = world.CreateBody(bodyDef);
+		var wheel = this.world.CreateBody(bodyDef);
 		wheel.CreateFixture(fixtureDef);
 
 		var axleDef = new b2RevoluteJointDef();
-		axleDef.Initialize(carBody, wheel, wheel.GetWorldCenter());
+		axleDef.Initialize(this.body, wheel, wheel.GetWorldCenter());
 		axleDef.enableMotor = true;
 		axleDef.motorSpeed = 5;
 		axleDef.maxMotorTorque = 10;
-		world.CreateJoint(axleDef);
+		this.world.CreateJoint(axleDef);
+
+		return wheel;
 	};
 
 	return {
-		createPhysicsBody: function(world){
-			var carBody = createCarBody(world);
-			createWheel(world, carBody, true);
-			createWheel(world, carBody, false);
-			return carBody;
+		destroy: function(){
+			this.world.DestroyBody(this.body);
+			this.world.DestroyBody(this.frontWheel);
+			this.world.DestroyBody(this.backWheel);
+		},
+		initialisePhysicsBodies: function(world){
+			this.world = world;
+			this.body = createCarBody.call(this);
+			this.frontWheel = createWheel.call(this, true);
+			this.backWheel = createWheel.call(this, false);
 		}
 	};
 });
