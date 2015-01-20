@@ -1,5 +1,5 @@
 define([
-	'environment/simulation',
+	'environment/Simulation',
 	'environment/groundData',
 	'environment/provider/groundSegmentProvider',
 	'environment/provider/physicsWorldProvider',
