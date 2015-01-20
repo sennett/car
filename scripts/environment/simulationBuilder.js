@@ -6,7 +6,7 @@ define([
 	'environment/Renderer',
 	'environment/ticker',
 	'environment/Ground',
-	'environment/endStateDetector'
+	'environment/EndStateDetector'
 ], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, Renderer, ticker, Ground, EndStateDetector) {
 	return {
 		createSimulation:function () {
