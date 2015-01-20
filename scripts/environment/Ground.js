@@ -1,5 +1,5 @@
 define(['underscore'], function (_) {
-	var ground = function(groundSegmentProvider){
+	var Ground = function(groundSegmentProvider){
 		var _this = this;
 		this.groundSegmentProvider = groundSegmentProvider;
 
@@ -17,5 +17,5 @@ define(['underscore'], function (_) {
 			_this.points = data;
 		};
 	};
-	return ground;
+	return Ground;
 });

@@ -5,7 +5,7 @@ define([
 	'environment/provider/physicsWorldProvider',
 	'environment/Renderer',
 	'environment/ticker',
-	'environment/ground',
+	'environment/Ground',
 	'environment/endStateDetector'
 ], function(Simulation, groundData, GroundSegmentProvider, physicsWorldProvider, Renderer, ticker, Ground, EndStateDetector) {
 	return {
