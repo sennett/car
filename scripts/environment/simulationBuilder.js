@@ -3,7 +3,7 @@ define([
 	'environment/groundData',
 	'environment/provider/GroundSegmentProvider',
 	'environment/provider/physicsWorldProvider',
-	'environment/renderer',
+	'environment/Renderer',
 	'environment/ticker',
 	'environment/ground',
 	'environment/endStateDetector'
