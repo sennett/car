@@ -1,4 +1,5 @@
 define([
+	'di-lite',
 	'environment/Simulation',
 	'environment/groundData',
 	'environment/provider/GroundSegmentProvider',
@@ -7,9 +8,10 @@ define([
 	'environment/Ticker',
 	'environment/Ground',
 	'environment/EndStateDetector'
-], function(Simulation, groundData, GroundSegmentProvider, PhysicsWorldProvider, Renderer, Ticker, Ground, EndStateDetector) {
+], function(di, Simulation, groundData, GroundSegmentProvider, PhysicsWorldProvider, Renderer, Ticker, Ground, EndStateDetector) {
 	return {
 		createSimulation:function () {
+
 			var ground = new Ground(new GroundSegmentProvider());
 			ground.setData(groundData);
 			var simulation = new Simulation(new PhysicsWorldProvider, new Renderer, new Ticker, new EndStateDetector());
