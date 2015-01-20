@@ -8,7 +8,7 @@ define(function() {
 		this.ticker = ticker;
 		this.endStateDetector = endStateDetector;
 
-		this.world = this.physicsWorldProvider.world();
+		this.world = this.physicsWorldProvider.getWorld();
 		this.world.SetContactListener(endStateDetector);
 
 		var tick = function(){
