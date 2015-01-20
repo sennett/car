@@ -17,6 +17,6 @@ require.config({
 	}
 });
 
-require(['app'], function(App){
+require(['App'], function(App){
 	new App().run();
 });
