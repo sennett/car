@@ -1,6 +1,6 @@
 define(function() {
 
-	var Simulation = function Simulation(physicsWorldProvider, renderer, ticker, endStateDetector) {
+	return function Simulation(physicsWorldProvider, renderer, ticker, endStateDetector) {
 		var _this = this;
 
 		this.physicsWorldProvider = physicsWorldProvider;
@@ -48,6 +48,4 @@ define(function() {
 			_this.stopCallback = callback;
 		};
 	};
-
-	return Simulation;
 });

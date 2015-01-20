@@ -1,5 +1,5 @@
 define(['box2dweb'], function (Box2D) {
-	var Renderer = function(){
+	return function(){
 		var _this = this;
 		this.drawScale = 30;
 
@@ -50,6 +50,4 @@ define(['box2dweb'], function (Box2D) {
 			_this.drawContext.restore();
 		};
 	};
-
-	return Renderer;
 });

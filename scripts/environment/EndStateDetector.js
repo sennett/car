@@ -1,5 +1,5 @@
 define(function () {
-	var EndStateDetector = function(){
+	return function(){
 		var _this = this;
 
 		this.tollerance = 2000; // milliseconds
@@ -22,5 +22,4 @@ define(function () {
 		this.EndContact = function () {};
 		this.PostSolve = function(){};
 	};
-	return EndStateDetector;
 });
