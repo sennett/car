@@ -1,7 +1,7 @@
 define([
 	'environment/Simulation',
 	'environment/groundData',
-	'environment/provider/groundSegmentProvider',
+	'environment/provider/GroundSegmentProvider',
 	'environment/provider/physicsWorldProvider',
 	'environment/renderer',
 	'environment/ticker',
