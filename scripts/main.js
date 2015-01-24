@@ -8,15 +8,11 @@ require.config({
 		}
 	],
 	paths:{
-		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
-		'di-lite': 'vendor/di-lite'
+		box2dweb: 'vendor/Box2dWeb-2.1.a.3'
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
-		},
-		'di-lite': {
-			exports: 'di'
 		}
 	}
 });
