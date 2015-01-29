@@ -1,53 +1,55 @@
 define(['box2dweb'], function (Box2D) {
-	return function(){
-		var _this = this;
-		this.drawScale = 30;
+	var atRenderScale = function(worldScale){
+		var drawScale = 30;
+		return worldScale * drawScale;
+	};
 
-		var atRenderScale = function(worldScale){
-			return worldScale * _this.drawScale;
-		};
+	var Renderer =  function(){};
+	Renderer.prototype = {
 
-		this.initialise = function(world){
-			_this.world = world;
-			_this.renderTarget = document.getElementById("worldRender");
-			_this.drawContext = _this.renderTarget.getContext("2d");
+		initialise: function(world){
+			this.world = world;
+			this.renderTarget = document.getElementById("worldRender");
+			this.drawContext = this.renderTarget.getContext("2d");
 			var debugDraw = new Box2D.Dynamics.b2DebugDraw();
-			debugDraw.SetSprite(_this.drawContext);
-			debugDraw.SetDrawScale(_this.drawScale);
+			debugDraw.SetSprite(this.drawContext);
+			debugDraw.SetDrawScale(this.drawScale);
 			debugDraw.SetFillAlpha(0.3);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
-			_this.world.SetDebugDraw(debugDraw);
-		};
+			this.world.SetDebugDraw(debugDraw);
+		},
 
-		this.followBody = function(body){
-			_this.drawContext.save();
-			_this.followedBodyPosition = body.GetPosition();
-			_this.previousBodyX = atRenderScale(_this.followedBodyPosition.x);
-			_this.previousBodyY = atRenderScale(_this.followedBodyPosition.y);
-		};
+		followBody: function(body){
+			this.drawContext.save();
+			this.followedBodyPosition = body.GetPosition();
+			this.previousBodyX = atRenderScale(this.followedBodyPosition.x);
+			this.previousBodyY = atRenderScale(this.followedBodyPosition.y);
+		},
 
-		this.render = function(){
-			var currentBodyX = atRenderScale(_this.followedBodyPosition.x),
-				currentBodyY = atRenderScale(_this.followedBodyPosition.y);
-			var xdiff = _this.previousBodyX - currentBodyX,
-				ydiff = _this.previousBodyY - currentBodyY;
-			_this.drawContext.translate(xdiff, ydiff);
-			_this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
+		render: function(){
+			var currentBodyX = atRenderScale(this.followedBodyPosition.x),
+				currentBodyY = atRenderScale(this.followedBodyPosition.y);
+			var xdiff = this.previousBodyX - currentBodyX,
+				ydiff = this.previousBodyY - currentBodyY;
+			this.drawContext.translate(xdiff, ydiff);
+			this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
 			// TODO: clear properly
 			// http://stackoverflow.com/questions/24145535/html5-canvas-smearing-image-patterns-when-translating
-			//_this.drawContext.save();
-			//_this.drawContext.rect(xdiff, ydiff, _this.renderTarget.width, _this.renderTarget.height);
-			//_this.drawContext.clip();
-			_this.previousBodyX = currentBodyX;
-			_this.previousBodyY = currentBodyY;
-			_this.world.DrawDebugData();
-			//_this.drawContext.restore();
-		};
+			//this.drawContext.save();
+			//this.drawContext.rect(xdiff, ydiff, this.renderTarget.width, this.renderTarget.height);
+			//this.drawContext.clip();
+			this.previousBodyX = currentBodyX;
+			this.previousBodyY = currentBodyY;
+			this.world.DrawDebugData();
+			//this.drawContext.restore();
+		},
 
-		this.reset = function(){
-			_this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
-			_this.drawContext.restore();
-		};
+		reset: function(){
+			this.drawContext.clearRect(-1000, -1000, 10000000, 10000000);
+			this.drawContext.restore();
+		}
 	};
+
+	return Renderer;
 });
