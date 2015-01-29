@@ -10,7 +10,7 @@ define(['underscore'], function (_) {
 				var nextPoint = this.points[index + 1];
 				if (nextPoint)
 					this.segments.push(this.groundSegmentProvider.makeGroundSegment(point, nextPoint, index, world));
-			});
+			}, this);
 		},
 		setData: function(data){
 			this.points = data;

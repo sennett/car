@@ -1,4 +1,4 @@
-define(function() {
+define(['environment/groundData'], function(groundData) {
 
 	var tick = function(){
 		if (this.endStateDetector.simulationEnded())
@@ -12,21 +12,21 @@ define(function() {
 		this.world.ClearForces();
 	};
 
-	var Simulation = function(physicsWorldProvider, renderer, ticker, endStateDetector) {
+	var Simulation = function(physicsWorldProvider, renderer, ticker, endStateDetector, ground) {
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
 		this.ticker = ticker;
 		this.endStateDetector = endStateDetector;
+		this.ground = ground;
+		this.ground.setData(groundData);
 
 		this.world = this.physicsWorldProvider.getWorld();
 		this.world.SetContactListener(endStateDetector);
+		this.ground.initialisePhysicsBodies(this.world);
+		this.renderer.initialise(this.world);
 	};
 
 	Simulation.prototype = {
-		initialise: function(ground){
-			ground.initialisePhysicsBodies(this.world);
-			this.renderer.initialise(this.world);
-		},
 
 		start: function(car){
 			this.car = car;

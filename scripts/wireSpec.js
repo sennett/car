@@ -1,4 +1,5 @@
 define({
+	//$plugins: ['wire/debug'],
 	app: {
 		create: {
 			module: 'App',
@@ -9,10 +10,7 @@ define({
 	simulation: {
 		create:{
 			module: 'environment/Simulation',
-			args: [{ $ref: "physicsWorldProvider"}, { $ref: "renderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }]
-		},
-		ready: {
-			initialise: {$ref:'ground'}
+			args: [{ $ref: "physicsWorldProvider"}, { $ref: "renderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}]
 		}
 	},
 	physicsWorldProvider: {
@@ -39,18 +37,12 @@ define({
 		create: {
 			module:'environment/Ground',
 			args: [{$ref:'groundSegmentProvider'}]
-		},
-		ready: {
-			setData: {$ref: 'groundData'}
 		}
 	},
 	groundSegmentProvider: {
 		create: {
 			module: 'environment/provider/GroundSegmentProvider'
 		}
-	},
-	groundData: {
-		module: 'environment/groundData'
 	},
 
 	evolutionEngine: {
