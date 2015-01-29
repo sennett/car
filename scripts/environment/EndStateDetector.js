@@ -1,25 +1,27 @@
 define(function () {
-	return function(){
-		var _this = this;
+	var EndStateDetector = function(){};
+	EndStateDetector.prototype = {
 
-		this.tollerance = 2000; // milliseconds
+		tollerance: 2000, // milliseconds
 
 
-		this.initialise = function(carBody){
-			_this.lastContact = Date.now().valueOf();
-			_this.carBody = carBody;
-		};
+		initialise: function(carBody){
+			this.lastContact = Date.now().valueOf();
+			this.carBody = carBody;
+		},
 
-		this.simulationEnded = function(){
-			return !_this.carBody.IsAwake() || Date.now().valueOf() > _this.lastContact + _this.tollerance;
-		};
+		simulationEnded: function(){
+			return !this.carBody.IsAwake() || Date.now().valueOf() > this.lastContact + this.tollerance;
+		},
 
 		// b2ContactListener
-		this.BeginContact = function(){
-			_this.lastContact = Date.now().valueOf();
-		};
-		this.PreSolve = function(){};
-		this.EndContact = function () {};
-		this.PostSolve = function(){};
+		BeginContact: function(){
+			this.lastContact = Date.now().valueOf();
+		},
+		PreSolve: function(){},
+		EndContact: function () {},
+		PostSolve: function(){}
 	};
+
+	return EndStateDetector;
 });
