@@ -1,6 +1,7 @@
 define(['box2dweb'], function (Box2D) {
+	var drawScale = 30;
+
 	var atRenderScale = function(worldScale){
-		var drawScale = 30;
 		return worldScale * drawScale;
 	};
 
@@ -13,7 +14,7 @@ define(['box2dweb'], function (Box2D) {
 			this.drawContext = this.renderTarget.getContext("2d");
 			var debugDraw = new Box2D.Dynamics.b2DebugDraw();
 			debugDraw.SetSprite(this.drawContext);
-			debugDraw.SetDrawScale(this.drawScale);
+			debugDraw.SetDrawScale(drawScale);
 			debugDraw.SetFillAlpha(0.3);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
