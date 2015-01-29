@@ -18,7 +18,6 @@
     "tests"
   ],
   "dependencies": {
-    "curl": "~0.8.12",
     "wire": "~0.10.9"
   }
 }
