@@ -1,10 +1,15 @@
-define(['environment/car'], function (car) {
-	return function(){
-		this.nextCar = function(){
-			return car;
-		};
-		this.registerScore = function(score){
-			console.log('stopped: travelled ' + score + 'm');
-		};
+define(['../environment/car'], function (car) {
+	var Engine = function(){
 	};
+
+	Engine.prototype = {
+		nextCar: function(){
+			return car;
+		},
+		registerScore: function(score){
+			console.log('stopped: travelled ' + score + 'm');
+		}
+	};
+
+	return Engine;
 });

@@ -6,7 +6,6 @@ define({
 		},
 		ready: "run"
 	},
-
 	simulation: {
 		create:{
 			module: 'environment/Simulation',
