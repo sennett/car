@@ -6,7 +6,6 @@ define(['underscore'], function(_){
 
 	App.prototype = {
 		run: function() {
-			console.log('running');
 			this.simulation.onStop(_.bind(function (score) {
 				this.evolutionEngine.registerScore(score);
 				this.simulation.start(this.evolutionEngine.nextCar());
