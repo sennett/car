@@ -1,4 +1,4 @@
-define(['../environment/car'], function (car) {
+define(['../core/car'], function (car) {
 	var Engine = function(){
 	};
 

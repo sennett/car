@@ -2,7 +2,7 @@ define({
 	//$plugins: ['wire/debug'],
 	app: {
 		create: {
-			module: 'App',
+			module: 'core/App',
 			args: [{ $ref: "simulation"}, { $ref: "evolutionEngine"}]
 		},
 		ready: "run"
