@@ -4,7 +4,7 @@ define(['box2dweb'], function (Box2D) {
 	var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
-	return function(point1, point2, index, world) {
+	var GroundSegment = function(point1, point2, index, world) {
 
 		var getBodyDef = function(){
 			var bodyDef = new b2BodyDef();
@@ -40,4 +40,6 @@ define(['box2dweb'], function (Box2D) {
 			initialisePhysicsElements.call(this);
 		}).call(this);
 	};
+
+	return GroundSegment;
 });

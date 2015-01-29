@@ -10,6 +10,9 @@ define({
 		create:{
 			module: 'environment/Simulation',
 			args: [{ $ref: "physicsWorldProvider"}, { $ref: "renderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }]
+		},
+		ready: {
+			initialise: {$ref:'ground'}
 		}
 	},
 	physicsWorldProvider: {
@@ -31,6 +34,23 @@ define({
 		create: {
 			module: 'environment/EndStateDetector'
 		}
+	},
+	ground: {
+		create: {
+			module:'environment/Ground',
+			args: [{$ref:'groundSegmentProvider'}]
+		},
+		ready: {
+			setData: {$ref: 'groundData'}
+		}
+	},
+	groundSegmentProvider: {
+		create: {
+			module: 'environment/provider/GroundSegmentProvider'
+		}
+	},
+	groundData: {
+		module: 'environment/groundData'
 	},
 
 	evolutionEngine: {

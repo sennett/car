@@ -1,20 +1,21 @@
 define(['underscore'], function (_) {
-	return function(groundSegmentProvider){
-		var _this = this;
+	var Ground = function(groundSegmentProvider) {
 		this.groundSegmentProvider = groundSegmentProvider;
-
-		_this.segments = [];
-
-		this.initialisePhysicsBodies = function(world){
-			_.each(_this.points, function(point, index){
-				var nextPoint = _this.points[index + 1];
-				if (nextPoint)
-					_this.segments.push(_this.groundSegmentProvider.makeGroundSegment(point, nextPoint, index, world));
-			});
-		};
-
-		this.setData = function(data){
-			_this.points = data;
-		};
 	};
+
+	Ground.prototype = {
+		segments: [],
+		initialisePhysicsBodies: function(world){
+			_.each(this.points, function(point, index){
+				var nextPoint = this.points[index + 1];
+				if (nextPoint)
+					this.segments.push(this.groundSegmentProvider.makeGroundSegment(point, nextPoint, index, world));
+			});
+		},
+		setData: function(data){
+			this.points = data;
+		}
+	};
+
+	return Ground;
 });

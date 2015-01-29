@@ -7,7 +7,8 @@ require.config({
 		{ name: 'meld', location: '../bower_components/meld', main: 'meld' }
 	],
 	paths:{
-		box2dweb: 'vendor/Box2dWeb-2.1.a.3'
+		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
+		underscore: 'vendor/underscore'
 	},
 	shim: {
 		box2dweb: {
