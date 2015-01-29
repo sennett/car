@@ -1,4 +1,4 @@
-define([], function(){
+define(['underscore'], function(_){
 	var App = function(simulation, evolutionEngine){
 		this.simulation = simulation;
 		this.evolutionEngine = evolutionEngine;
@@ -6,10 +6,10 @@ define([], function(){
 
 	App.prototype = {
 		run: function() {
-			this.simulation.onStop(function (score) {
+			this.simulation.onStop(_.bind(function (score) {
 				this.evolutionEngine.registerScore(score);
 				this.simulation.start(this.evolutionEngine.nextCar());
-			});
+			}, this));
 			this.simulation.start(this.evolutionEngine.nextCar());
 		}
 	};
