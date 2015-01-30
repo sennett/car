@@ -45,6 +45,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	};
 
 	var createWheels = function(){
+		var wheels = [];
 
 		var createWheel = _.bind(function(vertexId, radius){
 			var vertex = _.findWhere(this.twoDVertices, { id: vertexId});
@@ -72,14 +73,16 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 			axleDef.Initialize(this.body, wheel, wheel.GetWorldCenter());
 			axleDef.enableMotor = true;
 			axleDef.motorSpeed = 5;
+			// mass * gravity / radius
 			axleDef.maxMotorTorque = 10;
 			this.world.CreateJoint(axleDef);
 
-			this.wheels.push(wheel);
+			wheels.push(wheel);
 		}, this);
 
-		this.wheels = [];
 		this.genome.forEachWheel(createWheel);
+
+		return wheels;
 	};
 
 	var Car = function(genome){

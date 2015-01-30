@@ -22,7 +22,7 @@ define(function () {
 
 		wheelVertex0: 0,
 		wheelRadius0: 1,
-		wheelVertex1: 1,
+		wheelVertex1: 2,
 		wheelRadius1: 1,
 
 		forEachVertex: function(runForVertex){
