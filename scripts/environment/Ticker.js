@@ -5,7 +5,7 @@ define(function () {
 		run: function(tick, simulation){
 			this.intervalId = window.setInterval(function(){
 				tick.call(simulation);
-			}, 1000 / 60);
+			}, 1000 / 150);
 		},
 		stop: function(){
 			window.clearInterval(this.intervalId);
