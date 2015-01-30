@@ -73,8 +73,10 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 			axleDef.Initialize(this.body, wheel, wheel.GetWorldCenter());
 			axleDef.enableMotor = true;
 			axleDef.motorSpeed = 5;
-			// mass * gravity / radius
-			axleDef.maxMotorTorque = 10;
+
+			// using torque from The Master: http://boxcar2d.com/about.html
+			axleDef.maxMotorTorque = wheel.GetMass() * this.world.GetGravity() / radius;
+
 			this.world.CreateJoint(axleDef);
 
 			wheels.push(wheel);
