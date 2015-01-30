@@ -39,7 +39,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		this.carBodies = [];
 		for (var i = 0; i < twoDVertices.length - 1; i++)
 			createSubBody.call(this, twoDVertices[i], twoDVertices[i + 1]);
-		createSubBody.call(this, twoDVertices[twoDVertices.length - 1], twoDVertices[0]);
+		createSubBody.call(this, _.last(twoDVertices), _.first(twoDVertices));
 		return this.carBodies[0];
 	};
 
