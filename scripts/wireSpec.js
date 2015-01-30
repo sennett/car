@@ -1,5 +1,5 @@
 define({
-	//$plugins: ['wire/debug'],
+	$plugins: ['wire/debug'],
 	app: {
 		create: {
 			module: 'core/App',

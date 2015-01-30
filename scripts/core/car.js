@@ -23,9 +23,6 @@ define(['box2dweb'], function(Box2D){
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
-
-
-
 		fixtureDef.shape.SetAsArray(getVertices(), getVertices().length);
 		fixtureDef.density = 1.0;
 		fixtureDef.friction = 0.3;
