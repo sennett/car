@@ -11,11 +11,8 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		this.genome = genome;
 	};
 
-	var createSubBody = function(point1, point2){
+	var createSubBodyFixtureDef = function(point1, point2){
 		var points = [new b2Vec2(0,0), point1, point2];
-		var bodyDef = new b2BodyDef();
-		bodyDef.type = b2Body.b2_dynamicBody;
-		bodyDef.position.Set(5, 12);
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
@@ -24,9 +21,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
 
-		var carBody = this.world.CreateBody(bodyDef);
-		carBody.CreateFixture(fixtureDef);
-		this.carBodies.push(carBody);
+		return fixtureDef;
 	};
 
 	var createBody = function(){
@@ -35,25 +30,29 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 			twoDVertices.push(new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude));
 		});
 
-		// create fake convex shapes (box2d does not support convex polygons)
-		this.carBodies = [];
+		var bodyDef = new b2BodyDef();
+		bodyDef.type = b2Body.b2_dynamicBody;
+		bodyDef.position.Set(5, 12);
+		var carBody = this.world.CreateBody(bodyDef);
+
+		// create body shape using multiple fixtures (box2d does not support convex polygons)
 		for (var i = 0; i < twoDVertices.length - 1; i++)
-			createSubBody.call(this, twoDVertices[i], twoDVertices[i + 1]);
-		createSubBody.call(this, _.last(twoDVertices), _.first(twoDVertices));
-		return this.carBodies[0];
+			carBody.CreateFixture(createSubBodyFixtureDef.call(this, twoDVertices[i], twoDVertices[i + 1]));
+		carBody.CreateFixture(createSubBodyFixtureDef.call(this, _.last(twoDVertices), _.first(twoDVertices)));
+
+		return carBody;
 	};
 
 	Car.prototype = {
 		destroyPhysicsBodies: function(){
-			_.each(this.carBodies, function(body){
-				this.world.DestroyBody(body);
-			}, this);
+			this.world.DestroyBody(this.body);
 			//this.world.DestroyBody(this.frontWheel);
 			//this.world.DestroyBody(this.backWheel);
 		},
 		initialisePhysicsBodies: function(world){
 			this.world = world;
 			this.body = createBody.call(this);
+			this.body.SetAngularVelocity(20);
 		}
 	};
 
