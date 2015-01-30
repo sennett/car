@@ -5,6 +5,7 @@ define(['box2dweb'], function(Box2D){
 	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
+	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 
 	var createCarBody = function(){
 		var bodyDef = new b2BodyDef();
@@ -13,7 +14,11 @@ define(['box2dweb'], function(Box2D){
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
-		fixtureDef.shape.SetAsBox(2, 0.5);
+		var vertices = [];
+		vertices.push(new b2Vec2(0, 0));
+		vertices.push(new b2Vec2(1, 0));
+		vertices.push(new b2Vec2(0, 1));
+		fixtureDef.shape.SetAsArray(vertices, vertices.length);
 		fixtureDef.density = 1.0;
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
