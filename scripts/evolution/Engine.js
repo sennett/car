@@ -1,10 +1,11 @@
-define(['evolution/Genome'], function (Genome) {
-	var Engine = function(){
+define(function () {
+	var Engine = function(randomGenomeGenerator){
+		this.randomGenomeGenerator = randomGenomeGenerator;
 	};
 
 	Engine.prototype = {
 		nextGenome: function(){
-			return Genome;
+			return this.randomGenomeGenerator.getOne();
 		},
 		registerScore: function(score, forGenome){
 			console.log('stopped: travelled ' + score + 'm');
