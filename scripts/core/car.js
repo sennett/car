@@ -7,6 +7,15 @@ define(['box2dweb'], function(Box2D){
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 
+	var getVertices = function(){
+		var vertices = [];
+		vertices.push(new b2Vec2(Math.cos(0) * 2, Math.sin(0) * 2));
+		vertices.push(new b2Vec2(Math.cos(Math.PI / 2) * 2, Math.sin(Math.PI / 2) * 2));
+		vertices.push(new b2Vec2(Math.cos(Math.PI) * 2, Math.sin(Math.PI) * 2));
+		vertices.push(new b2Vec2(Math.cos(Math.PI * 1.5) * 2, Math.sin(Math.PI * 1.5) * 2));
+		return vertices;
+	};
+
 	var createCarBody = function(){
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
@@ -14,11 +23,10 @@ define(['box2dweb'], function(Box2D){
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
-		var vertices = [];
-		vertices.push(new b2Vec2(0, 0));
-		vertices.push(new b2Vec2(1, 0));
-		vertices.push(new b2Vec2(0, 1));
-		fixtureDef.shape.SetAsArray(vertices, vertices.length);
+
+
+
+		fixtureDef.shape.SetAsArray(getVertices(), getVertices().length);
 		fixtureDef.density = 1.0;
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
