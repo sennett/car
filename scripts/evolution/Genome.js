@@ -20,18 +20,19 @@ define(function () {
 		angle7: createAngle(7),
 		magnitude7: 2,
 
-		wheelVertex0: 1,
+		wheelVertex0: 0,
 		wheelRadius0: 1,
-		wheelVertex1: 2,
+		wheelVertex1: 1,
 		wheelRadius1: 1,
 
-		runForVertices: function(runForVertex){
-			for (var i = 0; i <=7; i++)
-				runForVertex(this['angle' + i], this['magnitude' + i]);
+		forEachVertex: function(runForVertex){
+			for (var i = 0; i <= 7; i++)
+				runForVertex(this['angle' + i], this['magnitude' + i], i);
 		},
 
-		loopWheels: function(runForWheel){
-
+		forEachWheel: function(runForWheel){
+			for (var i = 0; i <= 1; i++)
+				runForWheel(this['wheelVertex' + i], this['wheelRadius' + i]);
 		}
 	};
 });
