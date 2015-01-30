@@ -12,14 +12,13 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	};
 
 	var createBody = function(){
-		debugger;
 		var twoDVertices = [];
 		this.genome.runForVertices(function(angle, magnitude){
 			twoDVertices.push(new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude));
 		});
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
-		bodyDef.position.Set(5, 5);
+		bodyDef.position.Set(5, 12);
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
@@ -36,8 +35,8 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	Car.prototype = {
 		destroyPhysicsBodies: function(){
 			this.world.DestroyBody(this.body);
-			this.world.DestroyBody(this.frontWheel);
-			this.world.DestroyBody(this.backWheel);
+			//this.world.DestroyBody(this.frontWheel);
+			//this.world.DestroyBody(this.backWheel);
 		},
 		initialisePhysicsBodies: function(world){
 			this.world = world;
