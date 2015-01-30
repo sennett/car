@@ -11,30 +11,43 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		this.genome = genome;
 	};
 
-	var createBody = function(){
-		var twoDVertices = [];
-		this.genome.runForVertices(function(angle, magnitude){
-			twoDVertices.push(new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude));
-		});
+	var createSubBody = function(point1, point2){
+		var points = [new b2Vec2(0,0), point1, point2];
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.position.Set(5, 12);
 
 		var fixtureDef = new b2FixtureDef();
 		fixtureDef.shape = new b2PolygonShape();
-		fixtureDef.shape.SetAsArray(twoDVertices, twoDVertices.length);
+		fixtureDef.shape.SetAsArray(points, points.length);
 		fixtureDef.density = 1.0;
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
 
 		var carBody = this.world.CreateBody(bodyDef);
 		carBody.CreateFixture(fixtureDef);
-		return carBody;
+		this.carBodies.push(carBody);
+	};
+
+	var createBody = function(){
+		var twoDVertices = [];
+		this.genome.runForVertices(function(angle, magnitude){
+			twoDVertices.push(new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude));
+		});
+
+		// create fake convex shapes (box2d does not support convex polygons)
+		this.carBodies = [];
+		for (var i = 0; i < twoDVertices.length - 1; i++)
+			createSubBody.call(this, twoDVertices[i], twoDVertices[i + 1]);
+
+		return this.carBodies[0];
 	};
 
 	Car.prototype = {
 		destroyPhysicsBodies: function(){
-			this.world.DestroyBody(this.body);
+			_.each(this.carBodies, function(body){
+				this.world.DestroyBody(body);
+			}, this);
 			//this.world.DestroyBody(this.frontWheel);
 			//this.world.DestroyBody(this.backWheel);
 		},
