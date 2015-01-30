@@ -4,13 +4,18 @@ define(['underscore', 'core/Car'], function(_, Car){
 		this.evolutionEngine = evolutionEngine;
 	};
 
+	var getGenomeAndStart = function(){
+		this.genome = this.evolutionEngine.nextGenome();
+		this.simulation.start(new Car(this.genome));
+	};
+
 	App.prototype = {
 		run: function() {
 			this.simulation.onStop(_.bind(function (score) {
-				this.evolutionEngine.registerScore(score);
-				this.simulation.start(new Car(this.evolutionEngine.nextGenome()));
+				this.evolutionEngine.registerScore(score, this.genome);
+				getGenomeAndStart.call(this);
 			}, this));
-			this.simulation.start(new Car(this.evolutionEngine.nextGenome()));
+			getGenomeAndStart.call(this);
 		}
 	};
 

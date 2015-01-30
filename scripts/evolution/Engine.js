@@ -6,7 +6,7 @@ define(['evolution/Genome'], function (Genome) {
 		nextGenome: function(){
 			return Genome;
 		},
-		registerScore: function(score){
+		registerScore: function(score, forGenome){
 			console.log('stopped: travelled ' + score + 'm');
 		}
 	};
