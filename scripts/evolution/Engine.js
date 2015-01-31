@@ -18,7 +18,7 @@ define(function () {
 		currentGenomes: [],
 		unsimulatedGenome: 0,
 		nextGenome: function(){
-			if (this.unsimulatedGenome + 1 === generationSize)
+			if (this.unsimulatedGenome === generationSize)
 				nextGeneration.call(this);
 			var useGenome = this.currentGenomes[this.unsimulatedGenome];
 			this.unsimulatedGenome++;
