@@ -2,7 +2,7 @@ define(function () {
 	var generationSize = 20;
 
 	var nextGeneration = function(){
-		this.currentGenomes = this.evolutionAlgorithm.evolve(this.currentGenomes);
+		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes);
 		this.unsimulatedGenome = 0;
 	};
 

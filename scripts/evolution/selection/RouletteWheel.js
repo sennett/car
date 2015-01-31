@@ -1,7 +1,7 @@
 define(function () {
 	var Roulette = function(){};
 	Roulette.prototype = {
-		evolve: function(genomes){
+		nextGeneration: function(genomes){
 			return genomes;
 		}
 	};
