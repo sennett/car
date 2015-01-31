@@ -16,6 +16,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		fixtureDef.density = 1.0;
 		fixtureDef.friction = 0.3;
 		fixtureDef.restitution = 0.2;
+		fixtureDef.filter.groupIndex = -1;
 
 		return fixtureDef;
 	};
@@ -65,6 +66,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 			fixtureDef.density = 1.0;
 			fixtureDef.friction = 1;
 			fixtureDef.restitution = 0.2;
+			fixtureDef.filter.groupIndex = -1;
 
 			var wheel = this.world.CreateBody(bodyDef);
 			wheel.CreateFixture(fixtureDef);
