@@ -7,10 +7,9 @@ define(['evolution/Genome', 'underscore', 'core/util'], function (Genome, _, uti
 	var maxWheels = 2;
 
 	var createVertices = function(){
-		var lastAngle = 0;
 		for (var i = 0; i < totalVertices; i++){
-			lastAngle = util.random(lastAngle, 2 * Math.PI);
-			this.addVertex(lastAngle, util.random(minMagnitude, maxMagnitude));
+			var angle = util.random(2 * Math.PI * i / totalVertices, 2 * Math.PI * (i + 1) / totalVertices);
+			this.addVertex(angle, util.random(minMagnitude, maxMagnitude));
 		}
 	};
 
