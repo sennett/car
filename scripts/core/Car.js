@@ -6,6 +6,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
+	var startPosition = new b2Vec2(5, 12);
 
 	var createSubBodyFixtureDef = function(point1, point2){
 		var points = [new b2Vec2(0,0), point1, point2];
@@ -34,7 +35,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
-		bodyDef.position.Set(5, 12);
+		bodyDef.position = startPosition;
 		var carBody = this.world.CreateBody(bodyDef);
 
 		// create body shape using multiple fixtures (box2d does not support convex polygons)
@@ -51,14 +52,14 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 		var createWheel = _.bind(function(vertexId, radius){
 			var vertex = _.findWhere(this.twoDVertices, { id: vertexId});
 			if (!vertex)
-				throw "invalid vertex for wheel from genome: " + vertexId;
+				throw "unknown vertex for wheel from genome: " + vertexId;
 
 			var bodyDef = new b2BodyDef();
 			bodyDef.type = b2Body.b2_dynamicBody;
 
 			// copy vertex location, move to car body, and apply to wheel
 			var vertexLocationCopy = vertex.location.Copy();
-			vertexLocationCopy.Add(this.body.GetWorldCenter());
+			vertexLocationCopy.Add(startPosition);
 			bodyDef.position = vertexLocationCopy;
 
 			var fixtureDef = new b2FixtureDef();
