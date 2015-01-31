@@ -1,8 +1,8 @@
 define(['evolution/Genome', 'underscore', 'core/util'], function (Genome, _, util) {
 	var minMagnitude = 0.2;
-	var maxMagnitude = 2;
+	var maxMagnitude = 4;
 	var minRadius = 0.1;
-	var maxRadius = 1;
+	var maxRadius = 2;
 	var totalVertices = 8;
 	var maxWheels = 2;
 
