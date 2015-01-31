@@ -1,5 +1,5 @@
 define(function(){
-	var groundData = [{x:2, y:16}, {x:8, y:16}];
+	var groundData = [{x:-10, y:16}, {x:8, y:16}];
 
 	for (var i = groundData.length; i < 1000; i++) {
 		var previousPoint = groundData[i - 1];
