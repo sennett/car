@@ -10,7 +10,7 @@ optimised production build, test config for unit tests, and use of RequireJS and
 Interesting points:
 
 - Build wrapper to force wire.js to be included in production build.  It felt a bit hacky but it was the only way I could get it to work.
-- The test RequireJS/Karma config is worth a look.  Karma serves the test and source files but does not include them on the page, then RequireJS takes over and loads the test files as dependencies, which then load the relevant modules under test.  (I did not make this).
+- The test RequireJS/Karma config is worth a look.  Karma serves the test and source files but does not include them on the page, then RequireJS takes over and loads the test files as dependencies, which then load the relevant modules under test.  I did not come up with this.
 - As a result of the above, runtime/build RequireJS and wire.js config must be excluded by Karma, meaning that there cannot be any unit-testable things directly in the `scripts` directory. I'm not too fussed about this, as domain stuff shouldn't be in there anyway.
 - Not using AMD as an IOC container.  This feels weird and wrong.  Surely an AMD dependency is like `using` a namespace, and IOC is domain-level injection?  But then I suppose JavaScript.
 
