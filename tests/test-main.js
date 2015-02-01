@@ -19,13 +19,15 @@ require.config({
 	// dynamically load all test files
 	deps: allTestFiles,
 
+	paths: {
+		tests: '../tests'
+	},
 
 	packages: [{
 		name: 'underscore',
 		location: 'scripts/vendor',
 		main: 'underscore'
-	}
-	],
+	}],
 
 	// we have to kickoff jasmine, as it is asynchronous
 	callback: window.__karma__.start

@@ -1,5 +1,5 @@
-define(['scripts/environment/world'], function(World){
-	describe('world', function(){
+define(['environment/Simulation'], function(Simulation){
+	xdescribe('world', function(){
 		beforeEach(function(){
 			this.mockGroundSegmentProvider = jasmine.createSpyObj('mockGroundSegmentProvider', ['makeGroundSegment']);
 			this.mockGroundSegmentProvider.makeGroundSegment.and.returnValue({getPhysicsBody:function(){}});
@@ -8,7 +8,7 @@ define(['scripts/environment/world'], function(World){
 				add: function(){},
 				on: function(){}
 			});
-			this.world = new World(this.mockGroundSegmentProvider, mockPhysicsWorldProvider);
+			this.world = new Simulation(this.mockGroundSegmentProvider, mockPhysicsWorldProvider);
 		});
 
 		describe('setGround', function(){

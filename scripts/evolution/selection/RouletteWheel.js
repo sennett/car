@@ -20,6 +20,10 @@ define(['underscore'], function (_) {
 			}
 			lastNumber += genome.relativeScore;
 		});
+
+		if (!returnableGenome)
+			throw "could not select genome at " + selectGenomeAt;
+
 		return returnableGenome;
 	};
 
@@ -36,6 +40,7 @@ define(['underscore'], function (_) {
 	var Roulette = function(genomeMater){
 		this.genomeMater = genomeMater;
 	};
+
 	Roulette.prototype = {
 		nextGeneration: function(genomes){
 			var totalGenomes = genomes.length;
@@ -53,5 +58,6 @@ define(['underscore'], function (_) {
 			return newGenomes;
 		}
 	};
+
 	return Roulette;
 });
