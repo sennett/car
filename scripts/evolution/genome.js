@@ -35,6 +35,13 @@ define(function () {
 					type: "vertex"
 				})
 			});
+			this.forEachWheel(function(vertex, magnitude){
+				array.push({
+					vertex: vertex,
+					magnitude: magnitude,
+					type: 'wheel'
+				})
+			});
 			return array;
 		},
 
