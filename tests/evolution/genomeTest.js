@@ -25,7 +25,7 @@ define(['evolution/genome', 'underscore'], function(baseGenome, _){
 			});
 		});
 
-		xdescribe('fromArray', function(){
+		describe('fromArray', function(){
 			beforeEach(function(){
 				this.genome.fromArray([
 					{angle: 1, magnitude: 2, type: 'vertex'},

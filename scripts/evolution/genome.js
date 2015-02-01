@@ -45,14 +45,14 @@ define(function () {
 			return array;
 		},
 
-		fromArray:function(array){
+		fromArray: function(array){
 			_.each(array, function(gene){
 				if (gene.type == 'vertex')
 					this.addVertex(gene.angle, gene.magnitude);
-				if (gene.type == 'wheel')
-					this.addVertex(gene.vertex, gene.radius);
+				else if (gene.type == 'wheel')
+					this.addWheel(gene.vertex, gene.radius);
 				else
-					throw "unknown gene type";
+					throw "unknown gene type '" + gene.type + "'";
 			}, this);
 		}
 	};
