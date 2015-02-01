@@ -5,9 +5,16 @@ define(['evolution/genome', 'underscore', 'core/util'], function (genome, _, uti
 	};
 
 	GenomeMater.prototype = {
-		mate: function (genome1, genome2) {
-			var genomeOneArray = [], genomeTwoArray = [];
-			return {one: genome1, two: genome2}
+		mate: function (parentOne, parentTwo) {
+			var offspringData = util.crossover(parentOne.toArray(), parentTwo.toArray(), 2, 10),
+				childOne = _.extend({}, genome),
+				childTwo = _.extend({}, genome);
+			childOne.fromArray(offspringData.one);
+			childTwo.fromArray(offspringData.two);
+			return {
+				one: childOne,
+				two: childTwo
+			};
 		}
 	};
 
