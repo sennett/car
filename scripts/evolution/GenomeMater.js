@@ -1,4 +1,4 @@
-define(['evolution/genome', 'underscore'], function (genome, _) {
+define(['evolution/genome', 'underscore', 'core/util'], function (genome, _, util) {
 
 	var GenomeMater = function (cutoffProvider) {
 		this.cutoffProvider = cutoffProvider;
@@ -6,9 +6,7 @@ define(['evolution/genome', 'underscore'], function (genome, _) {
 
 	GenomeMater.prototype = {
 		mate: function (genome1, genome2) {
-			// count genomes
-			// build two arrays, one for each genome
-			// two numbers in between the
+			var genomeOneArray = [], genomeTwoArray = [];
 			return {one: genome1, two: genome2}
 		}
 	};

@@ -24,6 +24,22 @@ define(function () {
 		forEachWheel: function(runForWheel){
 			for (var i = 0; i < this.totalWheels; i++)
 				runForWheel(this['wheelVertex' + i], this['wheelRadius' + i]);
+		},
+
+		toArray: function(){
+			var array = [];
+			this.forEachVertex(function(angle, magnitude){
+				array.push({
+					angle: angle,
+					magnitude: magnitude,
+					type: "vertex"
+				})
+			});
+			return array;
+		},
+
+		fromArray:function(array){
+
 		}
 	};
 });
