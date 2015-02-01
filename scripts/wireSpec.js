@@ -48,12 +48,17 @@ define({
 	evolutionEngine: {
 		create: {
 			module: 'evolution/Engine',
-			args:[{$ref:'randomGenomeGenerator'}, {$ref: 'rouletteSelection'}]
+			args:[{$ref:'randomGenomeGenerator'}, {$ref: 'noBreeding'}]
 		}
 	},
 	randomGenomeGenerator: {
 		create: {
 			module: 'evolution/RandomGenomeGenerator'
+		}
+	},
+	noBreeding: {
+		create: {
+			module: 'evolution/selection/NoBreeding'
 		}
 	},
 	rouletteSelection: {

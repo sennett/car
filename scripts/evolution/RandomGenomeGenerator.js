@@ -1,4 +1,4 @@
-define(['evolution/Genome', 'underscore', 'core/util'], function (Genome, _, util) {
+define(['evolution/genome', 'underscore', 'core/util'], function (baseGenome, _, util) {
 	var minMagnitude = 0.2;
 	var maxMagnitude = 5;
 	var minRadius = 0.1;
@@ -23,7 +23,7 @@ define(['evolution/Genome', 'underscore', 'core/util'], function (Genome, _, uti
 
 	RandomGenomeGenerator.prototype = {
 		getOne: function(){
-			var genome =  _.extend({}, Genome);
+			var genome =  _.extend({}, baseGenome);
 			createVertices.call(genome);
 			createWheels.call(genome);
 			return genome;
