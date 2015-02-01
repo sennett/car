@@ -1,4 +1,6 @@
 define(function () {
+	// does not breed passed genomes, just returns them
+
 	var NoBreeding = function () {
 	};
 

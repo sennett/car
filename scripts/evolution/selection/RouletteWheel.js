@@ -1,4 +1,6 @@
 define(['underscore'], function (_) {
+	// currently incomplete.  uses roulette wheel selection
+	// detailed here:  http://boxcar2d.com/about.html
 
 	var calculateRelativeScores = function(genomes){
 		var totalScore = 0;
