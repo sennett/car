@@ -1,5 +1,5 @@
 ({
-	"name": "buildWrapper",
+	"name": "productionBuildWrapper",
 	"baseUrl": "./",
 	"out": "../build/main.js",
 
