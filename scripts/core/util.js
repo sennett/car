@@ -1,4 +1,4 @@
-define(function () {
+define(['underscore'], function (_) {
 	return {
 		random: function(min, max){
 			return Math.random() * (max - min) + min;
@@ -22,6 +22,21 @@ define(function () {
 				one: outArrayOne,
 				two: outArrayTwo
 			};
+		},
+		selectAtScore: function(array, percentile){
+			var totalScore = 0;
+			_.each(array, function(scoredItem){
+				totalScore += scoredItem.score;
+			});
+			var requiredScore = totalScore * percentile / 100;
+			var runningTotal = 0;
+			var returnableItem;
+			_.each(array, function(scoredItem){
+				if (!returnableItem && runningTotal <= requiredScore && requiredScore <= scoredItem.score + runningTotal)
+					returnableItem = scoredItem;
+				runningTotal+= scoredItem.score;
+			});
+			return returnableItem;
 		}
 	};
 });

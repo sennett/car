@@ -27,5 +27,38 @@ define(['core/util'], function (util) {
 				expect(shouldThrow).toThrow("cannot cross arrays of different lengths");
 			});
 		});
+
+		describe('selectAtScore', function(){
+			beforeEach(function(){
+				this.data = [
+					{score: 10},
+					{score: 2.5},
+					{score: 30},
+					{score: 1}
+				];
+			});
+
+			it('selects the lowest value on 0', function(){
+				var result = util.selectAtScore(this.data, 0);
+				expect(result).toBe(this.data[0]);
+			});
+
+			it('selects the highest value on 100', function(){
+				var result = util.selectAtScore(this.data, 100);
+				expect(result).toBe(this.data[3]);
+			});
+
+			describe('when selecting a middle value', function(){
+				it('selects the correct middle value', function(){
+					var result = util.selectAtScore(this.data, 25);
+					expect(result).toBe(this.data[1]);
+				});
+
+				it('selects the other correct middle value', function(){
+					var result = util.selectAtScore(this.data, 33);
+					expect(result).toBe(this.data[2]);
+				});
+			});
+		});
 	});
 });
