@@ -1,6 +1,7 @@
 define(['evolution/Genome'], function (Genome) {
 
-	var GenomeMater = function () {
+	var GenomeMater = function (cutoffProvider) {
+		this.cutoffProvider = cutoffProvider;
 	};
 
 	GenomeMater.prototype = {
