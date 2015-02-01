@@ -35,10 +35,10 @@ define(function () {
 					type: "vertex"
 				})
 			});
-			this.forEachWheel(function(vertex, magnitude){
+			this.forEachWheel(function(vertex, radius){
 				array.push({
 					vertex: vertex,
-					magnitude: magnitude,
+					radius: radius,
 					type: 'wheel'
 				})
 			});
@@ -46,7 +46,14 @@ define(function () {
 		},
 
 		fromArray:function(array){
-
+			_.each(array, function(gene){
+				if (gene.type == 'vertex')
+					this.addVertex(gene.angle, gene.magnitude);
+				if (gene.type == 'wheel')
+					this.addVertex(gene.vertex, gene.radius);
+				else
+					throw "unknown gene type";
+			}, this);
 		}
 	};
 });
