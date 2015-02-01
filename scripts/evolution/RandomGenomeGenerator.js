@@ -15,7 +15,7 @@ define(['evolution/genome', 'underscore', 'core/util'], function (baseGenome, _,
 
 	var createWheels = function(){
 		for (var i = 0; i < maxWheels; i++){
-			this.addWheel(Math.floor(util.random(0, totalVertices - 0.001)), util.random(minRadius, maxRadius));
+			this.addWheel(_.random(0, totalVertices - 1), util.random(minRadius, maxRadius));
 		}
 	};
 
