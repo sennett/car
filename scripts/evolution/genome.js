@@ -4,6 +4,11 @@ define(function () {
 		totalVertices: 0,
 		totalWheels: 0,
 
+		geneType: {
+			vertex: 'vertex',
+			wheel: 'wheel'
+		},
+
 		addVertex: function(angle, magnitude){
 			this['angle' + this.totalVertices] = angle;
 			this['magnitude' + this.totalVertices] = magnitude;
@@ -16,14 +21,14 @@ define(function () {
 			this.totalWheels++;
 		},
 
-		forEachVertex: function(runForVertex){
+		forEachVertex: function(runForVertex, ctx){
 			for (var i = 0; i < this.totalVertices; i++)
-				runForVertex(this['angle' + i], this['magnitude' + i], i);
+				runForVertex.call(ctx, this['angle' + i], this['magnitude' + i], i);
 		},
 
-		forEachWheel: function(runForWheel){
+		forEachWheel: function(runForWheel, ctx){
 			for (var i = 0; i < this.totalWheels; i++)
-				runForWheel(this['wheelVertex' + i], this['wheelRadius' + i]);
+				runForWheel.call(ctx, this['wheelVertex' + i], this['wheelRadius' + i]);
 		},
 
 		toArray: function(){
@@ -32,24 +37,24 @@ define(function () {
 				array.push({
 					angle: angle,
 					magnitude: magnitude,
-					type: "vertex"
+					type: this.geneType.vertex
 				})
-			});
+			}, this);
 			this.forEachWheel(function(vertex, radius){
 				array.push({
 					vertex: vertex,
 					radius: radius,
-					type: 'wheel'
+					type: this.geneType.wheel
 				})
-			});
+			}, this);
 			return array;
 		},
 
 		fromArray: function(array){
 			_.each(array, function(gene){
-				if (gene.type == 'vertex')
+				if (gene.type == this.geneType.vertex)
 					this.addVertex(gene.angle, gene.magnitude);
-				else if (gene.type == 'wheel')
+				else if (gene.type == this.geneType.wheel)
 					this.addWheel(gene.vertex, gene.radius);
 				else
 					throw "unknown gene type '" + gene.type + "'";

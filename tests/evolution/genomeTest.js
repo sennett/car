@@ -14,24 +14,24 @@ define(['evolution/genome', 'underscore'], function(baseGenome, _){
 
 			it('adds vertex genes', function(){
 				var genomeAsArray = this.genome.toArray();
-				expect(genomeAsArray[0]).toEqual({angle: 1, magnitude: 2, type: 'vertex'});
-				expect(genomeAsArray[1]).toEqual({angle: 3, magnitude: 4, type: 'vertex'});
+				expect(genomeAsArray[0]).toEqual({angle: 1, magnitude: 2, type: this.genome.geneType.vertex});
+				expect(genomeAsArray[1]).toEqual({angle: 3, magnitude: 4, type: this.genome.geneType.vertex});
 			});
 
 			it('adds wheel genes', function(){
 				var genomeAsArray = this.genome.toArray();
-				expect(genomeAsArray[2]).toEqual({vertex: 0, radius: 5, type: 'wheel'});
-				expect(genomeAsArray[3]).toEqual({vertex: 1, radius: 6, type: 'wheel'});
+				expect(genomeAsArray[2]).toEqual({vertex: 0, radius: 5, type: this.genome.geneType.wheel});
+				expect(genomeAsArray[3]).toEqual({vertex: 1, radius: 6, type: this.genome.geneType.wheel});
 			});
 		});
 
 		describe('fromArray', function(){
 			beforeEach(function(){
 				this.genome.fromArray([
-					{angle: 1, magnitude: 2, type: 'vertex'},
-					{angle: 3, magnitude: 4, type: 'vertex'},
-					{vertex: 0, radius: 5, type: 'wheel'},
-					{vertex: 1, radius: 6, type: 'wheel'}
+					{angle: 1, magnitude: 2, type: this.genome.geneType.vertex},
+					{angle: 3, magnitude: 4, type: this.genome.geneType.vertex},
+					{vertex: 0, radius: 5, type: this.genome.geneType.wheel},
+					{vertex: 1, radius: 6, type: this.genome.geneType.wheel}
 				]);
 			});
 			it('applies vertex genes', function(){

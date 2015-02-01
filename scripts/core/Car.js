@@ -23,15 +23,15 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	};
 
 	var createBody = function(){
-		var createVertex = _.bind(function(angle, magnitude, id){
+		var createVertex = function(angle, magnitude, id){
 			this.twoDVertices.push({
 				id: id,
 				location: new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude)
 			});
-		}, this);
+		};
 
 		this.twoDVertices = [];
-		this.genome.forEachVertex(createVertex);
+		this.genome.forEachVertex(createVertex, this);
 
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_dynamicBody;
@@ -49,7 +49,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	var createWheels = function(){
 		var wheels = [];
 
-		var createWheel = _.bind(function(vertexId, radius){
+		var createWheel = function(vertexId, radius){
 			var vertex = _.findWhere(this.twoDVertices, { id: vertexId});
 			if (!vertex)
 				throw "unknown vertex for wheel from genome: " + vertexId;
@@ -83,9 +83,9 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 			this.world.CreateJoint(axleDef);
 
 			wheels.push(wheel);
-		}, this);
+		};
 
-		this.genome.forEachWheel(createWheel);
+		this.genome.forEachWheel(createWheel, this);
 
 		return wheels;
 	};
