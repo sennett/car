@@ -1,4 +1,4 @@
-define(['Genome'], function (Genome) {
+define(['evolution/Genome'], function (Genome) {
 
 	var GenomeMater = function () {
 	};

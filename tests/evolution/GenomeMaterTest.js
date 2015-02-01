@@ -1,4 +1,4 @@
-define(['scripts/evolution/GenomeMater'], function (GenomeMater) {
+define(['evolution/GenomeMater'], function (GenomeMater) {
 	describe('GenomeMater', function(){
 		beforeEach(function(){
 			this.mater = new GenomeMater();
