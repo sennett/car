@@ -1,7 +1,7 @@
 define(function () {
 	var generationSize = 20;
 
-	var nextGeneration = function(){
+	var createNextGeneration = function(){
 		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes);
 		this.unsimulatedGenome = 0;
 	};
@@ -19,7 +19,8 @@ define(function () {
 		unsimulatedGenome: 0,
 		nextGenome: function(){
 			if (this.unsimulatedGenome === generationSize)
-				nextGeneration.call(this);
+				createNextGeneration.call(this);
+
 			var useGenome = this.currentGenomes[this.unsimulatedGenome];
 			this.unsimulatedGenome++;
 			return useGenome;
