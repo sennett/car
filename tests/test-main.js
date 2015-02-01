@@ -25,7 +25,7 @@ require.config({
 
 	packages: [{
 		name: 'underscore',
-		location: 'scripts/vendor',
+		location: 'vendor',
 		main: 'underscore'
 	}],
 
