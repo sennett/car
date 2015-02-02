@@ -16,8 +16,9 @@ Interesting points:
 
 Todo:
 
-- complete roulette selection
-- select random pairs from mating pool
+- ~~complete roulette selection~~
+- ~~select random pairs from mating pool~~
+- mutation (tidy up genes first - use common definition and move min/max to genome)
 - tweak values/end-state for decent evolution
 - get some values displaying what is going on on the page
 - runtime production config - libs from CDN (with local fallback)
