@@ -4,11 +4,14 @@ define(function () {
 	var createNextGeneration = function(){
 		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes);
 		this.unsimulatedGenome = 0;
+		this.currentGeneration++;
+		console.log("generation: " + this.currentGeneration);
 	};
 
 	var Engine = function(randomGenomeGenerator, evolutionAlgorithm){
 		this.randomGenomeGenerator = randomGenomeGenerator;
 		this.evolutionAlgorithm = evolutionAlgorithm;
+		this.currentGeneration = 0;
 
 		for (var i = 0; i < generationSize; i++)
 			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
@@ -27,7 +30,6 @@ define(function () {
 		},
 		registerScore: function(score, forGenome){
 			forGenome.score = score;
-			console.log('stopped: travelled ' + score + 'm');
 		}
 	};
 
