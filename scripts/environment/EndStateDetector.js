@@ -2,7 +2,7 @@ define(function () {
 	var EndStateDetector = function(){};
 	EndStateDetector.prototype = {
 
-		tollerance: 200, // milliseconds
+		tollerance: 500, // milliseconds
 
 
 		initialise: function(carBody){

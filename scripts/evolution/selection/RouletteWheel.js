@@ -15,6 +15,8 @@ define(['underscore', 'core/util'], function (_, util) {
 				var parentTwo = util.selectAtScore(genomes, _.random(0, 100));
 				genomes = _.without(genomes, parentTwo);
 				var children = this.genomeMater.mate(parentOne, parentTwo);
+				children.one.mutate();
+				children.two.mutate();
 				nextGeneration.push(children.one);
 				nextGeneration.push(children.two);
 			}
