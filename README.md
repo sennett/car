@@ -18,6 +18,8 @@ Todo:
 
 - ~~complete roulette selection~~
 - ~~select random pairs from mating pool~~
+- solve race condition
+- introduce fast forward
 - mutation (tidy up genes first - use common definition and move min/max to genome)
 - crossover
 - tweak values/end-state for decent evolution
