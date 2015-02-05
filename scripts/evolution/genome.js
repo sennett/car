@@ -16,6 +16,10 @@ define(['core/util', 'underscore'], function (util, _) {
 			wheel: 'wheel'
 		},
 
+		totalGenes: function(){
+			return this.totalVertices + this.totalWheels;
+		},
+
 		addVertex: function(angle, magnitude){
 			this.setVertex(angle, magnitude, this.totalVertices);
 			this.totalVertices++;
