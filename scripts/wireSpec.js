@@ -20,7 +20,7 @@ define({
 	},
 	renderer: {
 		create: {
-			module:'environment/Renderer'
+			module:'environment/renderer/CanvasDebugRenderer'
 		}
 	},
 	ticker:{

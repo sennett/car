@@ -5,8 +5,8 @@ define(['box2dweb'], function (Box2D) {
 		return worldScale * drawScale;
 	};
 
-	var Renderer =  function(){};
-	Renderer.prototype = {
+	var CanvsaDebugRenderer =  function(){};
+	CanvsaDebugRenderer.prototype = {
 
 		initialise: function(world){
 			this.world = world;
@@ -52,5 +52,5 @@ define(['box2dweb'], function (Box2D) {
 		}
 	};
 
-	return Renderer;
+	return CanvsaDebugRenderer;
 });
