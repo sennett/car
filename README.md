@@ -19,7 +19,10 @@ Todo:
 - ~~complete roulette selection~~
 - ~~select random pairs from mating pool~~
 - solve race condition
-- introduce fast forward
+ - introduce fast forward
+  - null renderer - does nothing
+  - Ticker - runs while true, stop sets to false
+  - End state - 
 - mutation (tidy up genes first - use common definition and move min/max to genome)
 - crossover
 - tweak values/end-state for decent evolution
