@@ -1,5 +1,8 @@
 define({
-	$plugins: ['wire/debug'],
+	$plugins: [
+		'wire/debug',
+		'wire/dom'
+	],
 	app: {
 		create: {
 			module: 'core/App',
@@ -10,7 +13,7 @@ define({
 	simulation: {
 		create:{
 			module: 'environment/Simulation',
-			args: [{ $ref: "physicsWorldProvider"}, { $ref: "renderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}]
+			args: [{ $ref: "physicsWorldProvider"}, { $ref: "renderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
 		}
 	},
 	physicsWorldProvider: {
