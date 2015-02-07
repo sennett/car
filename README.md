@@ -21,7 +21,7 @@ Todo:
 - solve race condition
  - introduce fast forward
   - button, switch between these things yadda yadda
-  - null renderer - does nothing
+  - ~~null renderer - does nothing~~
   - Ticker - runs while true, stop sets to false
   - End state - new detector based on ticks rather than time
 - mutation (tidy up genes first - use common definition and move min/max to genome)
