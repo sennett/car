@@ -34,8 +34,11 @@ define({
 	ticker:{
 		create: {
 			module: 'environment/Ticker',
-			args: [window]
+			args: [{ $ref: 'windowWrapper' }]
 		}
+	},
+	windowWrapper: {
+		module: 'environment/documentWindowWrapper'
 	},
 	endStateDetector: {
 		create: {
@@ -53,7 +56,6 @@ define({
 			module: 'environment/provider/GroundSegmentProvider'
 		}
 	},
-
 	evolutionEngine: {
 		create: {
 			module: 'evolution/Engine',
