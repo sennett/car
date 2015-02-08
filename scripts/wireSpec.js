@@ -6,14 +6,14 @@ define({
 	app: {
 		create: {
 			module: 'core/App',
-			args: [{ $ref: "simulation"}, { $ref: "evolutionEngine"}]
+			args: [{ $ref: "simulation"}, { $ref: "evolutionEngine"}, { $ref: "ticker" }]
 		},
 		ready: "run"
 	},
 	simulation: {
 		create:{
 			module: 'environment/Simulation',
-			args: [{ $ref: "physicsWorldProvider"}, { $ref: "visibleRenderer"}, { $ref: "visibleTicker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
+			args: [{ $ref: "physicsWorldProvider"}, { $ref: "nullRenderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
 		}
 	},
 	physicsWorldProvider: {
@@ -31,15 +31,10 @@ define({
 			module:'environment/renderer/NullRenderer'
 		}
 	},
-	visibleTicker:{
+	ticker:{
 		create: {
 			module: 'environment/ticker/VisibleTicker',
 			args: [window]
-		}
-	},
-	speedyTicker:{
-		create: {
-			module: 'environment/ticker/SpeedyTicker'
 		}
 	},
 	endStateDetector: {

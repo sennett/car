@@ -4,7 +4,7 @@ define(['underscore'], function (_) {
 	};
 
 	Ticker.prototype = {
-		interval: 1, // ms
+		interval: 0.001, // ms
 		running: false,
 		tick: undefined,
 		simulation: undefined,
@@ -13,7 +13,8 @@ define(['underscore'], function (_) {
 			this.running = true;
 			this.intervalId = this.intervalProvider.setInterval(_.bind(function(){
 				if (this.running)
-					this.tick.call(this.simulation);
+					for (var i = 0; i < 1000; i++)
+						this.tick.call(this.simulation);
 			}, this), this.interval);
 		},
 
