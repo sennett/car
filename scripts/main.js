@@ -14,7 +14,8 @@ require.config({
 		box2dweb: {
 			exports: 'Box2D'
 		}
-	}
+	},
+	waitSeconds: 1
 });
 
 define(['wire!wireSpec'], function () {

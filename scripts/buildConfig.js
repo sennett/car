@@ -10,6 +10,6 @@
 	},
 
 	optimize: "uglify",
-	removeCombined: true
-
+	removeCombined: true,
+	waitSeconds: 7
 })

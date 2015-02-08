@@ -33,7 +33,7 @@ define({
 	},
 	ticker:{
 		create: {
-			module: 'environment/ticker/VisibleTicker',
+			module: 'environment/Ticker',
 			args: [window]
 		}
 	},
