@@ -19,7 +19,7 @@ module.exports = function (config) {
 			// serve unit-test files
 			{pattern: 'tests/**/*.js', included: false},
 			// serve source files, but exclude top-level files (which are all build/runtime configs)
-			{pattern: 'scripts/!(*.js)**/*.js', included: false}
+			{pattern: 'scripts/*(!(*.js)|**)/*.js', included: false}
 		],
 
 
