@@ -4,7 +4,6 @@ define(function () {
 
 		tollerance: 1000, // milliseconds
 
-
 		initialise: function(carBody){
 			this.lastContact = Date.now().valueOf();
 			this.carBody = carBody;
