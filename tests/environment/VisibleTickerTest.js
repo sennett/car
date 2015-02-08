@@ -10,7 +10,27 @@ define(['environment/ticker/VisibleTicker'], function (VisibleTicker) {
 			it('creates timeout with interval from VisibleTicker.setInterval', function(){
 				this.visibleTicker.run();
 				expect(this.intervalProviderSpy.setInterval.calls.mostRecent().args[1]).toBe(this.interval);
-			})
+			});
 		});
+		describe('stop', function(){
+			it('clears the interval provider with the same timeout ID', function(){
+
+			});
+		});
+		describe('setInterval', function(){
+			describe('when running', function(){
+				it('clears the current timeout', function(){
+
+				});
+				it('makes a new timeout', function(){
+
+				});
+			});
+			describe('when stopped', function(){
+				it('does not touch interval provider', function(){
+
+				});
+			});
+		})
 	});
 });
