@@ -20,7 +20,7 @@ Todo:
 - ~~select random pairs from mating pool~~
 - solve race condition
  - introduce fast forward
-  - button, switch between these things yadda yadda
+  - ~~button, switch between these things yadda yadda~~
   - ~~null renderer - does nothing~~
   - ~~Ticker - settable speed~~
   - End state - new detector based on ticks rather than time
