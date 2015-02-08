@@ -14,7 +14,11 @@ define(['environment/ticker/VisibleTicker'], function (VisibleTicker) {
 		});
 		describe('stop', function(){
 			it('clears the interval provider with the same timeout ID', function(){
-
+				var intervalMock = {some:"mock"};
+				this.intervalProviderSpy.setInterval.and.returnValue(intervalMock);
+				this.visibleTicker.run();
+				this.visibleTicker.stop();
+				expect(this.intervalProviderSpy.clearInterval).toHaveBeenCalledWith(intervalMock);
 			});
 		});
 		describe('setInterval', function(){
