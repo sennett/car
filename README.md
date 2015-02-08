@@ -22,7 +22,7 @@ Todo:
  - introduce fast forward
   - button, switch between these things yadda yadda
   - ~~null renderer - does nothing~~
-  - Ticker - runs while true, stop sets to false
+  - ~~Ticker - settable speed~~
   - End state - new detector based on ticks rather than time
 - mutation (tidy up genes first - use common definition and move min/max to genome)
 - crossover
