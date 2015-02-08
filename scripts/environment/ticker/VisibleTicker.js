@@ -5,20 +5,36 @@ define(['underscore'], function (_) {
 
 	Ticker.prototype = {
 		interval: 10, // ms
-		stopped: false,
-		run: function(tick, simulation){
-			this.stopped = false;
+		running: false,
+		tick: undefined,
+		simulation: undefined,
+
+		_run: function(){
+			this.running = true;
 			this.intervalId = this.intervalProvider.setInterval(_.bind(function(){
-				if (!this.stopped)
-					tick.call(simulation);
+				if (this.running)
+					this.tick.call(this.simulation);
 			}, this), this.interval);
 		},
+
+		run: function(tick, simulation){
+			this.tick = tick;
+			this.simulation = simulation;
+			this._run();
+		},
+
 		stop: function(){
-			this.stopped = true;
+			this.running = false;
 			this.intervalProvider.clearInterval(this.intervalId);
 		},
+
 		setInterval: function(interval){
+			var wasRunning = this.running;
+			if (this.running)
+				this.stop();
 			this.interval = interval;
+			if (wasRunning)
+				this._run();
 		}
 	};
 
