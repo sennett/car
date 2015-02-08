@@ -1,20 +1,24 @@
 define(['underscore'], function (_) {
-	var Ticker = function(window){
-		this.window = window
+	var Ticker = function(intervalProvider){
+		this.intervalProvider = intervalProvider
 	};
 
 	Ticker.prototype = {
+		interval: 10, // ms
 		stopped: false,
 		run: function(tick, simulation){
 			this.stopped = false;
-			this.intervalId = this.window.setInterval(_.bind(function(){
+			this.intervalId = this.intervalProvider.setInterval(_.bind(function(){
 				if (!this.stopped)
 					tick.call(simulation);
-			}, this), 1000 / 600);
+			}, this), this.interval);
 		},
 		stop: function(){
 			this.stopped = true;
-			this.window.clearInterval(this.intervalId);
+			this.intervalProvider.clearInterval(this.intervalId);
+		},
+		setInterval: function(interval){
+			this.interval = interval;
 		}
 	};
 
