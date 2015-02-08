@@ -13,12 +13,18 @@ define({
 	simulation: {
 		create:{
 			module: 'environment/Simulation',
-			args: [{ $ref: "physicsWorldProvider"}, { $ref: "nullRenderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
+			args: [{ $ref: "physicsWorldProvider"}, { $ref: "facadeRenderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
 		}
 	},
 	physicsWorldProvider: {
 		create: {
 			module: 'environment/provider/PhysicsWorldProvider'
+		}
+	},
+	facadeRenderer: {
+		create:{
+			module:'environment/renderer/FacadeRenderer',
+			args: [{$ref: 'nullRenderer'}, {$ref: 'visibleRenderer'}]
 		}
 	},
 	visibleRenderer: {
