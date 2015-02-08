@@ -88,5 +88,11 @@ define({
 		create: {
 			module: 'evolution/GenomeMater'
 		}
+	},
+	fastForward:{
+		create: {
+			module: 'environment/FastForward',
+			args: [{$ref: 'facadeRenderer'}, {$ref: 'ticker'}]
+		}
 	}
 });
