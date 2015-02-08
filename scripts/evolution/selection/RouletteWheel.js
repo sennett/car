@@ -10,10 +10,21 @@ define(['underscore', 'core/util'], function (_, util) {
 		nextGeneration: function(genomes){
 			var nextGeneration = [];
 			while(genomes.length){
-				var parentOne = util.selectAtScore(genomes, _.random(0, 100));
+
+				var selectedParentOne = _.random(0, 100);
+				var parentOne = util.selectAtScore(genomes, selectedParentOne);
+				var genomesBeforeParentOneRemoved = genomes.slice();
 				genomes = _.without(genomes, parentOne);
-				var parentTwo = util.selectAtScore(genomes, _.random(0, 100));
+				var genomesAfterParentOneRemoved = genomes.slice();
+
+
+				var selectedParentTwo = _.random(0, 100);
+				var parentTwo = util.selectAtScore(genomes, selectedParentTwo);
+				var genomesBeforeParentTwoRemoved = genomes.slice();
 				genomes = _.without(genomes, parentTwo);
+				var genomesAfterParentTwoRemoved = genomes.slice();
+
+
 				var children = this.genomeMater.mate(parentOne, parentTwo);
 				children.one.mutate();
 				children.two.mutate();
