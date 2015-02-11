@@ -19,12 +19,12 @@ Todo:
 - ~~complete roulette selection~~
 - ~~select random pairs from mating pool~~
 - solve race condition
- - introduce fast forward
-  - ~~button, switch between these things yadda yadda~~
-  - ~~null renderer - does nothing~~
-  - ~~Ticker - settable speed~~
-  - End state - new detector based on ticks rather than time
-- mutation (tidy up genes first - use common definition and move min/max to genome)
+  - introduce fast forward
+    - ~~button, switch between these things yadda yadda~~
+    - ~~null renderer - does nothing~~
+    - ~~Ticker - settable speed~~
+    - End state - new detector based on ticks rather than time
+- ~~mutation (tidy up genes first - use common definition and move min/max to genome)~~
 - crossover
 - tweak values/end-state for decent evolution
 - get some values displaying what is going on on the page
