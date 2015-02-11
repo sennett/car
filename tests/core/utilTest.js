@@ -59,6 +59,33 @@ define(['core/util'], function (util) {
 					expect(result).toBe(this.data[2]);
 				});
 			});
+
+			it('this data failed once (?)', function(){
+				var data = [
+					{score: 4.066012780909133},
+					{score: 4.878278907064207},
+					{score: 6.202206708101748},
+					{score: 4.879411522870655},
+					{score: 5.546679282751117},
+					{score: 4.998771439956795},
+					{score: 5.105182576383934},
+					{score: 5.29188179359332},
+					{score: 5.287604750088362},
+					{score: 5.521758497576953},
+					{score: 5.690082501568588},
+					{score: 5.782167066790936},
+					{score: 4.602696494543348},
+					{score: 5.373989059911756},
+					{score: 5.37644270334987},
+					{score: 5.148792125837784},
+					{score: 5.268328456413506},
+					{score: 4.388242092231984},
+					{score: 5.3038992655309025},
+					{score: 5.501715195473949}
+				];
+				var result = util.selectAtScore(data, 100);
+				expect(result).toEqual(data[19]);
+			});
 		});
 	});
 });

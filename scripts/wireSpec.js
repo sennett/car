@@ -81,7 +81,7 @@ define({
 	rouletteSelection: {
 		create: {
 			module: 'evolution/selection/RouletteWheel',
-			args:[{$ref: 'genomeMater'}]
+			args:[{$ref: 'genomeMater'}, {$ref: 'randomGenomeGenerator'}]
 		}
 	},
 	genomeMater: {

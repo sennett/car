@@ -24,6 +24,9 @@ define(['underscore'], function (_) {
 			};
 		},
 		selectAtScore: function(array, percentile){
+			if (array.length == 0)
+				throw "application exception: cannot select item from zero-length array";
+
 			var totalScore = 0;
 			_.each(array, function(scoredItem){
 				totalScore += scoredItem.score;
