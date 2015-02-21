@@ -22,7 +22,7 @@ define(['underscore'], function (_) {
 			this.rendererSwitcher.switchToNullRenderer();
 			this.button.innerHTML = 'slow down';
 			this.speed = this.speeds.fast;
-			this.ticker.ticksPerInterval = 10000;
+			this.ticker.ticksPerInterval = 1000;
 		},
 		handleEvent: function(){
 			if (this.speed == this.speeds.fast) {
