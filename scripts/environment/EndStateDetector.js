@@ -2,7 +2,8 @@ define(function () {
 	var EndStateDetector = function(){};
 	EndStateDetector.prototype = {
 
-		tollerance: 1000, // milliseconds
+		timeTollerance: 1000, // milliseconds
+		tickTollerance: 200,
 
 		initialise: function(carBody){
 			this.lastContact = Date.now().valueOf();
@@ -10,11 +11,18 @@ define(function () {
 		},
 
 		simulationEnded: function(){
-			return !this.carBody.IsAwake() || Date.now().valueOf() > this.lastContact + this.tollerance;
+			this.ticks++;
+
+			return (
+				!this.carBody.IsAwake()
+					|| this.ticks > this.tickTollerance
+					|| Date.now().valueOf() > this.lastContact + this.timeTollerance
+			);
 		},
 
 		// b2ContactListener
 		BeginContact: function(){
+			this.ticks = 0;
 			this.lastContact = Date.now().valueOf();
 		},
 		PreSolve: function(){},
