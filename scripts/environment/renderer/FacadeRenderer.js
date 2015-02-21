@@ -7,10 +7,12 @@ define(function () {
 
 	FacadeRenderer.prototype = {
 		initialise: function(world){
-			this.canvasRenderer.initialise(world);
+			this.world = world;
+			this.currentRenderer.initialise(this.world);
 		},
 		followBody: function(body){
-			this.currentRenderer.followBody(body);
+			this.body = body;
+			this.currentRenderer.followBody(this.body);
 		},
 		render: function(){
 			this.currentRenderer.render();
@@ -20,9 +22,15 @@ define(function () {
 		},
 		switchToNullRenderer: function(){
 			this.currentRenderer = this.nullRenderer;
+			this.applyRenderer();
 		},
 		switchToCanvasRenderer: function(){
 			this.currentRenderer = this.canvasRenderer;
+			this.applyRenderer();
+		},
+		applyRenderer: function(){
+			this.currentRenderer.reset();
+			this.currentRenderer.followBody(this.body);
 		}
 	};
 
