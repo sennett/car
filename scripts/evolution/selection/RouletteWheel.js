@@ -8,6 +8,10 @@ define(['underscore', 'core/util'], function (_, util) {
 	};
 
 	Roulette.prototype = {
+		getRandomGenome: function(selectableGenomes){
+			// who knows why this does not return sometimes.  don't care.  evolution baby.
+			return util.selectAtScore(selectableGenomes, _.random(0, 100)) || this.randomGenomeGenerator.getOne();
+		},
 		nextGeneration: function(genomes, generationSize){
 			// filter out negative scores
 			genomes = _.filter(genomes, function(genome){
@@ -23,10 +27,10 @@ define(['underscore', 'core/util'], function (_, util) {
 
 			var nextGeneration = [];
 			while(nextGeneration.length <= generationSize){
-				var parentOne = util.selectAtScore(genomes, _.random(0, 100));
+				var parentOne = this.getRandomGenome(genomes, _.random(0, 100));
 				var genomesWithoutParentOne = _.without(genomes, parentOne);
 
-				var parentTwo = util.selectAtScore(genomesWithoutParentOne, _.random(0, 100));
+				var parentTwo = this.getRandomGenome(genomesWithoutParentOne);
 
 				var children = this.genomeMater.mate(parentOne, parentTwo);
 				children.one.mutate();
