@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/README.md" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/bower.json" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/apps/AccountPermissionsApp.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/buildConfig.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/components/UserComponent.jsx" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/components/UserManagementComponent.jsx" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/controllerViews/AccountPermissionsControllerView.jsx" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/externalAPIs/accountPermissions.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/mainRequireJsConfig.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/src/testing/normalModule.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/tests/testingTheTests/normalModuleTest.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/app/tests/testsRequirejsConfig.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/karma.conf.js" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/package.json" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/test-harness/index.html" charset="UTF-8" />
+  </component>
 </project>
-
