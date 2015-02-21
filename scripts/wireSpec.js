@@ -1,6 +1,6 @@
 define({
 	$plugins: [
-		'wire/debug',
+		//'wire/debug',
 		'wire/dom'
 	],
 	app: {

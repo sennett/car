@@ -30,11 +30,21 @@ define(['underscore'], function (_) {
 
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
 			this.genomesSimulatedThisGeneration++;
+			this.printProgress();
 			return useGenome;
 		},
 		registerScore: function(score, forGenome){
 			forGenome.score = score;
 			this.scores.push(score);
+		},
+		printProgress: function(){
+			var string = "|";
+			for (var i = 0; i < this.genomesSimulatedThisGeneration; i++)
+				string += ".";
+			for (i = this.genomesSimulatedThisGeneration; i < generationSize; i++)
+				string += " ";
+			string += '|';
+			console.log(string);
 		}
 	};
 
