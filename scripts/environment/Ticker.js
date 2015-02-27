@@ -4,7 +4,7 @@ define(['underscore'], function (_) {
 	};
 
 	Ticker.prototype = {
-		interval: 0, // ms
+		interval: 16, // ms
 		ticksPerInterval: 1,
 		running: false,
 		tick: undefined,
