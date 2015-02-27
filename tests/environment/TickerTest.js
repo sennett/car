@@ -1,45 +1,44 @@
 define(['environment/Ticker'], function (Ticker) {
 	describe('Ticker', function () {
 		beforeEach(function(){
-			this.intervalMock = {some:"mock"};
-			this.intervalProviderSpy = jasmine.createSpyObj('intervalProviderSpy', ['setInterval', 'clearInterval']);
-			this.intervalProviderSpy.setInterval.and.returnValue(this.intervalMock);
+			this.timeoutMock = {some:"mock"};
+			this.timeoutProviderSpy = jasmine.createSpyObj('intervalProviderSpy', ['setTimeout', 'clearTimeout']);
+			this.timeoutProviderSpy.setTimeout.and.returnValue(this.timeoutMock);
 			this.interval = {a:'thing'};
-			this.ticker = new Ticker(this.intervalProviderSpy, this.interval);
-			this.ticker.setInterval(this.interval);
+			this.ticker = new Ticker(this.timeoutProviderSpy, this.interval);
 		});
 		describe('run', function(){
-			it('creates timeout with interval from VisibleTicker.setInterval', function(){
+			it('creates timeout with interval from VisibleTicker.setTimeout', function(){
 				this.ticker.run();
-				expect(this.intervalProviderSpy.setInterval.calls.mostRecent().args[1]).toBe(this.interval);
+				expect(this.timeoutProviderSpy.setTimeout).toHaveBeenCalled();
 			});
 		});
 		describe('stop', function(){
 			it('clears the interval provider with the same timeout ID', function(){
 				this.ticker.run();
 				this.ticker.stop();
-				expect(this.intervalProviderSpy.clearInterval).toHaveBeenCalledWith(this.intervalMock);
+				expect(this.timeoutProviderSpy.clearTimeout).toHaveBeenCalledWith(this.timeoutMock);
 			});
 		});
-		describe('setInterval', function(){
+		describe('speedUp and slowDown', function(){
 			describe('when running', function(){
 				beforeEach(function(){
-					this.secondIntervalMock = "my second interval mock";
+					this.secondTimeoutMock = "my second interval mock";
 					this.ticker.run();
-					this.ticker.setInterval(this.secondIntervalMock);
+					this.ticker.speedUp(this.secondTimeoutMock);
 				});
 				it('clears the current timeout', function(){
-					expect(this.intervalProviderSpy.clearInterval).toHaveBeenCalledWith(this.intervalMock);
+					expect(this.timeoutProviderSpy.clearTimeout).toHaveBeenCalledWith(this.timeoutMock);
 				});
 				it('makes a new timeout', function(){
-					expect(this.intervalProviderSpy.setInterval.calls.mostRecent().args[1]).toBe(this.secondIntervalMock);
+					expect(this.timeoutProviderSpy.setTimeout).toHaveBeenCalled();
 				});
 			});
 			describe('when stopped', function(){
 				it('does not touch interval provider', function(){
-					this.ticker.setInterval(this.intervalMock);
-					expect(this.intervalProviderSpy.setInterval).not.toHaveBeenCalled();
-					expect(this.intervalProviderSpy.clearInterval).not.toHaveBeenCalled();
+					this.ticker.speedUp(this.timeoutMock);
+					expect(this.timeoutProviderSpy.setTimeout).not.toHaveBeenCalled();
+					expect(this.timeoutProviderSpy.clearTimeout).not.toHaveBeenCalled();
 				});
 			});
 		})

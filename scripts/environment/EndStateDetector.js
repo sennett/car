@@ -2,27 +2,32 @@ define(function () {
 	var EndStateDetector = function(){};
 	EndStateDetector.prototype = {
 
-		timeTollerance: 1000, // milliseconds
-		tickTollerance: 200,
+		timeTolerance: 1000, // milliseconds
+		tickTolerance: 200,
 
 		initialise: function(carBody){
 			this.lastContact = Date.now().valueOf();
 			this.carBody = carBody;
+			this.resetTicks();
 		},
 
 		simulationEnded: function(){
 			this.ticks++;
 
-			return (
-				!this.carBody.IsAwake()
-					|| this.ticks > this.tickTollerance
-					|| Date.now().valueOf() > this.lastContact + this.timeTollerance
-			);
+			var carBodySleeping = !this.carBody.IsAwake();
+			var ticksOverrun = this.ticks > this.tickTolerance;
+			var timeOverrun = Date.now().valueOf() > this.lastContact + this.timeTolerance;
+
+			return carBodySleeping || ticksOverrun || timeOverrun;
+		},
+
+		resetTicks: function(){
+			this.ticks = 0;
 		},
 
 		// b2ContactListener
 		BeginContact: function(){
-			this.ticks = 0;
+			this.resetTicks();
 			this.lastContact = Date.now().valueOf();
 		},
 		PreSolve: function(){},

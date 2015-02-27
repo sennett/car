@@ -16,13 +16,13 @@ define(['underscore'], function (_) {
 			this.rendererSwitcher.switchToCanvasRenderer();
 			this.button.innerHTML = 'fast forward';
 			this.speed = this.speeds.slow;
-			this.ticker.ticksPerInterval = 1;
+			this.ticker.slowDown();
 		},
 		speedUp: function(){
 			this.rendererSwitcher.switchToNullRenderer();
 			this.button.innerHTML = 'slow down';
 			this.speed = this.speeds.fast;
-			this.ticker.ticksPerInterval = 1000;
+			this.ticker.speedUp();
 		},
 		handleEvent: function(){
 			if (this.speed == this.speeds.fast) {
