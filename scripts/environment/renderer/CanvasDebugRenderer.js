@@ -26,6 +26,7 @@ define(['box2dweb'], function (Box2D) {
 			this.followedBodyPosition = body.GetPosition();
 			this.previousBodyX = atRenderScale(this.followedBodyPosition.x);
 			this.previousBodyY = atRenderScale(this.followedBodyPosition.y);
+			this.drawContext.translate(atRenderScale(this.followedBodyPosition.x - 5), atRenderScale(this.followedBodyPosition.y - 12));
 		},
 
 		render: function(){
