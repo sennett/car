@@ -2,8 +2,8 @@ define(function () {
 	var EndStateDetector = function(){};
 	EndStateDetector.prototype = {
 
-		timeTollerance: 1000, // milliseconds
-		tickTollerance: 200,
+		timeTolerance: 1000, // milliseconds
+		tickTolerance: 200,
 
 		initialise: function(carBody){
 			this.lastContact = Date.now().valueOf();
@@ -15,8 +15,8 @@ define(function () {
 
 			return (
 				!this.carBody.IsAwake()
-					//|| this.ticks > this.tickTollerance
-					|| Date.now().valueOf() > this.lastContact + this.timeTollerance
+					//|| this.ticks > this.tickTolerance
+					|| Date.now().valueOf() > this.lastContact + this.timeTolerance
 			);
 		},
 
