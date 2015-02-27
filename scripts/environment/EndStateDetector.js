@@ -15,7 +15,7 @@ define(function () {
 
 			return (
 				!this.carBody.IsAwake()
-					|| this.ticks > this.tickTollerance
+					//|| this.ticks > this.tickTollerance
 					|| Date.now().valueOf() > this.lastContact + this.timeTollerance
 			);
 		},
