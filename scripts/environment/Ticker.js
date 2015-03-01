@@ -13,6 +13,15 @@ define(['underscore'], function (_) {
 		run();
 	};
 
+	var _setInterval = function(interval){
+		var wasRunning = this.running;
+		if (this.running)
+			this.stop();
+		this.interval = interval;
+		if (wasRunning)
+			_run.call(this);
+	};
+
 	Ticker.prototype = {
 		intervals: { // ms
 			fast: 0,
@@ -21,15 +30,6 @@ define(['underscore'], function (_) {
 		interval: 16, // ms
 		running: false,
 		tick: undefined,
-
-		_setInterval: function(interval){
-			var wasRunning = this.running;
-			if (this.running)
-				this.stop();
-			this.interval = interval;
-			if (wasRunning)
-				_run.call(this);
-		},
 
 		run: function(tick){
 			this.tick = tick;
@@ -42,11 +42,11 @@ define(['underscore'], function (_) {
 		},
 
 		speedUp: function(){
-			this._setInterval(this.intervals.fast);
+			_setInterval.call(this, this.intervals.fast);
 		},
 
 		slowDown: function(){
-			this._setInterval(this.intervals.slow);
+			_setInterval(this, this.intervals.slow);
 		}
 	};
 
