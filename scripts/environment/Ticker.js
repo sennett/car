@@ -2,7 +2,6 @@ define(['underscore'], function (_) {
 	var Ticker = function(timeoutProvider){
 		this.timeoutProvider = timeoutProvider;
 	};
-	var _runCallCount = 0;
 	Ticker.prototype = {
 		intervals: { // ms
 			fast: 0,
@@ -15,11 +14,11 @@ define(['underscore'], function (_) {
 		_run: function(){
 			this.running = true;
 			var run = function(){
-				this.tick();
+				// deferred because the tick function could stop the ticker
+				_.defer(this.tick);
 				this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
 			}.bind(this);
 			run();
-			//this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
 		},
 
 		_setInterval: function(interval){
@@ -32,13 +31,11 @@ define(['underscore'], function (_) {
 		},
 
 		run: function(tick){
-			//console.log('run');
 			this.tick = tick;
 			this._run();
 		},
 
 		stop: function(){
-			//console.log('stop');
 			this.timeoutProvider.clearTimeout(this.timeoutId);
 			this.running = false;
 		},
