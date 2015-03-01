@@ -5,21 +5,21 @@ define(['underscore'], function (_) {
 	var _runCallCount = 0;
 	Ticker.prototype = {
 		intervals: { // ms
-			fast: 1,
+			fast: 0,
 			slow: 16
 		},
 		interval: 16, // ms
 		running: false,
 		tick: undefined,
-		simulation: undefined,
 
 		_run: function(){
 			this.running = true;
 			var run = function(){
-				this.tick.call(this.simulation);
+				this.tick();
 				this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
 			}.bind(this);
-			this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
+			run();
+			//this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
 		},
 
 		_setInterval: function(interval){
@@ -31,13 +31,14 @@ define(['underscore'], function (_) {
 				this._run();
 		},
 
-		run: function(tick, simulation){
+		run: function(tick){
+			//console.log('run');
 			this.tick = tick;
-			this.simulation = simulation;
 			this._run();
 		},
 
 		stop: function(){
+			//console.log('stop');
 			this.timeoutProvider.clearTimeout(this.timeoutId);
 			this.running = false;
 		},

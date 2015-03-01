@@ -1,6 +1,7 @@
 define(['environment/groundData'], function(groundData) {
 
 	var tick = function(){
+		console.log('tick');
 		if (this.endStateDetector.simulationEnded())
 			this.end();
 		this.world.Step(
@@ -34,7 +35,7 @@ define(['environment/groundData'], function(groundData) {
 			car.initialisePhysicsBodies(this.world);
 			this.renderer.followBody(this.car.body);
 			this.endStateDetector.initialise(this.car.body);
-			this.ticker.run(tick, this);
+			this.ticker.run(tick.bind(this));
 		},
 
 		end: function(){
