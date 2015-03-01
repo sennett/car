@@ -25,11 +25,11 @@ define(['box2dweb'], function (Box2D) {
 		this.followedBodyPosition = body.GetPosition();
 		this.previousBodyX = atRenderScale(this.followedBodyPosition.x);
 		this.previousBodyY = atRenderScale(this.followedBodyPosition.y);
-		this.drawContext.translate(atRenderScale(this.followedBodyPosition.x - 5), atRenderScale(this.followedBodyPosition.y - 12));
+		this.drawContext.translate(atRenderScale(5 - this.followedBodyPosition.x), atRenderScale(12 - this.followedBodyPosition.y));
 	};
 
 	CanvasDebugRenderer.prototype.render = function(){
-		var currentBodyX = atRenderScale(this.followedBodyPosition.x),
+			var currentBodyX = atRenderScale(this.followedBodyPosition.x),
 			currentBodyY = atRenderScale(this.followedBodyPosition.y);
 		var xdiff = this.previousBodyX - currentBodyX,
 			ydiff = this.previousBodyY - currentBodyY;

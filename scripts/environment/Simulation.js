@@ -1,7 +1,6 @@
 define(['environment/groundData'], function(groundData) {
 
 	var tick = function(){
-		console.log('tick');
 		if (this.endStateDetector.simulationEnded())
 			this.end();
 		this.world.Step(
@@ -14,7 +13,6 @@ define(['environment/groundData'], function(groundData) {
 	};
 
 	var Simulation = function(physicsWorldProvider, renderer, ticker, endStateDetector, ground, fastForwardDomNode) {
-		console.log(fastForwardDomNode);
 		this.physicsWorldProvider = physicsWorldProvider;
 		this.renderer = renderer;
 		this.ticker = ticker;
