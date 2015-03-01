@@ -10,7 +10,7 @@ define(['underscore'], function (_) {
 
 		timeTolerance: 2000, // milliseconds
 		tickTolerance: 500, // ticks
-		timeOverRunAfter: 5000, // ms
+		timeOverRunAfter: 2000, // ms
 
 		initialise: function(carBody){
 			reset.call(this);
