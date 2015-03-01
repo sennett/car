@@ -11,7 +11,8 @@ define(['box2dweb', 'core/appConfig'], function (Box2D, config) {
 		this.world = world;
 		this.renderTarget = document.getElementById("worldRender");
 		this.drawContext = this.renderTarget.getContext("2d");
-		//this.drawContext.translate(0, -);
+		// render car in middle of canvas (y)
+		this.drawContext.translate(0, -(atRenderScale(config.startPosition.y) - this.renderTarget.height / 2));
 		var debugDraw = new Box2D.Dynamics.b2DebugDraw();
 		debugDraw.SetSprite(this.drawContext);
 		debugDraw.SetDrawScale(drawScale);
