@@ -5,14 +5,9 @@ define(['underscore'], function(_) {
     
     CurrentScoreView.prototype = _.extend(CurrentScoreView.prototype, {
 		timesUpdated: 0,
-		updateCurrentScore: function(score){
-			// todo: use throttle
-			this.timesUpdated++;
-			if (this.timesUpdated > 50){
-				this.element.innerHTML = score;
-				this.timesUpdated = 0;
-			}
-		}
+		updateCurrentScore: _.throttle(function(score){
+			this.element.innerHTML = score;
+		}, 100)
 	});
     
     return CurrentScoreView;
