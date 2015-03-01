@@ -1,7 +1,13 @@
-define(function() {
-    var CurrentScoreView = function(){};
+define(['underscore'], function(_) {
+    var CurrentScoreView = function(){
+		this.element = document.getElementById('current-score');
+	};
     
-    CurrentScoreView.prototype = {};
+    CurrentScoreView.prototype = _.extend(CurrentScoreView.prototype, {
+		updateCurrentScore: function(score){
+			this.element.innerHTML = score;
+		}
+	});
     
     return CurrentScoreView;
 });

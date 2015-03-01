@@ -94,5 +94,15 @@ define({
 			module: 'environment/FastForward',
 			args: [{$ref: 'facadeRenderer'}, {$ref: 'ticker'}]
 		}
+	},
+
+	// UI
+
+	currentScorePresenter: {
+		create: {
+			module: 'ui/presenters/CurrentScorePresenter',
+			args: [{$ref: 'simulation'}]
+		},
+		ready: 'createView'
 	}
 });

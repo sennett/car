@@ -1,4 +1,4 @@
-define(['environment/groundData'], function(groundData) {
+define(['underscore', 'environment/groundData'], function(_, groundData) {
 
 	var tick = function(){
 		if (this.endStateDetector.simulationEnded())
@@ -9,7 +9,14 @@ define(['environment/groundData'], function(groundData) {
 			,  10       //position iterations
 		);
 		this.renderer.render();
+		_.each(this.onUpdateScore, function(cb){
+			cb(getScore.call(this));
+		}, this);
 		this.world.ClearForces();
+	};
+
+	var getScore = function(){
+		return this.car.body.GetPosition().x;
 	};
 
 	var Simulation = function(physicsWorldProvider, renderer, ticker, endStateDetector, ground, fastForwardDomNode) {
@@ -41,12 +48,14 @@ define(['environment/groundData'], function(groundData) {
 			this.renderer.reset();
 			this.car.destroyPhysicsBodies();
 			if (this.stopCallback)
-				this.stopCallback(this.car.body.GetPosition().x);
+				this.stopCallback(getScore.call(this));
 		},
 
 		onStop: function(callback) {
 			this.stopCallback = callback;
-		}
+		},
+
+		onUpdateScore: []
 	};
 
 	return Simulation;
