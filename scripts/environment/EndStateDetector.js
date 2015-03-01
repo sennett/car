@@ -3,8 +3,8 @@ define(function () {
 	EndStateDetector.prototype = {
 
 		timeTolerance: 2000, // milliseconds
-		tickTolerance: 500,
-		timeOverRunAfter: 10000,
+		tickTolerance: 500, // ticks
+		timeOverRunAfter: 5000, // ms
 
 		initialise: function(carBody){
 			this.startTime = Date.now().valueOf();
@@ -16,12 +16,12 @@ define(function () {
 		simulationEnded: function(){
 			this.ticks++;
 
-			var carBodySleepingLater = !this.carBody.IsAwake();
+			var carBodySleeping = !this.carBody.IsAwake();
 			var ticksOverrun = this.ticks > this.tickTolerance;
 			var timeCanOverrun = Date.now().valueOf() > this.startTime + this.timeOverRunAfter;
 			var timeOverrun = Date.now().valueOf() > this.lastContact + this.timeTolerance && timeCanOverrun;
 
-			return carBodySleepingLater || ticksOverrun || timeOverrun;
+			return carBodySleeping || ticksOverrun || timeOverrun;
 		},
 
 		resetTicks: function(){
