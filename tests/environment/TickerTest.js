@@ -20,8 +20,8 @@ define(['environment/Ticker'], function (Ticker) {
 				expect(this.timeoutProviderSpy.clearTimeout).toHaveBeenCalledWith(this.timeoutMock);
 			});
 		});
-		describe('speedUp and slowDown', function(){
-			xdescribe('when running', function(){
+		xdescribe('speedUp and slowDown', function(){
+			describe('when running', function(){
 				beforeEach(function(done){
 					this.ticker.run(done);
 					this.ticker.speedUp();
