@@ -1,4 +1,4 @@
-define(['box2dweb'], function (Box2Dz) {
+define(['box2dweb'], function (Box2D) {
 	var drawScale = 30;
 
 	var atRenderScale = function(worldScale){
@@ -27,6 +27,7 @@ define(['box2dweb'], function (Box2Dz) {
 		this.previousBodyY = atRenderScale(this.followedBodyPosition.y);
 		this.drawContext.translate(atRenderScale(this.followedBodyPosition.x - 5), atRenderScale(this.followedBodyPosition.y - 12));
 	};
+
 	CanvasDebugRenderer.prototype.render = function(){
 		var currentBodyX = atRenderScale(this.followedBodyPosition.x),
 			currentBodyY = atRenderScale(this.followedBodyPosition.y);
