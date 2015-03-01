@@ -5,14 +5,11 @@ define(['box2dweb', 'core/appConfig'], function (Box2D, config) {
 		return worldScale * drawScale;
 	};
 
-	var CanvasDebugRenderer =  function(){};
-
-	CanvasDebugRenderer.prototype.initialise = function(world){
-		this.world = world;
-		this.renderTarget = document.getElementById("worldRender");
-		this.drawContext = this.renderTarget.getContext("2d");
-		// render car in middle of canvas (y)
+	var centerCavasOnStartPosition = function(){
 		this.drawContext.translate(0, -(atRenderScale(config.startPosition.y) - this.renderTarget.height / 2));
+	};
+
+	var configureDebugDraw = function(){
 		var debugDraw = new Box2D.Dynamics.b2DebugDraw();
 		debugDraw.SetSprite(this.drawContext);
 		debugDraw.SetDrawScale(drawScale);
@@ -20,6 +17,16 @@ define(['box2dweb', 'core/appConfig'], function (Box2D, config) {
 		debugDraw.SetLineThickness(1.0);
 		debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
 		this.world.SetDebugDraw(debugDraw);
+	};
+
+	var CanvasDebugRenderer =  function(){};
+
+	CanvasDebugRenderer.prototype.initialise = function(world){
+		this.world = world;
+		this.renderTarget = document.getElementById("worldRender");
+		this.drawContext = this.renderTarget.getContext("2d");
+		centerCavasOnStartPosition.call(this);
+		configureDebugDraw.call(this);
 	};
 
 	CanvasDebugRenderer.prototype.followBody = function(body){
