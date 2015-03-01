@@ -9,7 +9,7 @@ define(['underscore'], function (_) {
 	EndStateDetector.prototype = _.extend(EndStateDetector.prototype, {
 
 		timeTolerance: 2000, // milliseconds
-		tickTolerance: 500, // ticks
+		tickTolerance: 120, // ticks
 		timeOverRunAfter: 2000, // ms
 
 		initialise: function(carBody){
