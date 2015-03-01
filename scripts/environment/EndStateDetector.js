@@ -1,8 +1,8 @@
 define(['underscore'], function (_) {
 
 	var reset = function(){
-		this.ticks = 0;
-		this.lastContact = Date.now().valueOf();
+		this.ticksSinceLastContact = 0;
+		this.timeOfLastContact = Date.now().valueOf();
 	};
 
 	var EndStateDetector = function(){};
@@ -11,20 +11,24 @@ define(['underscore'], function (_) {
 		timeTolerance: 2000, // milliseconds
 		tickTolerance: 120, // ticks
 		timeOverRunAfter: 2000, // ms
+		ticksCanOverRunAfter: 120, // ticks
 
 		initialise: function(carBody){
 			reset.call(this);
 			this.startTime = Date.now().valueOf();
+			this.totalTicks = 0;
 			this.carBody = carBody;
 		},
 
 		simulationEnded: function(){
-			this.ticks++;
+			this.ticksSinceLastContact++;
+			this.totalTicks++;
 
 			var carBodySleeping = !this.carBody.IsAwake();
-			var ticksOverrun = this.ticks > this.tickTolerance;
+			var ticksCanOverrun = this.totalTicks > this.ticksCanOverRunAfter;
+			var ticksOverrun = this.ticksSinceLastContact > this.tickTolerance && ticksCanOverrun;
 			var timeCanOverrun = Date.now().valueOf() > this.startTime + this.timeOverRunAfter;
-			var timeOverrun = Date.now().valueOf() > this.lastContact + this.timeTolerance && timeCanOverrun;
+			var timeOverrun = Date.now().valueOf() > this.timeOfLastContact + this.timeTolerance && timeCanOverrun;
 
 			return carBodySleeping || ticksOverrun || timeOverrun;
 		},
