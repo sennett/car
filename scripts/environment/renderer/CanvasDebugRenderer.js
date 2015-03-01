@@ -1,4 +1,4 @@
-define(['box2dweb'], function (Box2D) {
+define(['box2dweb', 'core/appConfig'], function (Box2D, config) {
 	var drawScale = 30;
 
 	var atRenderScale = function(worldScale){
@@ -11,6 +11,7 @@ define(['box2dweb'], function (Box2D) {
 		this.world = world;
 		this.renderTarget = document.getElementById("worldRender");
 		this.drawContext = this.renderTarget.getContext("2d");
+		//this.drawContext.translate(0, -);
 		var debugDraw = new Box2D.Dynamics.b2DebugDraw();
 		debugDraw.SetSprite(this.drawContext);
 		debugDraw.SetDrawScale(drawScale);
@@ -25,7 +26,9 @@ define(['box2dweb'], function (Box2D) {
 		this.followedBodyPosition = body.GetPosition();
 		this.previousBodyX = atRenderScale(this.followedBodyPosition.x);
 		this.previousBodyY = atRenderScale(this.followedBodyPosition.y);
-		this.drawContext.translate(atRenderScale(5 - this.followedBodyPosition.x), atRenderScale(12 - this.followedBodyPosition.y));
+		this.drawContext.translate(
+			atRenderScale(config.startPosition.x - this.followedBodyPosition.x),
+			atRenderScale(config.startPosition.y - this.followedBodyPosition.y));
 	};
 
 	CanvasDebugRenderer.prototype.render = function(){

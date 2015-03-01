@@ -1,4 +1,4 @@
-define(['box2dweb', 'underscore'], function(Box2D, _){
+define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var b2BodyDef = Box2D.Dynamics.b2BodyDef;
 	var b2Body = Box2D.Dynamics.b2Body;
 	var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
@@ -6,7 +6,7 @@ define(['box2dweb', 'underscore'], function(Box2D, _){
 	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
-	var startPosition = new b2Vec2(5, 12);
+	var startPosition = new b2Vec2(config.startPosition.x, config.startPosition.y);
 
 	var createSubBodyFixtureDef = function(point1, point2){
 		var points = [new b2Vec2(0,0), point1, point2];
