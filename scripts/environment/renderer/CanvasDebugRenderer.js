@@ -6,7 +6,7 @@ define(['box2dweb', 'core/appConfig'], function (Box2D, config) {
 	};
 
 	var centerCavasOnStartPosition = function(){
-		this.drawContext.translate(0, -(atRenderScale(config.startPosition.y) - this.renderTarget.height / 2));
+		this.drawContext.translate(atRenderScale(5), -(atRenderScale(config.startPosition.y) - this.renderTarget.height / 2));
 	};
 
 	var configureDebugDraw = function(){

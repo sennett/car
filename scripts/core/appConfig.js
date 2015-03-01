@@ -1,7 +1,7 @@
 define(function() {
     return {
 		startPosition: {
-			x: 5,
+			x: 0,
 			y: 12
 		}
 	}

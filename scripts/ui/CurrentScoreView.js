@@ -6,7 +6,7 @@ define(['underscore'], function(_) {
     CurrentScoreView.prototype = _.extend(CurrentScoreView.prototype, {
 		timesUpdated: 0,
 		updateCurrentScore: _.throttle(function(score){
-			this.element.innerHTML = score;
+			this.element.innerHTML = Math.round(score * 100) / 100;
 		}, 100)
 	});
     
