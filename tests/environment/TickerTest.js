@@ -9,13 +9,13 @@ define(['environment/Ticker'], function (Ticker) {
 		});
 		describe('run', function(){
 			it('creates timeout with interval from VisibleTicker.setTimeout', function(){
-				this.ticker.run();
+				this.ticker.run(function(){});
 				expect(this.timeoutProviderSpy.setTimeout).toHaveBeenCalled();
 			});
 		});
 		describe('stop', function(){
 			it('clears the interval provider with the same timeout ID', function(){
-				this.ticker.run();
+				this.ticker.run(function(){});
 				this.ticker.stop();
 				expect(this.timeoutProviderSpy.clearTimeout).toHaveBeenCalledWith(this.timeoutMock);
 			});
@@ -24,7 +24,7 @@ define(['environment/Ticker'], function (Ticker) {
 			describe('when running', function(){
 				beforeEach(function(){
 					this.secondTimeoutMock = "my second interval mock";
-					this.ticker.run();
+					this.ticker.run(function(){});
 					this.ticker.speedUp(this.secondTimeoutMock);
 				});
 				it('clears the current timeout', function(){

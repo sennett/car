@@ -2,6 +2,17 @@ define(['underscore'], function (_) {
 	var Ticker = function(timeoutProvider){
 		this.timeoutProvider = timeoutProvider;
 	};
+
+	var _run = function(){
+		this.running = true;
+		var run = function(){
+			// deferred because the tick function could stop the ticker
+			_.defer(this.tick);
+			this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
+		}.bind(this);
+		run();
+	};
+
 	Ticker.prototype = {
 		intervals: { // ms
 			fast: 0,
@@ -11,28 +22,18 @@ define(['underscore'], function (_) {
 		running: false,
 		tick: undefined,
 
-		_run: function(){
-			this.running = true;
-			var run = function(){
-				// deferred because the tick function could stop the ticker
-				_.defer(this.tick);
-				this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
-			}.bind(this);
-			run();
-		},
-
 		_setInterval: function(interval){
 			var wasRunning = this.running;
 			if (this.running)
 				this.stop();
 			this.interval = interval;
 			if (wasRunning)
-				this._run();
+				_run.call(this);
 		},
 
 		run: function(tick){
 			this.tick = tick;
-			this._run();
+			_run.call(this);
 		},
 
 		stop: function(){

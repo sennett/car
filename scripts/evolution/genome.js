@@ -4,7 +4,7 @@ define(['core/util', 'underscore'], function (util, _) {
 	var minRadius = 0.1;
 	var maxRadius = 1;
 	var totalVertices = 8;
-	var maxWheels = 2;
+	var maxWheels = 0;
 	var chanceOfMutation = 0.05;
 
 	return {
