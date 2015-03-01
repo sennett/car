@@ -1,16 +1,21 @@
-define(function () {
+define(['underscore'], function (_) {
+
+	var reset = function(){
+		this.ticks = 0;
+		this.lastContact = Date.now().valueOf();
+	};
+
 	var EndStateDetector = function(){};
-	EndStateDetector.prototype = {
+	EndStateDetector.prototype = _.extend(EndStateDetector.prototype, {
 
 		timeTolerance: 2000, // milliseconds
 		tickTolerance: 500, // ticks
 		timeOverRunAfter: 5000, // ms
 
 		initialise: function(carBody){
+			reset.call(this);
 			this.startTime = Date.now().valueOf();
-			this.lastContact = Date.now().valueOf();
 			this.carBody = carBody;
-			this.resetTicks();
 		},
 
 		simulationEnded: function(){
@@ -24,19 +29,14 @@ define(function () {
 			return carBodySleeping || ticksOverrun || timeOverrun;
 		},
 
-		resetTicks: function(){
-			this.ticks = 0;
-		},
-
 		// b2ContactListener
 		BeginContact: function(){
-			this.resetTicks();
-			this.lastContact = Date.now().valueOf();
+			reset.call(this);
 		},
 		PreSolve: function(){},
 		EndContact: function () {},
 		PostSolve: function(){}
-	};
+	});
 
 	return EndStateDetector;
 });
