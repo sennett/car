@@ -26,8 +26,17 @@ Todo:
     - End state - new detector based on ticks rather than time
 - ~~mutation (tidy up genes first - use common definition and move min/max to genome)~~
 - ~~crossover~~
-- tweak values/end-state for decent evolution
+- ~~tweak values/end-state for decent evolution~~
 - get some values displaying what is going on on the page
+  - current car score
+  - row per generation
+    - generation average
+    - current place in generation
+    - new highscore in generation
+    - info on current car
+      - current and final score
+      - genome (picture)
+      - new highscore
 - runtime production config - libs from CDN (with local fallback)
 - DOM from wire.js
 - tournament selection
