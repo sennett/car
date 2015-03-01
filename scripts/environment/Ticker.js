@@ -14,15 +14,17 @@ define(['underscore'], function (_) {
 	};
 
 	var _setInterval = function(interval){
-		var wasRunning = this.running;
-		if (this.running)
-			this.stop();
-		this.interval = interval;
-		if (wasRunning)
-			_run.call(this);
+		_.defer(function(){
+			var wasRunning = this.running;
+			if (this.running)
+				this.stop();
+			this.interval = interval;
+			if (wasRunning)
+				_run.call(this);
+		}.bind(this));
 	};
 
-	Ticker.prototype = {
+	Ticker.prototype = _.extend(Ticker.prototype, {
 		intervals: { // ms
 			fast: 0,
 			slow: 16
@@ -46,9 +48,9 @@ define(['underscore'], function (_) {
 		},
 
 		slowDown: function(){
-			_setInterval(this, this.intervals.slow);
+			_setInterval.call(this, this.intervals.slow);
 		}
-	};
+	});
 
 	return Ticker;
 });
