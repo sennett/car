@@ -4,8 +4,14 @@ define(['underscore'], function(_) {
 	};
     
     CurrentScoreView.prototype = _.extend(CurrentScoreView.prototype, {
+		timesUpdated: 0,
 		updateCurrentScore: function(score){
-			this.element.innerHTML = score;
+			// todo: use throttle
+			this.timesUpdated++;
+			if (this.timesUpdated > 50){
+				this.element.innerHTML = score;
+				this.timesUpdated = 0;
+			}
 		}
 	});
     
