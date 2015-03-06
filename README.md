@@ -28,7 +28,7 @@ Todo:
 - ~~crossover~~
 - ~~tweak values/end-state for decent evolution~~
 - get some values displaying what is going on on the page
-  - current car score
+  - ~~current car score~~
   - row per generation
     - generation average
     - current place in generation
