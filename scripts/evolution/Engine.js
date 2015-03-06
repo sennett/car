@@ -22,7 +22,7 @@ define(['underscore'], function (_) {
 			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
 	};
 
-	Engine.prototype = {
+	Engine.prototype = _.extend(Engine.prototype, {
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
@@ -54,7 +54,7 @@ define(['underscore'], function (_) {
 				output += " new highscore: " + this.highScore;
 			console.log(output);
 		}
-	};
+	});
 
 	return Engine;
 });
