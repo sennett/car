@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "wire": "~0.10.9"
+    "wire": "~0.10.9",
+    "ractive": "~0.6.1"
   }
 }

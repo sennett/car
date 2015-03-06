@@ -98,9 +98,9 @@ define({
 
 	// UI
 
-	currentScoreView: {
+	currentStateView: {
 		create: {
-			module: 'ui/CurrentScoreView',
+			module: 'ui/CurrentStateView',
 			args: [{$ref: 'simulation'}]
 		}
 	}
