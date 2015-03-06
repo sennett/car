@@ -98,11 +98,11 @@ define({
 
 	// UI
 
-	currentScorePresenter: {
+	currentScoreView: {
 		create: {
-			module: 'ui/presenters/CurrentScorePresenter',
+			module: 'ui/CurrentScoreView',
 			args: [{$ref: 'simulation'}]
-		},
-		ready: 'createView'
+		}
 	}
+
 });

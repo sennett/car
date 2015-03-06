@@ -1,16 +1,8 @@
-define(['underscore', 'ui/CurrentScoreView'], function(_, CurrentScoreView) {
+define(function() {
 
-    var CurrentScorePresenter = function(currentScoreProvider){
-		this.currentScoreProvider = currentScoreProvider;
+    var CurrentScorePresenter = function(view, currentScoreProvider){
+		currentScoreProvider.onUpdateScore.push(view.updateCurrentScore.bind(view));
 	};
-    
-    CurrentScorePresenter.prototype = _.extend(CurrentScorePresenter.prototype, {
-		createView: function(){
-			var view = new CurrentScoreView();
-			this.currentScoreProvider.onUpdateScore.push(view.updateCurrentScore.bind(view));
-			return view;
-		}
-	});
     
     return CurrentScorePresenter;
 });

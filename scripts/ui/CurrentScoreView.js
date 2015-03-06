@@ -1,5 +1,7 @@
-define(['underscore'], function(_) {
-    var CurrentScoreView = function(){
+define(['underscore', 'ui/presenters/CurrentScorePresenter'], function(_, CurrentScorePresenter) {
+
+    var CurrentScoreView = function(currentScoreProvider){
+		new CurrentScorePresenter(this, currentScoreProvider)
 		this.element = document.getElementById('current-score');
 	};
     
