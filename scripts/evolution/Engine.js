@@ -1,10 +1,9 @@
 define(['underscore'], function (_) {
-	var generationSize = 20;
 
 	var createNextGeneration = function(){
 		var scoreSum = _.reduce(this.scores,function(memo, num){ return memo + num; }, 0);
 		var averageScore = scoreSum / this.scores.length;
-		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes, generationSize);
+		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes, this.generationSize);
 		this.genomesSimulatedThisGeneration = 0;
 		this.currentGeneration++;
 		this.scores = [];
@@ -18,15 +17,16 @@ define(['underscore'], function (_) {
 		this.scores = [];
 		this.highScore = 0;
 
-		for (var i = 0; i < generationSize; i++)
+		for (var i = 0; i < this.generationSize; i++)
 			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
+		generationSize: 20,
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
-			if (this.genomesSimulatedThisGeneration === generationSize)
+			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);
 
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
@@ -47,7 +47,7 @@ define(['underscore'], function (_) {
 			var output = "|";
 			for (var i = 0; i < this.genomesSimulatedThisGeneration; i++)
 				output += ".";
-			for (i = this.genomesSimulatedThisGeneration; i < generationSize; i++)
+			for (i = this.genomesSimulatedThisGeneration; i < this.generationSize; i++)
 				output += " ";
 			output += '|';
 			if (printHighscore)
