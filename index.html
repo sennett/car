@@ -13,7 +13,7 @@
             margin: 0 auto;
             display: block;
         }
-        #current-score {
+        .current-score {
             font-size: 20px;
             text-align: center;
         }
@@ -25,11 +25,12 @@
 </head>
 <body>
 <canvas width="800" height="300" id="worldRender"></canvas>
+<script type="text/ractive-template" id="currentStateTemplate">
+    <div class="current-score">{{score}}</div>
+    <button on-click="changeSpeed">{{speed}}</button>
+</script>
 <div id="hud">
-    <div class="currentState">
-        <div class="currentScore" id="current-score"></div>
-        <button class="fastForward" id="fastForward">fast forward</button>
-    </div>
+    <div id="currentState"></div>
     <ul>
         <li class="generation">
             <div class="progress"></div>

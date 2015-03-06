@@ -8,7 +8,8 @@ require.config({
 	],
 	paths:{
 		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
-		underscore: 'vendor/underscore'
+		underscore: 'vendor/underscore',
+		ractive: '../bower_components/ractive/ractive'
 	},
 	shim: {
 		box2dweb: {
