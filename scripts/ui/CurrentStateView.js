@@ -1,4 +1,8 @@
-define(['underscore', 'ui/presenters/CurrentStatePresenter', 'ractive'], function(_, CurrentStatePresenter, Ractive) {
+define([
+	'underscore',
+	'ractive',
+	'ui/presenters/CurrentStatePresenter',
+	'rv!ui/templates/CurrentStateTemplate'], function(_, Ractive, CurrentStatePresenter, template) {
 
 	var speedChangeClick = function(){
 		this.onChangeSpeedRequest();
@@ -7,7 +11,7 @@ define(['underscore', 'ui/presenters/CurrentStatePresenter', 'ractive'], functio
     var CurrentStateView = function(currentScoreProvider, speedChanger){
 		var view = new Ractive({
 			el: '#currentState',
-			template: '#currentStateTemplate',
+			template: template,
 			data: {
 				score: 0,
 				speed: 'fast forward'
