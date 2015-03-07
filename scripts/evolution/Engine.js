@@ -27,17 +27,19 @@ define(['underscore'], function (_) {
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
-		generationSize: 20,
+		generationSize: 6,
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
 			if (this.currentGeneration == 0)
 				createFirstGeneration.call(this);
+			else
+				this.onMemberRan(this.genomesSimulatedThisGeneration + 1);
 
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);
 
-			this.onStartMember(this.genomesSimulatedThisGeneration + 1);
+			this.onRunningMember(this.genomesSimulatedThisGeneration + 1);
 
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
 			this.genomesSimulatedThisGeneration++;

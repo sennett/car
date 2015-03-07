@@ -7,18 +7,24 @@ define([
 			template: template,
 			append: true,
 			computed:{
-				display: function(){
-					return this.get('currentMember') && this.get('generationSize') ? 'block' : "none";
-				},
 				percentComplete: function(){
-					return (this.get('currentMember') - 1) / this.get('generationSize') * 100;
+					return this.get('lastMemberComplete') / this.get('generationSize') * 100;
+				},
+				progressBarUnitPercentage: function(){
+					return 1 / this.get('generationSize') * 100;
+				},
+				displayCurrentlyRunningMember: function(){
+					return this.get('lastMemberComplete') != this.get('generationSize');
 				}
-			},
-			addMember: function(member){
-				this.set('currentMember', member);
 			},
 			setGenerationSize: function(generationSize){
 				this.set('generationSize', generationSize);
+			},
+			runningMember: function(member){
+				this.set('lastMemberComplete', member - 1);
+			},
+			memberComplete: function(member){
+				this.set('lastMemberComplete', member);
 			}
 		});
 

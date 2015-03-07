@@ -15,17 +15,16 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
+			'scripts/main.js',
 			'tests/test-main.js',
 			// unit-test files
 			{pattern: 'tests/**/*.js', included: false},
 			// application files
-			{pattern: 'scripts/**/*.js', included: false}
+			{pattern: 'scripts/**/*.*', included: false},
+			{pattern: 'bower_components/**/*.js', included: false}
 		],
 
-		exclude: [
-			// exclude runtime/build configs from tests
-			'scripts/*.js'
-		],
+
 
 
 		// preprocess matching files before serving them to the browser

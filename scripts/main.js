@@ -17,9 +17,10 @@ require.config({
 			exports: 'Box2D'
 		}
 	},
-	waitSeconds: 1
+	waitSeconds: 1,
+	deps: ['wire!wireSpec']
 });
 
-define(['wire!wireSpec'], function () {
-	return {};
-});
+//define(['wire!wireSpec'], function () {
+//	return {};
+//});

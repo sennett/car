@@ -1,7 +1,7 @@
-<li style="display: {{display}}">
-    running member: {{currentMember}}/{{generationSize}}
+<li style="display: block">
     <div class="progress">
         <div class="complete" style="width: {{percentComplete}}%"></div>
-        <div class="running"></div>
+        <div class="running" style="width: {{progressBarUnitPercentage}}%; display: {{displayCurrentlyRunningMember ? "block" : "none"}}"></div>
+        <div style="clear:both;"></div>
     </div>
 </li>
