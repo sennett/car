@@ -7,7 +7,15 @@ define(['underscore'], function (_) {
 		this.genomesSimulatedThisGeneration = 0;
 		this.currentGeneration++;
 		this.scores = [];
+		this.onStartGeneration();
 		console.log("generation: " + this.currentGeneration + ', average score: ' + averageScore);
+	};
+
+	var createFirstGeneration = function(){
+		for (var i = 0; i < this.generationSize; i++)
+			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
+		this.currentGeneration++;
+		this.onStartGeneration();
 	};
 
 	var Engine = function(randomGenomeGenerator, evolutionAlgorithm){
@@ -16,18 +24,15 @@ define(['underscore'], function (_) {
 		this.currentGeneration = 0;
 		this.scores = [];
 		this.highScore = 0;
-
-		for (var i = 0; i < this.generationSize; i++)
-			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
-		generationSize: 20,
+		generationSize: 2,
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
-			if (this.genomesSimulatedThisGeneration == 0 && this.onStartGeneration)
-				this.onStartGeneration();
+			if (this.currentGeneration == 0)
+				createFirstGeneration.call(this);
 
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);

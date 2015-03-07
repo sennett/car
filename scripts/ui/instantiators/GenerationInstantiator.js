@@ -2,7 +2,7 @@ define(['ui/GenerationView'], function(GenerationView) {
 
 	var createGenerationView = function(){
 		var view = new GenerationView(this.evolutionEngine);
-		view.render(this.domNode)
+		view.render(this.domNode);
 	};
 
     var GenerationInstantiator = function(evolutionEngine){
