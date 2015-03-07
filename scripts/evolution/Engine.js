@@ -27,7 +27,7 @@ define(['underscore'], function (_) {
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
-		generationSize: 2,
+		generationSize: 20,
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
