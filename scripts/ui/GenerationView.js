@@ -9,6 +9,9 @@ define([
 			computed:{
 				display: function(){
 					return this.get('currentMember') && this.get('generationSize') ? 'block' : "none";
+				},
+				percentComplete: function(){
+					return (this.get('currentMember') - 1) / this.get('generationSize') * 100;
 				}
 			},
 			addMember: function(member){
