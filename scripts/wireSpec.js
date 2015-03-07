@@ -1,6 +1,6 @@
 define({
 	$plugins: [
-		//'wire/debug'
+		'wire/debug'
 	],
 	app: {
 		create: {
@@ -102,6 +102,12 @@ define({
 			module: 'ui/CurrentStateView',
 			args: [{$ref: 'simulation'}, {$ref: 'fastForward'}]
 		}
-	}
+	},
 
+	generationInstantiator: {
+		create: {
+			module: 'ui/instantiators/GenerationInstantiator',
+			args: [{$ref: 'evolutionEngine'}]
+		}
+	}
 });

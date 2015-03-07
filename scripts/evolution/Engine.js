@@ -26,6 +26,9 @@ define(['underscore'], function (_) {
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
 		nextGenome: function(){
+			if (this.genomesSimulatedThisGeneration == 0 && this.onStartGeneration)
+				this.onStartGeneration();
+
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);
 

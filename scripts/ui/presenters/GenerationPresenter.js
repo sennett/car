@@ -1,7 +1,7 @@
-define(['underscore'], function(_) {
+define(function() {
     var GenerationPresenter = function(view, generationProvider){
 		view.generationSize = generationProvider.generationSize;
-		generationProvider.onMemberComplete.push(view.addMember.bind(view));
+		generationProvider.onMemberComplete = view.addMember.bind(view);
 	};
     
     return GenerationPresenter;
