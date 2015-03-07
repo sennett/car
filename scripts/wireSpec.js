@@ -6,8 +6,7 @@ define({
 		create: {
 			module: 'core/App',
 			args: [{ $ref: "simulation"}, { $ref: "evolutionEngine"}, { $ref: "ticker" }]
-		},
-		ready: "run"
+		}
 	},
 	simulation: {
 		create:{
@@ -100,7 +99,7 @@ define({
 	currentStateView: {
 		create: {
 			module: 'ui/CurrentStateView',
-			args: [{$ref: 'simulation'}, {$ref: 'fastForward'}]
+			args: [{$ref: 'simulation'}, {$ref: 'fastForward'}, {$ref: 'app'}]
 		}
 	},
 
