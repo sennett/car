@@ -5,7 +5,13 @@ define([
     var GenerationView = function(generationProvider){
 		var view = new Ractive({
 			template: template,
-			append: true
+			append: true,
+			data:{
+				currentMember: 0
+			},
+			addMember: function(member){
+				this.set('currentMember', member);
+			}
 		});
 
 		new GenerationPresenter(view, generationProvider);

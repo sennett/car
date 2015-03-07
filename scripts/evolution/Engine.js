@@ -32,6 +32,8 @@ define(['underscore'], function (_) {
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);
 
+			this.onStartMember(this.genomesSimulatedThisGeneration + 1);
+
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
 			this.genomesSimulatedThisGeneration++;
 			return useGenome;
