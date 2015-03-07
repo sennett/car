@@ -1,6 +1,6 @@
 define(function() {
     var GenerationPresenter = function(view, generationProvider){
-		view.generationSize = generationProvider.generationSize;
+		view.setGenerationSize(generationProvider.generationSize);
 		generationProvider.onStartMember = view.addMember.bind(view);
 	};
     

@@ -7,10 +7,15 @@ define([
 			template: template,
 			append: true,
 			data:{
-				currentMember: 0
+				display: function(){
+					return this.get('currentMember') && this.get('generationSize') ? 'block' : "none";
+				}
 			},
 			addMember: function(member){
 				this.set('currentMember', member);
+			},
+			setGenerationSize: function(generationSize){
+				this.set('generationSize', generationSize);
 			}
 		});
 
