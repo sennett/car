@@ -6,7 +6,7 @@ define([
 		var view = new Ractive({
 			template: template,
 			append: true,
-			data:{
+			computed:{
 				display: function(){
 					return this.get('currentMember') && this.get('generationSize') ? 'block' : "none";
 				}
