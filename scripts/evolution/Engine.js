@@ -34,15 +34,18 @@ define(['underscore'], function (_) {
 			if (this.currentGeneration == 0)
 				createFirstGeneration.call(this);
 			else
-				this.onMemberRan(this.genomesSimulatedThisGeneration + 1);
+				this.onMemberRan(this.genomesSimulatedThisGeneration);
 
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);
 
-			this.onRunningMember(this.genomesSimulatedThisGeneration + 1);
+
 
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
 			this.genomesSimulatedThisGeneration++;
+
+			this.onRunningMember(this.genomesSimulatedThisGeneration);
+
 			return useGenome;
 		},
 		registerScore: function(score, forGenome){

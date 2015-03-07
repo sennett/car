@@ -30,5 +30,16 @@ define(['ui/GenerationView', 'evolution/Engine'], function (GenerationView, Engi
 				});
 			});
 		});
+
+		describe('percentComplete', function(){
+			it('returns 0 on first member', function(){
+				this.generationView.runningMember(1);
+				expect(this.generationView.get('percentComplete')).toEqual(0);
+			});
+			it('returns 100 on last member', function(){
+				this.generationView.memberComplete(20);
+				expect(this.generationView.get('percentComplete')).toEqual(100);
+			});
+		})
 	});
 });
