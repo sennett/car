@@ -3,6 +3,7 @@ define(['underscore'], function (_) {
 	var createNextGeneration = function(){
 		var scoreSum = _.reduce(this.scores,function(memo, num){ return memo + num; }, 0);
 		var averageScore = scoreSum / this.scores.length;
+		this.onGenerationComplete(averageScore);
 		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes, this.generationSize);
 		this.genomesSimulatedThisGeneration = 0;
 		this.currentGeneration++;

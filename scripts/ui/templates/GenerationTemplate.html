@@ -1,8 +1,14 @@
 <li style="display: block">
-    Running generation {{generationNumber}}
+    {{ #if (!generationComplete) }}
+        Running generation {{ generationNumber }}
+    {{ else }}
+        Generation {{ generationNumber }} average score {{ averageScore }}
+    {{ /if }}
     <div class="progress">
         <div class="complete" style="width: {{percentComplete}}%"></div>
-        <div class="running" style="width: {{progressBarUnitPercentage}}%; display: {{displayCurrentlyRunningMember ? "block" : "none"}}"></div>
+        {{ #if (displayCurrentlyRunningMember) }}
+            <div class="running" style="width: {{progressBarUnitPercentage}}%;"></div>
+        {{ /if }}
         <div style="clear:both;"></div>
     </div>
 </li>

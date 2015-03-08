@@ -2,7 +2,8 @@ define([
 	'underscore',
 	'ractive',
 	'ui/presenters/CurrentStatePresenter',
-	'rv!ui/templates/CurrentStateTemplate'], function(_, Ractive, CurrentStatePresenter, template) {
+	'rv!ui/templates/CurrentStateTemplate',
+	'ui/utils'], function(_, Ractive, CurrentStatePresenter, template, utils) {
 
 	var speedChangeClick = function(){
 		this.onChangeSpeedRequest();
@@ -22,7 +23,7 @@ define([
 				runDisabled: false
 			},
 			updateCurrentScore: _.throttle(function(score){
-				this.set('score', score >= 0 ? Math.round(score * 100) / 100 : 0);
+				this.set('score', utils.roundScore(score));
 			}, 100),
 			onSimulationSpeedUp: function(){
 				this.set('speed', 'slow down');

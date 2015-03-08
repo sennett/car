@@ -4,6 +4,7 @@ define(function() {
 		view.setGenerationNumber(generationProvider.currentGeneration);
 		generationProvider.onRunningMember = view.runningMember.bind(view);
 		generationProvider.onMemberRan = view.memberComplete.bind(view);
+		generationProvider.onGenerationComplete = view.generationComplete.bind(view);
 	};
     
     return GenerationPresenter;

@@ -1,7 +1,8 @@
 define([
 	'ractive',
 	'rv!ui/templates/GenerationTemplate',
-	'ui/presenters/GenerationPresenter'], function(Ractive, template, GenerationPresenter) {
+	'ui/presenters/GenerationPresenter',
+	'ui/utils'], function(Ractive, template, GenerationPresenter, utils) {
     var GenerationView = function(generationProvider){
 		var view = new Ractive({
 			template: template,
@@ -28,6 +29,10 @@ define([
 			},
 			setGenerationNumber: function(generationNumber){
 				this.set('generationNumber', generationNumber);
+			},
+			generationComplete: function(averageScore){
+				this.set('generationComplete', true);
+				this.set('averageScore', utils.roundScore(averageScore));
 			}
 		});
 
