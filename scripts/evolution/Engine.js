@@ -9,7 +9,6 @@ define(['underscore'], function (_) {
 		this.currentGeneration++;
 		this.scores = [];
 		this.onStartGeneration();
-		console.log("generation: " + this.currentGeneration + ', average score: ' + averageScore);
 	};
 
 	var createFirstGeneration = function(){
