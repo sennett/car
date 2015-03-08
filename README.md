@@ -32,7 +32,8 @@ Todo:
   - ~~row per generation~~
     - ~~generation average~~
     - ~~current place in generation~~
-    - new highscore in generation
+    - ~~new highscore in generation~~
+    - create an application concept of a `generation`
     - info on current car
       - current and final score
       - genome (picture)

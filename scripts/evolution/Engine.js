@@ -53,20 +53,8 @@ define(['underscore'], function (_) {
 			var printHighscore = false;
 			if (score > this.highScore) {
 				this.highScore = score;
-				printHighscore = true;
+				this.onHighscore(this.highScore);
 			}
-			this.printProgress(printHighscore);
-		},
-		printProgress: function(printHighscore){
-			var output = "|";
-			for (var i = 0; i < this.genomesSimulatedThisGeneration; i++)
-				output += ".";
-			for (i = this.genomesSimulatedThisGeneration; i < this.generationSize; i++)
-				output += " ";
-			output += '|';
-			if (printHighscore)
-				output += " new highscore: " + this.highScore;
-			console.log(output);
 		}
 	});
 

@@ -4,6 +4,9 @@
     {{ else }}
         Generation {{ generationNumber }} average score {{ averageScore }}
     {{ /if }}
+    {{ #if (highscore) }}
+        New highscore: {{ highscore }}
+    {{ /if }}
     <div class="progress">
         <div class="complete" style="width: {{percentComplete}}%"></div>
         {{ #if (displayCurrentlyRunningMember) }}
