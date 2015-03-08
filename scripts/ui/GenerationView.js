@@ -25,6 +25,9 @@ define([
 			},
 			memberComplete: function(member){
 				this.set('lastMemberComplete', member);
+			},
+			setGenerationNumber: function(generationNumber){
+				this.set('generationNumber', generationNumber);
 			}
 		});
 
