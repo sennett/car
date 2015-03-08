@@ -29,9 +29,9 @@ Todo:
 - ~~tweak values/end-state for decent evolution~~
 - get some values displaying what is going on on the page
   - ~~current car score~~
-  - row per generation
-    - generation average
-    - current place in generation
+  - ~~row per generation~~
+    - ~~generation average~~
+    - ~~current place in generation~~
     - new highscore in generation
     - info on current car
       - current and final score
