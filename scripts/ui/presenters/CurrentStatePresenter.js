@@ -1,6 +1,6 @@
 define(function() {
 
-    var CurrentStatePresenter = function(view, currentScoreProvider, speedChanger, appRunner){
+    var CurrentStatePresenter = function(view, currentScoreProvider, speedChanger, appRunner, endStateDetector){
 		currentScoreProvider.onUpdateScore.push(view.updateCurrentScore.bind(view));
 
 		view.onChangeSpeedRequest = function(){
@@ -10,7 +10,11 @@ define(function() {
 		view.onRunRequest = function(){
 			appRunner.run(view.onSimulationRunning.bind(view));
 		};
-
+		
+		view.onForceSimulationEndRequest = function(){
+			endStateDetector.forceEnd();
+		};
+		
 		var speedChangeResponseObject = {
 			fast: view.onSimulationSpeedUp.bind(view),
 			slow: view.onSimulationSlowDown.bind(view)

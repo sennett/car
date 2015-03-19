@@ -12,12 +12,14 @@ define(['underscore'], function (_) {
 		tickTolerance: 120, // ticks
 		timeOverRunAfter: 2000, // ms
 		ticksCanOverRunAfter: 120, // ticks
+		
 
 		initialise: function(carBody){
 			reset.call(this);
 			this.startTime = Date.now().valueOf();
 			this.totalTicks = 0;
 			this.carBody = carBody;
+			this.forcedEnd = false;
 		},
 
 		simulationEnded: function(){
@@ -30,9 +32,13 @@ define(['underscore'], function (_) {
 			var timeCanOverrun = Date.now().valueOf() > this.startTime + this.timeOverRunAfter;
 			var timeOverrun = Date.now().valueOf() > this.timeOfLastContact + this.timeTolerance && timeCanOverrun;
 
-			return carBodySleeping || ticksOverrun || timeOverrun;
+			return this.forcedEnd || carBodySleeping || ticksOverrun || timeOverrun;
 		},
-
+		
+		forceEnd: function(){
+			this.forcedEnd = true;
+		},
+		
 		// b2ContactListener
 		BeginContact: function(){
 			reset.call(this);
