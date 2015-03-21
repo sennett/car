@@ -1,7 +1,7 @@
 car
 ===
 
-Evolving car.  Based on http://boxcar2d.com/.  It runs ok but does not do any evolution yet.
+Evolving car.  Based on http://boxcar2d.com/.
 
 It uses AMD for everything, and wire.js for runtime IOC.  It provides a basic 
 reference architecture for AMD, demonstrating no-build development configuration, 
@@ -16,17 +16,7 @@ Interesting points:
 
 Todo:
 
-- ~~complete roulette selection~~
-- ~~select random pairs from mating pool~~
-- ~~solve race condition~~
-  - ~~introduce fast forward~~
-    - ~~button, switch between these things yadda yadda~~
-    - ~~null renderer - does nothing~~
-    - ~~Ticker - settable speed~~
-    - ~~End state - new detector based on ticks rather than time~~
-- ~~mutation (tidy up genes first - use common definition and move min/max to genome)~~
-- ~~crossover~~
-- ~~tweak values/end-state for decent evolution~~
+
 - get some values displaying what is going on on the page
   - ~~current car score~~
   - ~~row per generation~~
