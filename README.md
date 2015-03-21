@@ -6,17 +6,7 @@ Evolving car.  Installed here: http://sennett.org/boxcar2d.js/.  IBased on http:
 
 Todo:
 
-- get some values displaying what is going on on the page
-  - ~~current car score~~
-  - ~~row per generation~~
-    - ~~generation average~~
-    - ~~current place in generation~~
-    - ~~new highscore in generation~~
-    - create an application concept of a `generation`
-    - info on current car
-      - current and final score
-      - genome (picture)
-      - new highscore
+- create an application concept of a `generation`
 - tournament selection
 
 Nice to haves:
