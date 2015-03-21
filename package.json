@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "wire-rjs-builder": "git://github.com/pieterv/wire-rjs-builder",
-    "requirejs": "^2.1.15"
+    "requirejs": "^2.1.15",
+    "uglify-js": "^2.4.17"
   }
 }
