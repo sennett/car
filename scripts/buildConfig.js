@@ -4,12 +4,12 @@
 	modules: [
 		{
 			"name": "productionBuildWrapper",
-			"exclude": ['underscore', 'ractive'],
-			"stubModules": ['rv', 'text'],
-			//insertRequire: ['main']
+			// exclude shallow because of some weirdness with wire.js
+			"excludeShallow": ['underscore', 'ractive'],
+			"stubModules": ['rv', 'text']
 		}
 	],
-
+	
 	"dir": "../build",
 
 	mainConfigFile: 'baseRequireConfig.js',
