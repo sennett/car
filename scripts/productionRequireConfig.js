@@ -17,12 +17,14 @@ require.config({
 		'ractive': [
 			'//cdnjs.cloudflare.com/ajax/libs/ractive.js/0.3.7/ractive.min',
 			'ractive'
-		]
+		],
+		'wire': ['wire.min']
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
 		}
 	},
-	waitSeconds: 1
+	waitSeconds: 1,
+	deps: ['productionBuildWrapper']
 });
