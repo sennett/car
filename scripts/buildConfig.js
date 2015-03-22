@@ -1,7 +1,16 @@
 ({
-	"name": "productionBuildWrapper",
 	"baseUrl": "./",
-	"out": "../build/main.js",
+
+	modules: [
+		{
+			"name": "main",
+			"exclude": ['underscore', 'ractive'],
+			"stubModules": ['rv'],
+			//insertRequire: ['main']
+		}
+	],
+
+	"dir": "../build",
 
 	mainConfigFile: 'main.js',
 

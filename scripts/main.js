@@ -10,13 +10,17 @@ require.config({
 		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
 		underscore: '../bower_components/underscore/underscore',
 		ractive: '../bower_components/ractive/ractive',
-		rv: '../bower_components/rv/rv'
+		rv: '../bower_components/rv/rv',
+		require: '../bower_components/requirejs/require'
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
 		}
 	},
-	waitSeconds: 1,
-	deps: ['wire!wireSpec']
+	waitSeconds: 1
+});
+
+define(['wire!wireSpec'], function(){
+	
 });
