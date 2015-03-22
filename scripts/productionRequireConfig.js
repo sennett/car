@@ -1,17 +1,23 @@
-// requirejs base config
 require.config({
-	baseUrl: "scripts",
+	baseUrl: "./",
 	packages: [
 		{ name: 'wire', location: '../bower_components/wire', main: 'wire' },
 		{ name: 'when', location: '../bower_components/when', main: 'when' },
 		{ name: 'meld', location: '../bower_components/meld', main: 'meld' }
 	],
 	paths:{
-		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
-		underscore: '../bower_components/underscore/underscore',
-		ractive: '../bower_components/ractive/ractive',
-		rv: '../bower_components/rv/rv',
-		require: '../bower_components/requirejs/require'
+		'underscore': [
+			'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min',
+			'underscore'
+		],
+		'require': [
+			'//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min',
+			'require'
+		],
+		'ractive': [
+			'//cdnjs.cloudflare.com/ajax/libs/ractive.js/0.3.7/ractive.min',
+			'ractive'
+		]
 	},
 	shim: {
 		box2dweb: {
@@ -19,8 +25,4 @@ require.config({
 		}
 	},
 	waitSeconds: 1
-});
-
-define(['wire!wireSpec'], function(){
-	
 });

@@ -1,1 +1,1 @@
-define(['wire', 'main'], function () {});
+define(['wire', 'wire!wireSpec'], function () {});

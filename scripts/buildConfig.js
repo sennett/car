@@ -3,22 +3,22 @@
 
 	modules: [
 		{
-			"name": "main",
+			"name": "productionBuildWrapper",
 			"exclude": ['underscore', 'ractive'],
-			"stubModules": ['rv'],
+			"stubModules": ['rv', 'text'],
 			//insertRequire: ['main']
 		}
 	],
 
 	"dir": "../build",
 
-	mainConfigFile: 'main.js',
+	mainConfigFile: 'baseRequireConfig.js',
 
 	paths: {
 		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder'
 	},
-
-	optimize: "uglify",
+	
+	optimize: "none",
 	removeCombined: true,
 	waitSeconds: 7
 })
