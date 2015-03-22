@@ -8,7 +8,7 @@ require.config({
 	],
 	paths:{
 		box2dweb: 'vendor/Box2dWeb-2.1.a.3',
-		underscore: 'vendor/underscore',
+		underscore: '../bower_components/underscore/underscore',
 		ractive: '../bower_components/ractive/ractive',
 		rv: '../bower_components/rv/rv'
 	},
@@ -20,7 +20,3 @@ require.config({
 	waitSeconds: 1,
 	deps: ['wire!wireSpec']
 });
-
-//define(['wire!wireSpec'], function () {
-//	return {};
-//});
