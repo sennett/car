@@ -5,7 +5,7 @@
 		{
 			"name": "productionBuildWrapper",
 			// exclude shallow because of some weirdness with wire.js
-			"excludeShallow": ['underscore', 'ractive', 'wire'],
+			"excludeShallow": ['underscore', 'ractive', 'wire/wire'],
 			"stubModules": ['rv', 'text']
 		}
 	],

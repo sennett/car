@@ -18,7 +18,7 @@ require.config({
 			'//cdnjs.cloudflare.com/ajax/libs/ractive.js/0.3.7/ractive.min',
 			'ractive'
 		],
-		'wire': ['wire.min']
+		'wire/wire': ['wire.min']
 	},
 	shim: {
 		box2dweb: {
