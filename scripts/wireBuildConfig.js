@@ -2,7 +2,7 @@
 	baseUrl: "./",
 	name: "wire",
 	out: "../build/wire.min.js",
-	optimize: "none",
+	optimize: "uglify2",
 	packages: [
 		{ name: 'wire', location: '../bower_components/wire', main: 'wire' },
 		{ name: 'when', location: '../bower_components/when', main: 'when' },

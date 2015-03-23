@@ -18,7 +18,7 @@
 		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder'
 	},
 	
-	optimize: "none",
+	optimize: "uglify2",
 	removeCombined: true,
 	waitSeconds: 7
 })
