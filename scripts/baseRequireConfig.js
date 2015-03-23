@@ -11,7 +11,8 @@ require.config({
 		underscore: '../bower_components/underscore/underscore',
 		ractive: '../bower_components/ractive/ractive',
 		rv: '../bower_components/rv/rv',
-		require: '../bower_components/requirejs/require'
+		require: '../bower_components/requirejs/require',
+		ractiveRuntime: '../bower_components/ractive/ractive.runtime'
 	},
 	shim: {
 		box2dweb: {

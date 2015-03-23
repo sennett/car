@@ -1,6 +1,6 @@
 define([
 	'underscore',
-	'ractive',
+	'ractiveRuntime',
 	'ui/presenters/CurrentStatePresenter',
 	'rv!ui/templates/CurrentStateTemplate',
 	'ui/utils'], function(_, Ractive, CurrentStatePresenter, template, utils) {

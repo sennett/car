@@ -1,5 +1,5 @@
 define([
-	'ractive',
+	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
 	'ui/presenters/GenerationPresenter',
 	'ui/utils'], function(Ractive, template, GenerationPresenter, utils) {
