@@ -14,8 +14,9 @@ require.config({
 			'//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min',
 			'require'
 		],
-		'ractive': [
-			'ractive'
+		'ractiveRuntime': [
+			'//cdn.ractivejs.org/0.6.1/ractive',
+			'ractiveRuntime'
 		],
 		'wire/wire': ['wire.min']
 	},
