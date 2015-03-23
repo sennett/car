@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
+rm -r build/*
 node node_modules/.bin/r.js -o scripts/buildConfig.js
-node_modules/uglify-js/bin/uglifyjs scripts/vendor/require.js -o build/require.js
+node node_modules/.bin/r.js -o scripts/wireBuildConfig.js
 cp index.html build
-cp -r bower_components build/bower_components

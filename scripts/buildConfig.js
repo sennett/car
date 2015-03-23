@@ -1,15 +1,24 @@
 ({
-	"name": "productionBuildWrapper",
 	"baseUrl": "./",
-	"out": "../build/main.js",
 
-	mainConfigFile: 'main.js',
+	modules: [
+		{
+			"name": "productionBuildWrapper",
+			// exclude shallow because of some weirdness with wire.js
+			"excludeShallow": ['underscore', 'ractive', 'wire/wire'],
+			"stubModules": ['rv', 'text']
+		}
+	],
+	
+	"dir": "../build",
+
+	mainConfigFile: 'baseRequireConfig.js',
 
 	paths: {
 		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder'
 	},
-
-	optimize: "uglify",
+	
+	optimize: "uglify2",
 	removeCombined: true,
 	waitSeconds: 7
 })
