@@ -24,6 +24,5 @@ require.config({
 			exports: 'Box2D'
 		}
 	},
-	waitSeconds: 1,
 	deps: ['productionBuildWrapper']
 });
