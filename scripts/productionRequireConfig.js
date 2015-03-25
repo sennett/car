@@ -19,12 +19,16 @@ require.config({
 			'ractiveRuntime'
 		],
 		'wire/wire': ['wire.min'],
-		'box2dweb': 'vendor/Box2dWeb-2.1.a.3'
+		'box2dweb': 'vendor/Box2dWeb-2.1.a.3',
+		'Spinner': [
+			'//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min',
+			'Spinner.js'
+		]
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
 		}
 	},
-	deps: ['productionBuildWrapper']
+	deps: ['main']
 });
