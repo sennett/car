@@ -22,9 +22,7 @@
     "ractive": "~0.6.1",
     "rv": "~0.1.8",
     "underscore": "~1.8.2",
-    "requirejs": "~2.1.16"
-  },
-  "devDependencies": {
+    "requirejs": "~2.1.16",
     "spin.js": "~2.0.2"
   }
 }
