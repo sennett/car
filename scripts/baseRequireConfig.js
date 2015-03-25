@@ -12,12 +12,13 @@ require.config({
 		ractive: '../bower_components/ractive/ractive',
 		rv: '../bower_components/rv/rv',
 		require: '../bower_components/requirejs/require',
-		ractiveRuntime: '../bower_components/ractive/ractive.runtime'
+		ractiveRuntime: '../bower_components/ractive/ractive.runtime',
+		Spinner: '../bower_components/spin.js/spin'
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
 		}
 	},
-	deps: ['wire!wireSpec']
+	deps: ['main']
 });
