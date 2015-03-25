@@ -5,7 +5,7 @@
 		{
 			"name": "productionBuildWrapper",
 			// exclude shallow because of some weirdness with wire.js
-			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive'],
+			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive', 'box2dweb'],
 			"stubModules": ['rv', 'text']
 		}
 	],

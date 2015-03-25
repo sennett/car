@@ -18,7 +18,8 @@ require.config({
 			'//cdn.ractivejs.org/0.6.1/ractive',
 			'ractiveRuntime'
 		],
-		'wire/wire': ['wire.min']
+		'wire/wire': ['wire.min'],
+		'box2dweb': 'vendor/Box2dWeb-2.1.a.3'
 	},
 	shim: {
 		box2dweb: {
