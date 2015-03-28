@@ -4,7 +4,12 @@ define(['presenterFirst/Presenter', 'presenterFirst/Model', 'presenterFirst/View
 			it('can use the prototype of the model', function(){
 				spyOn(Model.prototype, 'aMethodOnModel');
 				new Presenter(null, Model.prototype);
-				expect(Model.prototype.aMethodOnModel).toHaveBeenCalled();
+				expect(Model.prototype.aMethodOnModel).toHaveBeenCalledWith('hello model from presenter');
+			});
+			it('can use the prototype of the view', function(){
+				spyOn(View.prototype, 'aMethod');
+				new Presenter(View.prototype, null);
+				expect(View.prototype.aMethod).toHaveBeenCalledWith('hello view from presenter');
 			});
 		});
 	});
