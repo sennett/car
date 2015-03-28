@@ -1,4 +1,4 @@
-define(['underscore', 'ractiveRuntime'], function(_, Ractive, Presenter) {
+define(['underscore', 'ractiveRuntime', 'presenterFirst/Presenter'], function(_, Ractive, Presenter) {
 	
     var View = function(model){
 		new Presenter(this, model);

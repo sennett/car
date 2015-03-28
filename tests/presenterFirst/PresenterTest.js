@@ -12,5 +12,15 @@ define(['presenterFirst/Presenter', 'presenterFirst/Model', 'presenterFirst/View
 				expect(View.prototype.aMethod).toHaveBeenCalledWith('hello view from presenter');
 			});
 		});
+		describe('instantiating views', function(){
+			it('does not allow two instances to collide', function(){
+				var viewOne = new View();
+				var viewTwo = new View();
+				viewOne.aMethod('hello view one');
+				viewTwo.aMethod('hello view two');
+				expect(viewOne.get('thing')).toEqual('hello view one');
+				expect(viewTwo.get('thing')).toEqual('hello view two');
+			});
+		});
 	});
 });
