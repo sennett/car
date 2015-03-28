@@ -3,6 +3,7 @@ define([
 	'rv!ui/templates/GenerationTemplate',
 	'ui/presenters/GenerationPresenter',
 	'ui/utils'], function(Ractive, template, GenerationPresenter, utils) {
+	
     var GenerationView = function(generationProvider){
 		var view = new Ractive({
 			template: template,
