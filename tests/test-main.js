@@ -23,12 +23,6 @@ require.config({
 		tests: '../tests'
 	},
 
-	packages: [{
-		name: 'underscore',
-		location: 'vendor',
-		main: 'underscore'
-	}],
-
 	// we have to kickoff jasmine, as it is asynchronous
 	callback: window.__karma__.start
 });

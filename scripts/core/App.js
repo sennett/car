@@ -22,6 +22,7 @@ define(['underscore', 'core/Car'], function(_, Car){
 				getGenomeAndStart.call(this);
 			} catch (e){
 				this.ticker.stop();
+				console.log(e.stack);
 				throw e;
 			}
 		}
