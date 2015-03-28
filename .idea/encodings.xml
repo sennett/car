@@ -17,5 +17,6 @@
     <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/karma.conf.js" charset="UTF-8" />
     <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/package.json" charset="UTF-8" />
     <file url="file://$USER_HOME$/typeform/teams-frontend/front-end/test-harness/index.html" charset="UTF-8" />
+    <file url="file://$USER_HOME$/typeform/typeform/src/QuickyForm/AdminBundle/Resources/public/js/models/FormSettingsModel.js" charset="UTF-8" />
   </component>
 </project>
