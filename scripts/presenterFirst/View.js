@@ -1,16 +1,20 @@
 define(['underscore', 'ractiveRuntime', 'presenterFirst/Presenter'], function(_, Ractive, Presenter) {
 	
-    var View = function(model){
-		new Presenter(this, model);
+	var createRactive = function(){
+		return new Ractive({
+			aMethod: function(thing){
+				this.set('thing', thing);
+			}
+		});
 	};
 	
-	View.prototype = _.extend(View.prototype, new Ractive({
-		//template: 'hi',
-		append: true,
-		aMethod: function(thing){
-			this.set('thing', thing);
-		}
-	}));
+    var View = function(model){
+		var view = createRactive();
+		new Presenter(view, model);
+		return view;
+	};
+	
+	View.prototype = _.extend(View.prototype, createRactive());
     
     return View;
 });
