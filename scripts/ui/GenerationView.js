@@ -1,8 +1,9 @@
 define([
+	'underscore',
 	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
 	'ui/presenters/GenerationPresenter',
-	'ui/utils'], function(Ractive, template, GenerationPresenter, utils) {
+	'ui/utils'], function(_, Ractive, template, GenerationPresenter, utils) {
 
 	function createPrototype() {
 		return new Ractive({
