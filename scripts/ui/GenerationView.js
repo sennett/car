@@ -39,7 +39,7 @@ define([
 			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
 			},
-			newHighscore: function (highscore) {
+			newHighScore: function (highscore) {
 				this.set('highscore', utils.roundScore(highscore));
 			}
 		});

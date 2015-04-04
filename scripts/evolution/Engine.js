@@ -49,11 +49,13 @@ define(['underscore'], function (_) {
 		registerScore: function(score, forGenome){
 			forGenome.score = score;
 			this.scores.push(score);
-			var printHighscore = false;
 			if (score > this.highScore) {
 				this.highScore = score;
 				this.onHighscore(this.highScore);
 			}
+		},
+		registerNewHighScoreListener: function(listener){
+			throw 'not implemented';
 		}
 	});
 
