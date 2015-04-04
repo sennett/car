@@ -34,6 +34,9 @@ define([
 			},
 			generationComplete: function (averageScore) {
 				this.set('generationComplete', true);
+				this.onNewAverageScore(averageScore);
+			},
+			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
 			},
 			newHighscore: function (highscore) {

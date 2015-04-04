@@ -5,6 +5,9 @@ define(['underscore'], function(_) {
 		generationNumber: undefined,
 		getGenerationNumber: function(){
 			return this.generationNumber;
+		},
+		newAverageScore: function(){
+			throw 'not implemented';
 		}
 	});
     
