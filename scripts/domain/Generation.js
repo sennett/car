@@ -7,6 +7,12 @@ define(['underscore'], function(_) {
 		},
 		newAverageScore: function(){
 			throw 'not implemented';
+		},
+		memberRunning: function(){
+			throw 'not implemented';
+		},
+		memberRan: function(){
+			throw 'not implemented';
 		}
 	});
     
