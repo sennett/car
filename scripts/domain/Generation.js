@@ -13,6 +13,9 @@ define(['underscore'], function(_) {
 		},
 		memberRan: function(){
 			throw 'not implemented';
+		},
+		generationComplete: function(){
+			throw 'not implemented';
 		}
 	});
     

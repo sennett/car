@@ -11,10 +11,12 @@ define([
 			spyOn(this.viewMock, 'newHighScore');
 			spyOn(this.viewMock, 'runningMember');
 			spyOn(this.viewMock, 'memberComplete');
+			spyOn(this.viewMock, 'generationComplete');
 			spyOn(this.generationMock, 'getGenerationNumber');
 			spyOn(this.generationMock, 'newAverageScore');
 			spyOn(this.generationMock, 'memberRunning');
 			spyOn(this.generationMock, 'memberRan');
+			spyOn(this.generationMock, 'generationComplete');
 			spyOn(this.engineMock, 'registerNewHighScoreListener');
 		});
 		
@@ -51,6 +53,12 @@ define([
 				new GenerationPresenter(this.viewMock, this.generationMock, this.engineMock);
 				this.generationMock.memberRan(memberMock);
 				expect(this.viewMock.memberComplete).toHaveBeenCalledWith(memberMock);
+			});
+
+			it('wires up generation complete', function(){
+				new GenerationPresenter(this.viewMock, this.generationMock, this.engineMock);
+				this.generationMock.generationComplete();
+				expect(this.viewMock.generationComplete).toHaveBeenCalled();
 			});
 		});
 

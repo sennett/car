@@ -6,10 +6,7 @@ define(function() {
 		highScoreProvider.registerNewHighScoreListener(view.newHighScore);
 		generation.memberRunning = view.runningMember;
 		generation.memberRan = view.memberComplete;
-		//generation.onRunningMember = view.runningMember.bind(view);
-		//generation.onMemberRan = view.memberComplete.bind(view);
-		//generation.onGenerationComplete = view.generationComplete.bind(view);
-		//generation.onHighscore = view.newHighscore.bind(view);
+		generation.generationComplete = view.generationComplete;
 	};
     
     return GenerationPresenter;
