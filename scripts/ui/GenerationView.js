@@ -2,8 +2,7 @@ define([
 	'underscore',
 	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
-	'ui/presenters/GenerationPresenter',
-	'ui/utils'], function(_, Ractive, template, GenerationPresenter, utils) {
+	'ui/utils'], function(_, Ractive, template, utils) {
 
 	function createPrototype() {
 		return new Ractive({
@@ -48,7 +47,6 @@ define([
 	var GenerationView = function(generationProvider){
 		var view = createPrototype();
 
-		new GenerationPresenter(view, generationProvider);
 		return view;
 	};
 	

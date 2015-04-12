@@ -1,5 +1,7 @@
 define(['underscore'], function(_) {
-    var Generation = function(){};
+    var Generation = function(genomes){
+		this.genomes = genomes;
+	};
     
     Generation.prototype = _.extend(Generation.prototype, {
 		getGenerationNumber: function(){
