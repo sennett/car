@@ -4,6 +4,8 @@ define(function() {
 		appService.onNewGenerationHighScore(view.onNewGenerationHighScore);
 		appService.onNewGenerationAverageScore(view.onNewGenerationAverageScore);
 		appService.onNewCar(view.onNewCar);
+		appService.onNewCarScore(view.onNewCarScore);
+		appService.onCarSimulationComplete(view.onCarSimulationComplete);
 	};
     
     return GenerationsPresenter;

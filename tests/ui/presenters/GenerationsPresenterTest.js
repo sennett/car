@@ -8,6 +8,8 @@ define([
 			spyOn(AppService.prototype, 'onNewGenerationHighScore');
 			spyOn(AppService.prototype, 'onNewGenerationAverageScore');
 			spyOn(AppService.prototype, 'onNewCar');
+			spyOn(AppService.prototype, 'onNewCarScore');
+			spyOn(AppService.prototype, 'onCarSimulationComplete');
 			new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
 		});
 		describe('informing the view', function(){
@@ -32,11 +34,13 @@ define([
 			});
 
 			it('informs of car score', function(){
-
+				expect(AppService.prototype.onNewCarScore)
+					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewCarScore);
 			});
 
-			it('informs of car complete', function(){
-
+			it('informs of car simulation complete', function(){
+				expect(AppService.prototype.onCarSimulationComplete)
+					.toHaveBeenCalledWith(GenerationsListView.prototype.onCarSimulationComplete);
 			});
 		});
 	});

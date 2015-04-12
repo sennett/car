@@ -13,8 +13,14 @@ define(['underscore'], function(_) {
 		},
 		onNewCar: function(handler){
 			throw 'not implemented exception';
+		},
+		onNewCarScore: function(handler){
+			throw 'not implemented exception';
+		},
+		onCarSimulationComplete: function(handler){
+			throw 'not implemented exception';
 		}
 	});
-    
+	
     return AppService;
 });

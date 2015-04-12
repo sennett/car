@@ -13,10 +13,14 @@ define(['underscore'], function(_) {
 		},
 		onNewCar: function(id, generation){
 			throw 'not implemented exception';
+		},
+		onNewCarScore: function(id, score){
+			throw 'not implemented exception';
+		},
+		onCarSimulationComplete: function(id){
+			throw 'not implemented exception';
 		}
-
-		
 	});
-    
+	
     return GenerationsListView;
 });
