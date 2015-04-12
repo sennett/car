@@ -4,6 +4,9 @@ define(['underscore'], function(_) {
     GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id){
 			throw 'not implemented exception';
+		},
+		onNewGenerationHighScore: function(id, highScore){
+			throw 'not implemented exception';
 		}
 	});
     

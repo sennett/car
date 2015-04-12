@@ -4,17 +4,19 @@ define([
 	'service/AppService'], function (GenerationsPresenter, GenerationsListView, AppService) {
 	describe('GenerationsPresenter', function () {
 		beforeEach(function(){
-			
+			spyOn(AppService.prototype, 'onNewGeneration');
+			spyOn(AppService.prototype, 'onNewGenerationHighScore');
+			new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
 		});
 		describe('informing the view', function(){
 			it('informs of generation', function(){
-				spyOn(AppService.prototype, 'onNewGeneration');
-				new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
-				expect(AppService.prototype.onNewGeneration).toHaveBeenCalledWith(GenerationsListView.prototype.onNewGeneration);
+				expect(AppService.prototype.onNewGeneration)
+					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGeneration);
 			});
 
 			it('informs of new high score for generation', function(){
-				
+				expect(AppService.prototype.onNewGenerationHighScore)
+					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGenerationHighScore);
 			});
 
 			it('informs of a new average score for generation', function(){

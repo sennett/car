@@ -4,6 +4,9 @@ define(['underscore'], function(_) {
     AppService.prototype = _.extend(AppService.prototype, {
 		onNewGeneration: function(handler){
 			throw 'not implemented';
+		},
+		onNewGenerationHighScore: function(handler){
+			throw 'not implemented exception';
 		}
 	});
     
