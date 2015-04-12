@@ -7,6 +7,9 @@ define(['underscore'], function(_) {
 		},
 		onNewGenerationHighScore: function(handler){
 			throw 'not implemented exception';
+		},
+		onNewGenerationAverageScore: function(handler){
+			throw 'not implemented';
 		}
 	});
     

@@ -6,6 +6,7 @@ define([
 		beforeEach(function(){
 			spyOn(AppService.prototype, 'onNewGeneration');
 			spyOn(AppService.prototype, 'onNewGenerationHighScore');
+			spyOn(AppService.prototype, 'onNewGenerationAverageScore');
 			new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
 		});
 		describe('informing the view', function(){
@@ -20,7 +21,8 @@ define([
 			});
 
 			it('informs of a new average score for generation', function(){
-				
+				expect(AppService.prototype.onNewGenerationAverageScore)
+					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGenerationAverageScore);
 			});
 			
 			it('informs of new car', function(){
