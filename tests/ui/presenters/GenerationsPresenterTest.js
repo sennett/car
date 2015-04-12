@@ -8,19 +8,13 @@ define([
 		});
 		describe('informing the view', function(){
 			it('informs of generation', function(){
-				spyOn(GenerationsListView.prototype, 'newGeneration');
-				var serviceMock = AppService.prototype;
-				new GenerationsPresenter(GenerationsListView.prototype, serviceMock);
-				serviceMock.onNewGeneration('generation key');
-				expect(GenerationsListView.prototype.newGeneration).toHaveBeenCalledWith('generation key');
+				spyOn(AppService.prototype, 'onNewGeneration');
+				new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
+				expect(AppService.prototype.onNewGeneration).toHaveBeenCalledWith(GenerationsListView.prototype.onNewGeneration);
 			});
 
 			it('informs of new high score for generation', function(){
-				spyOn(GenerationsListView.prototype, 'newGenerationHighScore');
-				var serviceMock = AppService.prototype;
-				new GenerationsPresenter(GenerationsListView.prototype, serviceMock);
-				serviceMock.onNewGenerationHighScore('generation key', 'high score');
-				expect(GenerationsListView.prototype.newGeneration).toHaveBeenCalledWith('generation key');
+				
 			});
 
 			it('informs of a new average score for generation', function(){
