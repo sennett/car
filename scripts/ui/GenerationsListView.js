@@ -8,9 +8,14 @@ define(['underscore'], function(_) {
 		onNewGenerationHighScore: function(id, highScore){
 			throw 'not implemented exception';
 		},
-		onNewGenerationAverageScore: function(id, highScore){
+		onNewGenerationAverageScore: function(id, averageScore){
+			throw 'not implemented exception';
+		},
+		onNewCar: function(id, generation){
 			throw 'not implemented exception';
 		}
+
+		
 	});
     
     return GenerationsListView;

@@ -3,6 +3,7 @@ define(function() {
 		appService.onNewGeneration(view.onNewGeneration);
 		appService.onNewGenerationHighScore(view.onNewGenerationHighScore);
 		appService.onNewGenerationAverageScore(view.onNewGenerationAverageScore);
+		appService.onNewCar(view.onNewCar);
 	};
     
     return GenerationsPresenter;
