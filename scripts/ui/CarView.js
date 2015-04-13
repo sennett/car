@@ -1,14 +1,30 @@
-define(['underscore'], function(_) {
-    var CarView = function(){};
-    
-    CarView.prototype = _.extend(CarView.prototype, {
-		setScore: function(score){
-			throw 'not implemented exception';
-		},
-		setSimulationComplete: function(){
-			throw 'not implemented exception';
-		}
-	});
+define([
+	'underscore',
+	'ractiveRuntime',
+	'rv!ui/templates/CarTemplate'], function(_, Ractive, template) {
+	
+	function createPrototype() {
+		return new Ractive({
+			template: template,
+			append: true,
+			data:{
+				complete: false
+			},
+			setScore: function(score){
+				this.set('score', score);
+			},
+			setSimulationComplete: function(){
+				this.set('complete', true);
+			}
+		});
+	};
+	
+	var CarView = function(){
+		var view = createPrototype();
+		return view;
+	};
+	
+    CarView.prototype = _.extend(CarView.prototype, createPrototype());
     
     return CarView;
 });

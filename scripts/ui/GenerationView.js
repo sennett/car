@@ -9,6 +9,9 @@ define([
 			generationNumber: generationNumber,
 			template: template,
 			append: true,
+			data: {
+				carViews: []
+			},
 			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
 			},
@@ -16,14 +19,13 @@ define([
 				this.set('highscore', utils.roundScore(highscore));
 			},
 			addCarView: function(carView){
-				throw 'not implemented exception'
+				this.carViews.push(carView);
 			}
 		});
 	};
 
 	var GenerationView = function(generationNumber){
 		var view = createPrototype(generationNumber);
-
 		return view;
 	};
 	
