@@ -37,8 +37,6 @@ define(['underscore'], function (_) {
 		nextGenome: function(){
 			if (this.currentGeneration == 0)
 				createFirstGeneration.call(this);
-			else
-				this.onMemberRan(this.genomesSimulatedThisGeneration);
 
 			if (this.genomesSimulatedThisGeneration === this.generationSize)
 				createNextGeneration.call(this);

@@ -53,7 +53,7 @@ define(['underscore',
 		},
 		onCarSimulationComplete: function(id){
 			checkCar.call(this, id);
-			this.cars[id].setSimulationComplete(score);
+			this.cars[id].setSimulationComplete();
 		}
 	});
 	
