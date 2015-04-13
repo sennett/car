@@ -1,12 +1,17 @@
-define(['underscore'], function(_) {
-    var GenerationsListView = function(){};
+define(['underscore', 'ui/GenerationView'], function(_, GenerationView) {
+    var GenerationsListView = function(){
+		this.generations = [];
+	};
     
     GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id){
-			throw 'not implemented exception';
+			this.generations[id] = new GenerationView();
 		},
 		onNewGenerationHighScore: function(id, highScore){
-			throw 'not implemented exception';
+			if (this.generations[id])
+				this.generations[id].newHighScore(highScore);
+			else
+				throw 'application exception: no generation with id ' + id + ' found';
 		},
 		onNewGenerationAverageScore: function(id, averageScore){
 			throw 'not implemented exception';
