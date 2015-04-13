@@ -11,7 +11,7 @@ define(['underscore'], function(_) {
 		onNewGenerationAverageScore: function(id, averageScore){
 			throw 'not implemented exception';
 		},
-		onNewCar: function(id, generation){
+		onNewCar: function(id, generationId){
 			throw 'not implemented exception';
 		},
 		onNewCarScore: function(id, score){
