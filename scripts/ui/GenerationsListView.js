@@ -32,7 +32,9 @@ define(['underscore',
 	
     GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id, generationNumber){
-			this.generations[id] = new GenerationView(generationNumber);
+			var generationView = new GenerationView(generationNumber);
+			generationView.render(document.getElementById('generations'));
+			this.generations[id] = generationView;
 		},
 		onNewGenerationHighScore: function(id, highScore){
 			checkGeneration.call(this, id);
