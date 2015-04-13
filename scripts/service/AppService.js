@@ -1,24 +1,26 @@
 define(['underscore'], function(_) {
-    var AppService = function(){};
+    var AppService = function(evolutionEngine){
+		this.evolutionEngine = evolutionEngine;
+	};
     
     AppService.prototype = _.extend(AppService.prototype, {
 		onNewGeneration: function(handler){
-			throw 'not implemented';
+			this.evolutionEngine.onStartGeneration = handler;
 		},
 		onNewGenerationHighScore: function(handler){
-			throw 'not implemented exception';
+			this.evolutionEngine.onHighscore = handler;
 		},
 		onNewGenerationAverageScore: function(handler){
-			throw 'not implemented';
+			this.evolutionEngine.onGenerationComplete = handler;
 		},
 		onNewCar: function(handler){
-			throw 'not implemented exception';
+			this.evolutionEngine.onRunningMember = handler;
 		},
 		onNewCarScore: function(handler){
-			throw 'not implemented exception';
+			this.evolutionEngine.onNewCarScore = handler;
 		},
 		onCarSimulationComplete: function(handler){
-			throw 'not implemented exception';
+			this.evolutionEngine.onCarSimulationComplete = handler;
 		}
 	});
 	

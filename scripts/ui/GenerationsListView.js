@@ -6,6 +6,14 @@ define(['underscore',
     var GenerationsListView = function(appService){
 		this.generations = [];
 		this.cars = [];
+
+		_.bindAll(this,
+			'onNewGeneration',
+			'onNewGenerationHighScore',
+			'onNewGenerationAverageScore',
+			'onNewCar',
+			'onNewCarScore',
+			'onCarSimulationComplete');
 		
 		// smell for test...
 		if (appService)

@@ -3,20 +3,24 @@ define(['underscore'], function (_) {
 	var createNextGeneration = function(){
 		var scoreSum = _.reduce(this.scores,function(memo, num){ return memo + num; }, 0);
 		var averageScore = scoreSum / this.scores.length;
-		this.onGenerationComplete(averageScore);
+		this.onGenerationComplete(this.currentGeneration, averageScore);
 		this.currentGenomes = this.evolutionAlgorithm.nextGeneration(this.currentGenomes, this.generationSize);
 		this.genomesSimulatedThisGeneration = 0;
 		this.currentGeneration++;
 		this.scores = [];
-		this.onStartGeneration();
+		this.onStartGeneration(this.currentGeneration);
 	};
 
 	var createFirstGeneration = function(){
 		for (var i = 0; i < this.generationSize; i++)
 			this.currentGenomes.push(this.randomGenomeGenerator.getOne());
 		this.currentGeneration++;
-		this.onStartGeneration();
+		this.onStartGeneration(this.currentGeneration);
 	};
+	
+	var getGenomeId = function(){
+		return this.currentGeneration + '-' + this.genomesSimulatedThisGeneration;
+	}
 
 	var Engine = function(randomGenomeGenerator, evolutionAlgorithm){
 		this.randomGenomeGenerator = randomGenomeGenerator;
@@ -42,20 +46,19 @@ define(['underscore'], function (_) {
 			var useGenome = this.currentGenomes[this.genomesSimulatedThisGeneration];
 			this.genomesSimulatedThisGeneration++;
 
-			this.onRunningMember(this.genomesSimulatedThisGeneration);
+			this.onRunningMember(getGenomeId.call(this), this.currentGeneration);
 
 			return useGenome;
 		},
 		registerScore: function(score, forGenome){
 			forGenome.score = score;
 			this.scores.push(score);
+			this.onNewCarScore(getGenomeId.call(this), score);
+			this.onCarSimulationComplete(getGenomeId.call(this));
 			if (score > this.highScore) {
 				this.highScore = score;
-				this.onHighscore(this.highScore);
+				this.onHighscore(this.currentGeneration, this.highScore);
 			}
-		},
-		registerNewHighScoreListener: function(listener){
-			throw 'not implemented';
 		}
 	});
 

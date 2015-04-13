@@ -19,7 +19,7 @@ define([
 				this.set('highscore', utils.roundScore(highscore));
 			},
 			addCarView: function(carView){
-				this.carViews.push(carView);
+				this.data.carViews.push(carView);
 			}
 		});
 	};

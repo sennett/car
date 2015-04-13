@@ -1,7 +1,7 @@
 define({
-	//$plugins: [
-	//	'wire/debug'
-	//],
+	$plugins: [
+		'wire/debug'
+	],
 	app: {
 		create: {
 			module: 'core/App',
@@ -103,10 +103,17 @@ define({
 		}
 	},
 
-	generationInstantiator: {
+	generationsListView: {
 		create: {
-			module: 'ui/instantiators/GenerationInstantiator',
-			args: [{$ref: 'evolutionEngine'}]
+			module: 'ui/GenerationsListView',
+			args: [{ $ref: "appService"}]
+		}
+	},
+
+	appService: {
+		create: {
+			module: 'service/AppService',
+			args: [{ $ref: "evolutionEngine"}]
 		}
 	}
 });
