@@ -1,7 +1,15 @@
-define(['underscore', 'ui/GenerationView', 'ui/CarView'], function(_, GenerationView, CarView) {
-    var GenerationsListView = function(){
+define(['underscore', 
+	'ui/GenerationView', 
+	'ui/CarView', 
+	'ui/presenters/GenerationsPresenter'], 
+	function(_, GenerationView, CarView, GenerationsPresenter) {
+    var GenerationsListView = function(appService){
 		this.generations = [];
 		this.cars = [];
+		
+		// smell for test...
+		if (appService)
+			new GenerationsPresenter(this, appService);
 	};
     
 	var checkGeneration = function(id){
