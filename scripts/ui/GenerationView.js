@@ -4,48 +4,25 @@ define([
 	'rv!ui/templates/GenerationTemplate',
 	'ui/utils'], function(_, Ractive, template, utils) {
 
-	function createPrototype() {
+	function createPrototype(generationNumber) {
 		return new Ractive({
+			generationNumber: generationNumber,
 			template: template,
 			append: true,
-			computed: {
-				percentComplete: function () {
-					return this.get('lastMemberComplete') / this.get('generationSize') * 100;
-				},
-				progressBarUnitPercentage: function () {
-					return 1 / this.get('generationSize') * 100;
-				},
-				displayCurrentlyRunningMember: function () {
-					return this.get('lastMemberComplete') != this.get('generationSize');
-				}
-			},
-			setGenerationSize: function (generationSize) {
-				this.set('generationSize', generationSize);
-			},
-			runningMember: function (member) {
-				this.set('lastMemberComplete', member - 1);
-			},
-			memberComplete: function (member) {
-				this.set('lastMemberComplete', member);
-			},
-			setGenerationNumber: function (generationNumber) {
-				this.set('generationNumber', generationNumber);
-			},
-			generationComplete: function (averageScore) {
-				this.set('generationComplete', true);
-				this.onNewAverageScore(averageScore);
-			},
 			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
 			},
 			newHighScore: function (highscore) {
 				this.set('highscore', utils.roundScore(highscore));
+			},
+			addCarView: function(carView){
+				throw 'not implemented exception'
 			}
 		});
 	};
 
-	var GenerationView = function(generationProvider){
-		var view = createPrototype();
+	var GenerationView = function(generationNumber){
+		var view = createPrototype(generationNumber);
 
 		return view;
 	};
