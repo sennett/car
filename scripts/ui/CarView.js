@@ -8,7 +8,9 @@ define([
 			template: template,
 			append: true,
 			data:{
-				complete: false
+				score: 0,
+				complete: false,
+				anthony: 'yes'
 			},
 			setScore: function(score){
 				this.set('score', score);

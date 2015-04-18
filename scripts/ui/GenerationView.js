@@ -10,7 +10,7 @@ define([
 			template: template,
 			append: true,
 			data: {
-				carViews: []
+				cars: []
 			},
 			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
@@ -19,7 +19,7 @@ define([
 				this.set('highscore', utils.roundScore(highscore));
 			},
 			addCarView: function(carView){
-				this.data.carViews.push(carView);
+				this.push('cars', carView);
 			}
 		});
 	};

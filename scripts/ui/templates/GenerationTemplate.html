@@ -15,8 +15,8 @@
         <div style="clear:both;"></div>
     </div>
     <ul class="cars">
-        {{#carViews}}
-            <li>{{this}}</li>
-        {{/carViews}}
+        {{#cars}}
+            <li>{{this.get('score')}} - {{this.get('anthony')}}</li>
+        {{/cars}}
     </ul>
 </li>
