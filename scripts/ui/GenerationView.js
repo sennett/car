@@ -2,8 +2,7 @@ define([
 	'underscore',
 	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
-	'ui/utils',
-	'ui/CarView'], function(_, Ractive, template, utils, CarView) {
+	'ui/utils'], function(_, Ractive, template, utils) {
 
 	function createPrototype(generationNumber) {
 		return new Ractive({

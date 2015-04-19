@@ -1,8 +1,7 @@
 define(['underscore', 
 	'ui/GenerationView', 
-	'ui/CarView', 
 	'ui/presenters/GenerationsPresenter'], 
-	function(_, GenerationView, CarView, GenerationsPresenter) {
+	function(_, GenerationView, GenerationsPresenter) {
     var GenerationsListView = function(appService){
 		this.generations = {};
 		this.cars = {};
