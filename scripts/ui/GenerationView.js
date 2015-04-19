@@ -24,7 +24,13 @@ define([
 					complete: false
 				};
 				this.push('cars', carData);
-				return new CarView(_.last(this.get('cars')));
+				return this.get('cars').length - 1;
+			},
+			setCarScore: function(index, newCarScore){
+				this.set('cars[' + index + '].score', newCarScore);
+			},
+			setCarSimulationComplete: function(index){
+				this.set('cars[' + index + '].complete', true);
 			}
 		});
 	};

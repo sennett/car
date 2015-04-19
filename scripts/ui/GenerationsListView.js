@@ -28,6 +28,14 @@ define(['underscore',
 		if (!this.cars[id])
 			throw 'application exception: no car with id ' + id + ' found';
 	};
+		
+	var getGenerationForCarId = function(carId){
+		return this.generations[this.cars[carId].generation];
+	};
+
+	var getIndexForCarId = function(carId){
+		return this.cars[carId].index;
+	};
 	
     GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id, generationNumber){
@@ -45,15 +53,21 @@ define(['underscore',
 		},
 		onNewCar: function(id, generationId) {
 			checkGeneration.call(this, generationId);
-			this.cars[id] = this.generations[generationId].addCar();
+			var carIndex = this.generations[generationId].addCar();
+			this.cars[id] = {
+				generation: generationId,
+				index: carIndex
+			};
 		},
 		onNewCarScore: function(id, score){
 			checkCar.call(this, id);
-			this.cars[id].setScore(score);
+			var carIndex = getIndexForCarId.call(this, id);
+			getGenerationForCarId.call(this, id).setCarScore(carIndex, score);
 		},
 		onCarSimulationComplete: function(id){
 			checkCar.call(this, id);
-			this.cars[id].setSimulationComplete();
+			var carIndex = getIndexForCarId.call(this, id);
+			getGenerationForCarId.call(this, id).setCarSimulationComplete(carIndex);
 		}
 	});
 	
