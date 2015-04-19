@@ -4,8 +4,8 @@ define(['underscore',
 	'ui/presenters/GenerationsPresenter'], 
 	function(_, GenerationView, CarView, GenerationsPresenter) {
     var GenerationsListView = function(appService){
-		this.generations = [];
-		this.cars = [];
+		this.generations = {};
+		this.cars = {};
 
 		_.bindAll(this,
 			'onNewGeneration',
@@ -46,8 +46,7 @@ define(['underscore',
 		},
 		onNewCar: function(id, generationId) {
 			checkGeneration.call(this, generationId);
-			this.cars[id] = new CarView();
-			this.generations[generationId].addCarView(this.cars[id]);
+			this.cars[id] = this.generations[generationId].addCar();
 		},
 		onNewCarScore: function(id, score){
 			checkCar.call(this, id);

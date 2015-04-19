@@ -2,7 +2,8 @@ define([
 	'underscore',
 	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
-	'ui/utils'], function(_, Ractive, template, utils) {
+	'ui/utils',
+	'ui/CarView'], function(_, Ractive, template, utils, CarView) {
 
 	function createPrototype(generationNumber) {
 		return new Ractive({
@@ -18,8 +19,13 @@ define([
 			newHighScore: function (highscore) {
 				this.set('highscore', utils.roundScore(highscore));
 			},
-			addCarView: function(carView){
-				this.push('cars', carView);
+			addCar: function(){
+				var carData = {
+					score:0,
+					complete: false
+				};
+				this.push('cars', carData);
+				return new CarView(_.last(this.get('cars')));
 			}
 		});
 	};

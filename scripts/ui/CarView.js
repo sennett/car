@@ -3,15 +3,12 @@ define([
 	'ractiveRuntime',
 	'rv!ui/templates/CarTemplate'], function(_, Ractive, template) {
 	
-	function createPrototype() {
+	function createPrototype(carData) {
+		
 		return new Ractive({
 			template: template,
 			append: true,
-			data:{
-				score: 0,
-				complete: false,
-				anthony: 'yes'
-			},
+			data: carData,
 			setScore: function(score){
 				this.set('score', score);
 			},
@@ -21,8 +18,8 @@ define([
 		});
 	};
 	
-	var CarView = function(){
-		var view = createPrototype();
+	var CarView = function(carData){
+		var view = createPrototype(carData);
 		return view;
 	};
 	
