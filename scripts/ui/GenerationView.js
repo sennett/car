@@ -27,7 +27,7 @@ define([
 				return this.get('cars').length - 1;
 			},
 			setCarScore: function(index, newCarScore){
-				this.set('cars[' + index + '].score', newCarScore);
+				this.set('cars[' + index + '].score', utils.roundScore(newCarScore));
 			},
 			setCarSimulationComplete: function(index){
 				this.set('cars[' + index + '].complete', true);

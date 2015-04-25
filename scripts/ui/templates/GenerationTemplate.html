@@ -1,4 +1,4 @@
-<li style="display: block">
+<li style="display: block" class="generation">
     {{ #if (!generationComplete) }}
         Running generation {{ generationNumber }}
     {{ else }}
@@ -19,4 +19,5 @@
             <li>{{score}} - {{complete}}</li>
         {{/cars}}
     </ul>
+    <div style="clear:both"></div>
 </li>
