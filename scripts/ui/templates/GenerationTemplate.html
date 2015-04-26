@@ -7,13 +7,6 @@
     {{ #if (highscore) }}
         New highscore: {{ highscore }}
     {{ /if }}
-    <div class="progress">
-        <div class="complete" style="width: {{percentComplete}}%"></div>
-        {{ #if (displayCurrentlyRunningMember) }}
-            <div class="running" style="width: {{progressBarUnitPercentage}}%;"></div>
-        {{ /if }}
-        <div style="clear:both;"></div>
-    </div>
     <ul class="cars">
         {{#cars}}
             <car />
