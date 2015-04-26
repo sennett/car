@@ -1,5 +1,4 @@
 define(['underscore', 'core/util'], function (_, util) {
-	// currently incomplete.  uses roulette wheel selection
 	// detailed here:  http://boxcar2d.com/about.html
 
 	var Roulette = function(genomeMater, randomGenomeGenerator){
@@ -27,7 +26,7 @@ define(['underscore', 'core/util'], function (_, util) {
 
 			var nextGeneration = [];
 			while(nextGeneration.length <= generationSize){
-				var parentOne = this.getRandomGenome(genomes, _.random(0, 100));
+				var parentOne = this.getRandomGenome(genomes);
 				var genomesWithoutParentOne = _.without(genomes, parentOne);
 
 				var parentTwo = this.getRandomGenome(genomesWithoutParentOne);
