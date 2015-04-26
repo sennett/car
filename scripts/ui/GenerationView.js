@@ -2,7 +2,8 @@ define([
 	'underscore',
 	'ractiveRuntime',
 	'rv!ui/templates/GenerationTemplate',
-	'ui/utils'], function(_, Ractive, template, utils) {
+	'ui/utils',
+	'ui/CarView'], function(_, Ractive, template, utils, CarView) {
 
 	function createPrototype(generationNumber) {
 		return new Ractive({
@@ -31,6 +32,9 @@ define([
 			},
 			setCarSimulationComplete: function(index){
 				this.set('cars[' + index + '].complete', true);
+			},
+			components: {
+				car: CarView
 			}
 		});
 	};
