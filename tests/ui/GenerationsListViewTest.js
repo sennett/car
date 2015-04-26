@@ -1,4 +1,4 @@
-define(['ui/GenerationsListView', 'service/AppService'], function (GenerationsListView, AppService) {
+define(['ui/GenerationsListView'], function (GenerationsListView) {
 	describe('GenerationsListView', function () {
 		beforeEach(function() {
 			this.generationsListView = new GenerationsListView();

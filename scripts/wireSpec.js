@@ -106,13 +106,13 @@ define({
 	generationsListView: {
 		create: {
 			module: 'ui/GenerationsListView',
-			args: [{ $ref: "appService"}]
+			args: [{ $ref: "generationsUiService"}]
 		}
 	},
 
-	appService: {
+	generationsUiService: {
 		create: {
-			module: 'service/AppService',
+			module: 'service/GenerationsUiService',
 			args: [{ $ref: "evolutionEngine"}]
 		}
 	}

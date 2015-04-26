@@ -1,45 +1,45 @@
 define([
 	'ui/presenters/GenerationsPresenter', 
 	'ui/GenerationsListView', 
-	'service/AppService'], function (GenerationsPresenter, GenerationsListView, AppService) {
+	'service/GenerationsUiService'], function (GenerationsPresenter, GenerationsListView, GenerationsUiService) {
 	describe('GenerationsPresenter', function () {
 		beforeEach(function(){
-			spyOn(AppService.prototype, 'onNewGeneration');
-			spyOn(AppService.prototype, 'onNewGenerationHighScore');
-			spyOn(AppService.prototype, 'onNewGenerationAverageScore');
-			spyOn(AppService.prototype, 'onNewCar');
-			spyOn(AppService.prototype, 'onNewCarScore');
-			spyOn(AppService.prototype, 'onCarSimulationComplete');
-			new GenerationsPresenter(GenerationsListView.prototype, AppService.prototype);
+			spyOn(GenerationsUiService.prototype, 'onNewGeneration');
+			spyOn(GenerationsUiService.prototype, 'onNewGenerationHighScore');
+			spyOn(GenerationsUiService.prototype, 'onNewGenerationAverageScore');
+			spyOn(GenerationsUiService.prototype, 'onNewCar');
+			spyOn(GenerationsUiService.prototype, 'onNewCarScore');
+			spyOn(GenerationsUiService.prototype, 'onCarSimulationComplete');
+			new GenerationsPresenter(GenerationsListView.prototype, GenerationsUiService.prototype);
 		});
 		describe('informing the view', function(){
 			it('informs of generation', function(){
-				expect(AppService.prototype.onNewGeneration)
+				expect(GenerationsUiService.prototype.onNewGeneration)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGeneration);
 			});
 
 			it('informs of new high score for generation', function(){
-				expect(AppService.prototype.onNewGenerationHighScore)
+				expect(GenerationsUiService.prototype.onNewGenerationHighScore)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGenerationHighScore);
 			});
 
 			it('informs of a new average score for generation', function(){
-				expect(AppService.prototype.onNewGenerationAverageScore)
+				expect(GenerationsUiService.prototype.onNewGenerationAverageScore)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewGenerationAverageScore);
 			});
 			
 			it('informs of new car', function(){
-				expect(AppService.prototype.onNewCar)
+				expect(GenerationsUiService.prototype.onNewCar)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewCar);
 			});
 
 			it('informs of car score', function(){
-				expect(AppService.prototype.onNewCarScore)
+				expect(GenerationsUiService.prototype.onNewCarScore)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onNewCarScore);
 			});
 
 			it('informs of car simulation complete', function(){
-				expect(AppService.prototype.onCarSimulationComplete)
+				expect(GenerationsUiService.prototype.onCarSimulationComplete)
 					.toHaveBeenCalledWith(GenerationsListView.prototype.onCarSimulationComplete);
 			});
 		});

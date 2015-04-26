@@ -1,9 +1,9 @@
 define(['underscore'], function(_) {
-    var AppService = function(evolutionEngine){
+    var GenerationsUiService = function(evolutionEngine){
 		this.evolutionEngine = evolutionEngine;
 	};
     
-    AppService.prototype = _.extend(AppService.prototype, {
+    GenerationsUiService.prototype = _.extend(GenerationsUiService.prototype, {
 		onNewGeneration: function(handler){
 			this.evolutionEngine.onStartGeneration = handler;
 		},
@@ -24,5 +24,5 @@ define(['underscore'], function(_) {
 		}
 	});
 	
-    return AppService;
+    return GenerationsUiService;
 });
