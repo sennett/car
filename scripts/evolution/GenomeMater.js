@@ -1,4 +1,4 @@
-define(['evolution/genome', 'underscore', 'core/util'], function (genome, _, util) {
+define(['domain/genome', 'underscore', 'core/util'], function (genome, _, util) {
 
 	var GenomeMater = function (cutoffProvider) {
 		this.cutoffProvider = cutoffProvider;

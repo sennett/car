@@ -1,4 +1,4 @@
-define(['evolution/genome', 'underscore', 'core/util'], function (baseGenome, _, util) {
+define(['domain/genome', 'underscore', 'core/util'], function (baseGenome, _, util) {
 	var RandomGenomeGenerator = function(){};
 
 	RandomGenomeGenerator.prototype = {

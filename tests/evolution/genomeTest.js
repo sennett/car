@@ -1,4 +1,4 @@
-define(['evolution/genome', 'underscore'], function(baseGenome, _){
+define(['domain/genome', 'underscore'], function(baseGenome, _){
 	describe('genome', function(){
 		beforeEach(function(){
 			this.genome = _.extend({}, baseGenome);
