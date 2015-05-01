@@ -1,7 +1,6 @@
 define(['evolution/Engine',
 	'evolution/selection/NoBreeding'], function (Engine, SelectionAlgorithm) {
 	
-	var randomGeneration = 'random generation';
 	var nextGenerationFromEvolutionAlgorithm = 'generation from evolution algorithm';
 	var scoredGeneration = 'scored generation';
 	
@@ -15,7 +14,7 @@ define(['evolution/Engine',
 	};
 
 	var assertRandomGenerationCreated = function(){
-		expect(this.nextGenerationResult).toBe(randomGeneration);
+		expect(SelectionAlgorithm.prototype.nextGeneration).not.toHaveBeenCalled();
 	};
 	
 	var assertScoredGenerationPassedToEvolutionAlgorithm = function(){
