@@ -1,15 +1,13 @@
-define(['evolution/Engine', 
-	'evolution/RandomGenerationGenerator', 
-	'evolution/selection/NoBreeding'], function (Engine, RandomGenerationGenerator, SelectionAlgorithm) {
+define(['evolution/Engine',
+	'evolution/selection/NoBreeding'], function (Engine, SelectionAlgorithm) {
 	
 	var randomGeneration = 'random generation';
 	var nextGenerationFromEvolutionAlgorithm = 'generation from evolution algorithm';
 	var scoredGeneration = 'scored generation';
 	
 	var createEngine = function(){
-		spyOn(RandomGenerationGenerator.prototype, 'createRandomGeneration').and.returnValue(randomGeneration);
 		spyOn(SelectionAlgorithm.prototype, 'nextGeneration').and.returnValue(nextGenerationFromEvolutionAlgorithm);
-		this.engine = new Engine(RandomGenerationGenerator.prototype, SelectionAlgorithm.prototype);
+		this.engine = new Engine(SelectionAlgorithm.prototype);
 	};
 
 	var exerciseNextGeneration = function(){

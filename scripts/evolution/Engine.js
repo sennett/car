@@ -1,4 +1,4 @@
-define(['underscore'], function (_) {
+define(['underscore', 'domain/generation'], function (_, generation) {
 
 	var createNextGeneration = function(){
 		var scoreSum = _.reduce(this.scores,function(memo, num){ return memo + num; }, 0);
@@ -22,8 +22,7 @@ define(['underscore'], function (_) {
 		return this.currentGeneration + '-' + this.genomesSimulatedThisGeneration;
 	}
 
-	var Engine = function(randomGenomeGenerator, evolutionAlgorithm){
-		this.randomGenomeGenerator = randomGenomeGenerator;
+	var Engine = function(evolutionAlgorithm){
 		this.evolutionAlgorithm = evolutionAlgorithm;
 		this.currentGeneration = 0;
 		this.scores = [];
@@ -38,7 +37,7 @@ define(['underscore'], function (_) {
 			if (scoredGeneration)
 				return this.evolutionAlgorithm.nextGeneration(scoredGeneration);
 			else
-				return this.randomGenomeGenerator.createRandomGeneration();
+				return generation.createRandom();
 		},
 		nextGenome: function(){
 			if (this.currentGeneration == 0)
