@@ -34,6 +34,9 @@ define(['underscore'], function (_) {
 		generationSize: 20,
 		currentGenomes: [],
 		genomesSimulatedThisGeneration: 0,
+		nextGeneration: function(){
+			return this.randomGenomeGenerator.createRandomGeneration();
+		},
 		nextGenome: function(){
 			if (this.currentGeneration == 0)
 				createFirstGeneration.call(this);
