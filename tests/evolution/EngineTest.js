@@ -3,12 +3,12 @@ define(['evolution/Engine',
 	'evolution/selection/NoBreeding'], function (Engine, RandomGenerationGenerator, SelectionAlgorithm) {
 	
 	var randomGeneration = 'random generation';
-	var nextGeneration = 'generation from evolution algorithm';
+	var nextGenerationFromEvolutionAlgorithm = 'generation from evolution algorithm';
 	var scoredGeneration = 'scored generation';
 	
 	var createEngine = function(){
 		spyOn(RandomGenerationGenerator.prototype, 'createRandomGeneration').and.returnValue(randomGeneration);
-		spyOn(SelectionAlgorithm.prototype, 'nextGeneration').and.returnValue(nextGeneration);
+		spyOn(SelectionAlgorithm.prototype, 'nextGeneration').and.returnValue(nextGenerationFromEvolutionAlgorithm);
 		this.engine = new Engine(RandomGenerationGenerator.prototype, SelectionAlgorithm.prototype);
 	};
 
@@ -22,6 +22,10 @@ define(['evolution/Engine',
 	
 	var assertScoredGenerationPassedToEvolutionAlgorithm = function(){
 		expect(SelectionAlgorithm.prototype.nextGeneration).toHaveBeenCalledWith(scoredGeneration);
+	};
+	
+	var assertNextGenerationReturnedFromEvolutionAlgorithm = function(){
+		expect(this.nextGenerationResult).toBe(nextGenerationFromEvolutionAlgorithm);
 	};
 	
 	describe('Engine', function () {
@@ -43,7 +47,10 @@ define(['evolution/Engine',
 				});
 				
 				it('returns the result from the evolution algorithm', function(){
-					
+					createEngine.call(this);
+					exerciseNextGeneration.call(this);
+					exerciseNextGeneration.call(this, scoredGeneration);
+					assertNextGenerationReturnedFromEvolutionAlgorithm.call(this);
 				});
 			});
 		});
