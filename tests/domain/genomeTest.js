@@ -1,4 +1,12 @@
 define(['domain/genome', 'underscore'], function(baseGenome, _){
+	var exerciseRandomGenomeAndSerialise = function(){
+		return baseGenome.createRandom().serialise();
+	};
+	
+	var assertBothContainTheSameNumberOfGenes = function(arrayOne, arrayTwo){
+		expect(arrayOne.length).toEqual(arrayTwo.length);
+	};
+	
 	describe('genome', function(){
 		beforeEach(function(){
 			this.genome = _.extend({}, baseGenome);
@@ -45,6 +53,14 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 				expect(this.genome.wheelRadius0).toEqual(5);
 				expect(this.genome.wheelVertex1).toEqual(1);
 				expect(this.genome.wheelRadius1).toEqual(6);
+			});
+		});
+		
+		describe('randomise', function(){
+			it('clears old genes', function(){
+				var genomeOne = exerciseRandomGenomeAndSerialise();
+				var genomeTwo = exerciseRandomGenomeAndSerialise();
+				assertBothContainTheSameNumberOfGenes(genomeOne, genomeTwo);
 			});
 		});
 	});

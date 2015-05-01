@@ -85,6 +85,8 @@ define(['core/util', 'underscore'], function (util, _) {
 		},
 
 		randomise: function(){
+			this.totalVertices = 0;
+			this.totalWheels = 0;
 			for (var i = 0; i < totalVertices; i++){
 				var angle = util.random(2 * Math.PI * i / totalVertices, 2 * Math.PI * (i + 1) / totalVertices);
 				this.addVertex(angle, util.random(minMagnitude, maxMagnitude));
