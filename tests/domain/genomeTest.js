@@ -7,6 +7,10 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 		expect(arrayOne.length).toEqual(arrayTwo.length);
 	};
 	
+	var assertBothContainDifferentGenes = function(arrayOne, arrayTwo) {
+		expect(arrayOne).not.toEqual(arrayTwo);
+	};
+	
 	describe('genome', function(){
 		beforeEach(function(){
 			this.genome = _.extend({}, baseGenome);
@@ -61,6 +65,11 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 				var genomeOne = exerciseRandomGenomeAndSerialise();
 				var genomeTwo = exerciseRandomGenomeAndSerialise();
 				assertBothContainTheSameNumberOfGenes(genomeOne, genomeTwo);
+			});
+			it('does not copy reference to new genes', function(){
+				var genomeOne = exerciseRandomGenomeAndSerialise();
+				var genomeTwo = exerciseRandomGenomeAndSerialise();
+				assertBothContainDifferentGenes(genomeOne, genomeTwo);
 			});
 		});
 	});
