@@ -112,6 +112,16 @@ define(['core/util', 'underscore'], function (util, _) {
 					chanceOfMutation > Math.random() ? randomVertex : undefined,
 					chanceOfMutation > Math.random() ? randomRadius : undefined, i);
 			}
+		},
+		
+		createRandom: function(){
+			var newGenome = _.extend(this, {});
+			newGenome.randomise();
+			return newGenome;
+		},
+		
+		serialise: function(){
+			return this.toArray();
 		}
 	};
 });

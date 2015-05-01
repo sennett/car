@@ -3,6 +3,7 @@ define(function() {
 		startPosition: {
 			x: 0,
 			y: 12
-		}
+		},
+		generationSize: 20
 	}
 });
