@@ -1,6 +1,5 @@
-define(['underscore'], function(_) {
+define(['underscore', 'core/Car'], function(_, Car) {
 	var getGenomeAndStart = function(){
-		this.genome = this.evolutionEngine.nextGenome();
 		this.simulation.start(new Car(this.genome));
 	};
 	
@@ -9,7 +8,7 @@ define(['underscore'], function(_) {
 	
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
-		runGeneration: function(){
+		runGeneration: function(generation, onComplete){
 			throw 'not implemented';
 		}
 	});

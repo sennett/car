@@ -12,7 +12,7 @@ define(['core/Evolver', 'environment/Simulator', 'evolution/Engine'], function (
 	};
 	
 	var assertGenerationReceivedFromEvolutionEngine = function(){
-		expect(Simulator.prototype.runGeneration).toHaveBeenCalledWith(fakeGeneration);
+		expect(Simulator.prototype.runGeneration).toHaveBeenCalledWith(fakeGeneration, jasmine.any(Function));
 	};
 	
 	describe('Evolver', function () {
