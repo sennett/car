@@ -4,16 +4,16 @@ define(['underscore'], function(_){
 		this.evolutionEngine = evolutionEngine;
 	};
 
-	var runGeneration = function(scoredGeneration){
+	var runEvolution = function(scoredGeneration){
 		var nextGeneration = scoredGeneration ? 
 			this.evolutionEngine.nextGeneration(scoredGeneration)
 			: this.evolutionEngine.nextGeneration();
-		this.simulator.runGeneration(nextGeneration, runGeneration.bind(this));
+		this.simulator.runGeneration(nextGeneration, runEvolution.bind(this));
 	};
 
 	Evolver.prototype = _.extend(Evolver.prototype, {
 		run: function() {
-			runGeneration.call(this);
+			runEvolution.call(this);
 		}
 	});
 
