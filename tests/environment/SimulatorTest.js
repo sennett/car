@@ -1,14 +1,21 @@
 define(['environment/Simulator', 
 	'environment/provider/CarProvider',
 	'environment/provider/PhysicsWorldProvider',
-	'core/Car'], function (Simulator, CarProvider, PhysicsWorldProvider, Car) {
+	'core/Car',
+	'environment/GlobalEndStateDetector'], function (
+		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector) {
 	var generation = {};
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
 		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
 		this.fakeWorld = 'my fake world';
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
-		this.simulator = new Simulator(CarProvider.prototype, PhysicsWorldProvider.prototype);
+		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
+		
+		this.simulator = new Simulator(
+			CarProvider.prototype, 
+			PhysicsWorldProvider.prototype, 
+			GlobalEndStateDetector.prototype);
 	};
 	
 	var exerciseRunGeneration = function(){
@@ -28,6 +35,10 @@ define(['environment/Simulator',
 		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(1)[0]).toEqual(this.fakeWorld);
 	};
 	
+	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
+		expect(GlobalEndStateDetector.prototype.registerBody.calls.count()).toEqual(generation.genomes.length);
+	};
+	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
 			it('instantiates the cars', function(){
@@ -40,6 +51,20 @@ define(['environment/Simulator',
 				createSimulator.call(this);
 				exerciseRunGeneration.call(this);
 				assertPhysicsBodiesCreated.call(this);
+			});
+			
+			it('registers all bodies with the global end state detector', function(){
+				createSimulator.call(this);
+				exerciseRunGeneration.call(this);
+				assertAllCarBodiesRegisteredWithGlobalEndStateDetector.call(this);
+			});
+			
+			it('starts the ticker', function(){
+				
+			});
+			
+			it('registers first car body with the renderer', function(){
+				
 			});
 		});
 	});
