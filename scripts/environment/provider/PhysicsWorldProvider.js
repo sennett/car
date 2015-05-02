@@ -1,7 +1,7 @@
-define(['box2dweb'], function(Box2D) {
+define(['box2dweb', 'underscore'], function(Box2D, _) {
 	var PhysicsWorldProvider = function() {};
 
-	PhysicsWorldProvider.prototype = {
+	PhysicsWorldProvider.prototype = _.extend(PhysicsWorldProvider.prototype, {
 		getWorld: function(){
 			// http://stackoverflow.com/a/1608546/614523
 			return new Box2D.Dynamics.b2World(
@@ -9,7 +9,7 @@ define(['box2dweb'], function(Box2D) {
 				true
 			);
 		}
-	};
+	});
 
 	return PhysicsWorldProvider;
 });

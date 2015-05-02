@@ -94,7 +94,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		this.genome = genome;
 	};
 
-	Car.prototype = {
+	Car.prototype = _.extend(Car.prototype, {
 		destroyPhysicsBodies: function(){
 			this.world.DestroyBody(this.body);
 			_.each(this.wheels, function(wheel){
@@ -106,7 +106,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.body = createBody.call(this);
 			this.wheels = createWheels.call(this);
 		}
-	};
+	});
 
 	return Car;
 });
