@@ -1,11 +1,11 @@
-define(function () {
+define(['underscore'], function (_) {
 	var FacadeRenderer = function (nullRenderer, canvasRenderer) {
 		this.nullRenderer = nullRenderer;
 		this.canvasRenderer = canvasRenderer;
 		this.currentRenderer = this.canvasRenderer;
 	};
 
-	FacadeRenderer.prototype = {
+	FacadeRenderer.prototype = _.extend(FacadeRenderer.prototype, {
 		initialise: function(world){
 			this.world = world;
 			this.currentRenderer.initialise(this.world);
@@ -32,7 +32,7 @@ define(function () {
 			this.currentRenderer.reset();
 			this.currentRenderer.followBody(this.body);
 		}
-	};
+	});
 
 	return FacadeRenderer;
 });

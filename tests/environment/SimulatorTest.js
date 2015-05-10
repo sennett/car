@@ -1,9 +1,12 @@
-define(['environment/Simulator', 
+define([
+	'environment/Simulator', 
 	'environment/provider/CarProvider',
 	'environment/provider/PhysicsWorldProvider',
 	'core/Car',
-	'environment/GlobalEndStateDetector'], function (
-		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector) {
+	'environment/GlobalEndStateDetector',
+	'environment/Ticker',
+	'environment/renderer/FacadeRenderer'], function (
+		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer) {
 	var generation = {};
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
@@ -11,11 +14,15 @@ define(['environment/Simulator',
 		this.fakeWorld = 'my fake world';
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
 		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
+		spyOn(Ticker.prototype, 'run');
+		spyOn(FacadeRenderer.prototype, 'followBody');
 		
 		this.simulator = new Simulator(
 			CarProvider.prototype, 
 			PhysicsWorldProvider.prototype, 
-			GlobalEndStateDetector.prototype);
+			GlobalEndStateDetector.prototype,
+			Ticker.prototype,
+			FacadeRenderer.prototype);
 	};
 	
 	var exerciseRunGeneration = function(){
@@ -37,6 +44,14 @@ define(['environment/Simulator',
 	
 	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
 		expect(GlobalEndStateDetector.prototype.registerBody.calls.count()).toEqual(generation.genomes.length);
+	};
+
+	var assertTickerRun = function(){
+		expect(Ticker.prototype.run).toHaveBeenCalled();
+	};
+	
+	var assertRendererPassedFirstCar = function(){
+		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalled();
 	};
 	
 	describe('Simulator', function () {
@@ -60,11 +75,15 @@ define(['environment/Simulator',
 			});
 			
 			it('starts the ticker', function(){
-				
+				createSimulator.call(this);
+				exerciseRunGeneration.call(this);
+				assertTickerRun.call(this);
 			});
 			
 			it('registers first car body with the renderer', function(){
-				
+				createSimulator.call(this);
+				exerciseRunGeneration.call(this);
+				assertRendererPassedFirstCar.call(this);
 			});
 		});
 	});
