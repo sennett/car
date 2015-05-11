@@ -6,6 +6,7 @@ define(['underscore'], function(_) {
 	var end = function(){
 		this.ticker.stop();
 		this.renderer.reset();
+		this.globalEndStateDetector.clearBodies();
 		_.each(this.cars, function(car){
 			car.destroyPhysicsBodies();
 		});

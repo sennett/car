@@ -7,6 +7,9 @@ define(['underscore'], function(_) {
 		},
 		simulationEnded: function(){
 			throw 'not implemented';
+		},
+		clearBodies: function(){
+			throw 'not implemented';
 		}
 	});
     

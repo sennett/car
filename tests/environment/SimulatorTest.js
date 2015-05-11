@@ -59,15 +59,25 @@ define([
 					exerciseRunGenerationAndStop.call(this);
 					assertCarBodiesDestroyed.call(this);
 				});
-				
+
 				it('calls the stop callback', function(){
 					createSimulator.call(this);
 					exerciseRunGenerationAndStop.call(this);
 					assertStopCallbackCalled.call(this);
 				});
+
+				it('clears all the bodies from the endstate detector', function(){
+					createSimulator.call(this);
+					exerciseRunGenerationAndStop.call(this);
+					assertBodiesClearedOnEndStateDetector.call(this);
+				});
 			});
 		});
 	});
+
+	var assertBodiesClearedOnEndStateDetector = function(){
+		expect(GlobalEndStateDetector.prototype.clearBodies).toHaveBeenCalled();
+	};
 
 	var generation = {};
 	var createSimulator = function(){
@@ -78,6 +88,7 @@ define([
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
 		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
+		spyOn(GlobalEndStateDetector.prototype, 'clearBodies');
 		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
 			tick();
 		});
