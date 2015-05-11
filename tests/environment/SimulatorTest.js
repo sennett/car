@@ -69,7 +69,12 @@ define([
 	var markStoppable = function(){
 		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
 	};
-	
+
+
+	var assertTickerStopped = function() {
+		expect(Ticker.prototype.stop).toHaveBeenCalled();
+	}
+
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
 			it('instantiates the cars', function(){
@@ -106,11 +111,12 @@ define([
 				it('stops the ticker', function(){
 					createSimulator.call(this);
 					exerciseRunGenerationAndStop.call(this);
-					expect(Ticker.prototype.stop).toHaveBeenCalled();
+					assertTickerStopped.call(this);
 				});
 				
 				xit('resets the renderer', function(){
-					
+					createSimulator.call(this);
+					exerciseRunGenerationAndStop.call(this);
 				});
 				
 				xit('destroys the cars\' physics bodies', function(){
