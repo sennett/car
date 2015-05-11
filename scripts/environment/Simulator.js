@@ -9,6 +9,7 @@ define(['underscore'], function(_) {
 		_.each(this.cars, function(car){
 			car.destroyPhysicsBodies();
 		});
+		this.onComplete();
 	};
 
 	var tick = function(){
@@ -36,6 +37,7 @@ define(['underscore'], function(_) {
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
 		runGeneration: function(generation, onComplete){
+			this.onComplete = onComplete;
 			// todo: remove dep on genomes (construct car from serialised domain obj)
 			this.cars = _.map(generation.genomes, function(genome){
 				var car = this.carProvider.createCar(genome);

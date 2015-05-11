@@ -38,7 +38,8 @@ define([
 		generation.genomes = [
 			'genome one', 'genome two'
 		];
-		this.simulator.runGeneration(generation);
+		this.onCompleteSpy = jasmine.createSpy('onCompleteSpy');
+		this.simulator.runGeneration(generation, this.onCompleteSpy);
 	};
 
 	var exerciseRunGenerationAndStop = function(){
@@ -82,6 +83,10 @@ define([
 
 	var assertCarBodiesDestroyed = function(){
 		expect(Car.prototype.destroyPhysicsBodies.calls.count()).toEqual(2);
+	};
+	
+	var assertStopCallbackCalled = function(){
+		expect(this.onCompleteSpy).toHaveBeenCalled();
 	};
 	
 	describe('Simulator', function () {
@@ -135,8 +140,10 @@ define([
 					assertCarBodiesDestroyed.call(this);
 				});
 				
-				xit('calls the stop callback', function(){
-
+				it('calls the stop callback', function(){
+					createSimulator.call(this);
+					exerciseRunGenerationAndStop.call(this);
+					assertStopCallbackCalled.call(this);
 				});
 			});
 		});
