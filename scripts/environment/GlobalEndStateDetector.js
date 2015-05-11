@@ -4,6 +4,9 @@ define(['underscore'], function(_) {
     GlobalEndStateDetector.prototype = _.extend(GlobalEndStateDetector.prototype, {
 		registerBody: function(){
 			throw 'not implemented';
+		},
+		simulationEnded: function(){
+			throw 'not implemented';
 		}
 	});
     

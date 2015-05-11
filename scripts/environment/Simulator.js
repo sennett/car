@@ -4,7 +4,7 @@ define(['underscore'], function(_) {
 	};
 
 	var tick = function(){
-		if (this.endStateDetector.simulationEnded())
+		if (this.globalEndStateDetector.simulationEnded())
 			this.end();
 		this.world.Step(
 			1 / 60   //frame-rate

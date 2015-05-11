@@ -5,17 +5,23 @@ define([
 	'core/Car',
 	'environment/GlobalEndStateDetector',
 	'environment/Ticker',
-	'environment/renderer/FacadeRenderer'], function (
-		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer) {
+	'environment/renderer/FacadeRenderer',
+	'box2dweb'], function (
+		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d) {
 	var generation = {};
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
 		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
-		this.fakeWorld = 'my fake world';
+		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
+		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
 		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
-		spyOn(Ticker.prototype, 'run');
+		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
+			tick();
+		});
+		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
 		spyOn(FacadeRenderer.prototype, 'followBody');
+		spyOn(FacadeRenderer.prototype, 'render');
 		
 		this.simulator = new Simulator(
 			CarProvider.prototype, 
@@ -51,7 +57,7 @@ define([
 	};
 	
 	var assertRendererPassedFirstCar = function(){
-		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalled();
+		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
 	};
 	
 	describe('Simulator', function () {
@@ -84,6 +90,22 @@ define([
 				createSimulator.call(this);
 				exerciseRunGeneration.call(this);
 				assertRendererPassedFirstCar.call(this);
+			});
+			
+			describe('ending the simulation', function(){
+				it('stops the ticker', function(){
+					createSimulator.call(this);
+					exerciseRunGeneration.call(this);
+				});
+				it('resets the renderer', function(){
+
+				});
+				it('destroys the cars\' physics bodies', function(){
+					
+				});
+				it('calls the stop callback', function(){
+
+				});
 			});
 		});
 	});
