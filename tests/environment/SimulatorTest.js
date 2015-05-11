@@ -8,86 +8,6 @@ define([
 	'environment/renderer/FacadeRenderer',
 	'box2dweb'], function (
 		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d) {
-	var generation = {};
-	var createSimulator = function(){
-		spyOn(Car.prototype, 'initialisePhysicsBodies');
-		spyOn(Car.prototype, 'destroyPhysicsBodies');
-		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
-		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
-		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
-		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
-		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
-		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
-			tick();
-		});
-		spyOn(Ticker.prototype, 'stop');
-		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
-		spyOn(FacadeRenderer.prototype, 'followBody');
-		spyOn(FacadeRenderer.prototype, 'render');
-		spyOn(FacadeRenderer.prototype, 'reset');
-		
-		this.simulator = new Simulator(
-			CarProvider.prototype, 
-			PhysicsWorldProvider.prototype, 
-			GlobalEndStateDetector.prototype,
-			Ticker.prototype,
-			FacadeRenderer.prototype);
-	};
-	
-	var exerciseRunGeneration = function(){
-		generation.genomes = [
-			'genome one', 'genome two'
-		];
-		this.onCompleteSpy = jasmine.createSpy('onCompleteSpy');
-		this.simulator.runGeneration(generation, this.onCompleteSpy);
-	};
-
-	var exerciseRunGenerationAndStop = function(){
-		markStoppable.call(this);
-		exerciseRunGeneration.call(this);
-	};
-	
-	var assertCarsInstantiated = function(){
-		expect(CarProvider.prototype.createCar.calls.argsFor(0)[0]).toEqual(generation.genomes[0]);
-		expect(CarProvider.prototype.createCar.calls.argsFor(1)[0]).toEqual(generation.genomes[1]);
-	};
-	
-	var assertPhysicsBodiesCreated = function(){
-		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(0)[0]).toEqual(this.fakeWorld);
-		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(1)[0]).toEqual(this.fakeWorld);
-	};
-	
-	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
-		expect(GlobalEndStateDetector.prototype.registerBody.calls.count()).toEqual(generation.genomes.length);
-	};
-
-	var assertTickerRun = function(){
-		expect(Ticker.prototype.run).toHaveBeenCalled();
-	};
-	
-	var assertRendererPassedFirstCar = function(){
-		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
-	};
-	
-	var markStoppable = function(){
-		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
-	};
-
-	var assertTickerStopped = function() {
-		expect(Ticker.prototype.stop).toHaveBeenCalled();
-	};
-	
-	var assertRendererReset = function(){
-		expect(FacadeRenderer.prototype.reset).toHaveBeenCalled();
-	};
-
-	var assertCarBodiesDestroyed = function(){
-		expect(Car.prototype.destroyPhysicsBodies.calls.count()).toEqual(2);
-	};
-	
-	var assertStopCallbackCalled = function(){
-		expect(this.onCompleteSpy).toHaveBeenCalled();
-	};
 	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -148,4 +68,85 @@ define([
 			});
 		});
 	});
+
+	var generation = {};
+	var createSimulator = function(){
+		spyOn(Car.prototype, 'initialisePhysicsBodies');
+		spyOn(Car.prototype, 'destroyPhysicsBodies');
+		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
+		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
+		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
+		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
+		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
+		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
+			tick();
+		});
+		spyOn(Ticker.prototype, 'stop');
+		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
+		spyOn(FacadeRenderer.prototype, 'followBody');
+		spyOn(FacadeRenderer.prototype, 'render');
+		spyOn(FacadeRenderer.prototype, 'reset');
+
+		this.simulator = new Simulator(
+			CarProvider.prototype,
+			PhysicsWorldProvider.prototype,
+			GlobalEndStateDetector.prototype,
+			Ticker.prototype,
+			FacadeRenderer.prototype);
+	};
+
+	var exerciseRunGeneration = function(){
+		generation.genomes = [
+			'genome one', 'genome two'
+		];
+		this.onCompleteSpy = jasmine.createSpy('onCompleteSpy');
+		this.simulator.runGeneration(generation, this.onCompleteSpy);
+	};
+
+	var exerciseRunGenerationAndStop = function(){
+		markStoppable.call(this);
+		exerciseRunGeneration.call(this);
+	};
+
+	var assertCarsInstantiated = function(){
+		expect(CarProvider.prototype.createCar.calls.argsFor(0)[0]).toEqual(generation.genomes[0]);
+		expect(CarProvider.prototype.createCar.calls.argsFor(1)[0]).toEqual(generation.genomes[1]);
+	};
+
+	var assertPhysicsBodiesCreated = function(){
+		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(0)[0]).toEqual(this.fakeWorld);
+		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(1)[0]).toEqual(this.fakeWorld);
+	};
+
+	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
+		expect(GlobalEndStateDetector.prototype.registerBody.calls.count()).toEqual(generation.genomes.length);
+	};
+
+	var assertTickerRun = function(){
+		expect(Ticker.prototype.run).toHaveBeenCalled();
+	};
+
+	var assertRendererPassedFirstCar = function(){
+		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
+	};
+
+	var markStoppable = function(){
+		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
+	};
+
+	var assertTickerStopped = function() {
+		expect(Ticker.prototype.stop).toHaveBeenCalled();
+	};
+
+	var assertRendererReset = function(){
+		expect(FacadeRenderer.prototype.reset).toHaveBeenCalled();
+	};
+
+	var assertCarBodiesDestroyed = function(){
+		expect(Car.prototype.destroyPhysicsBodies.calls.count()).toEqual(2);
+	};
+
+	var assertStopCallbackCalled = function(){
+		expect(this.onCompleteSpy).toHaveBeenCalled();
+	};
 });
