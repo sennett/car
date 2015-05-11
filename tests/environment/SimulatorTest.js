@@ -23,6 +23,7 @@ define([
 		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
 		spyOn(FacadeRenderer.prototype, 'followBody');
 		spyOn(FacadeRenderer.prototype, 'render');
+		spyOn(FacadeRenderer.prototype, 'reset');
 		
 		this.simulator = new Simulator(
 			CarProvider.prototype, 
@@ -70,10 +71,13 @@ define([
 		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
 	};
 
-
 	var assertTickerStopped = function() {
 		expect(Ticker.prototype.stop).toHaveBeenCalled();
-	}
+	};
+	
+	var assertRendererReset = function(){
+		expect(FacadeRenderer.prototype.reset).toHaveBeenCalled();
+	};
 
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -114,9 +118,10 @@ define([
 					assertTickerStopped.call(this);
 				});
 				
-				xit('resets the renderer', function(){
+				it('resets the renderer', function(){
 					createSimulator.call(this);
 					exerciseRunGenerationAndStop.call(this);
+					assertRendererReset.call(this);
 				});
 				
 				xit('destroys the cars\' physics bodies', function(){

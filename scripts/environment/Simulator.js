@@ -5,6 +5,8 @@ define(['underscore'], function(_) {
 	
 	var end = function(){
 		this.ticker.stop();
+		this.renderer.reset();
+		
 	};
 
 	var tick = function(){
