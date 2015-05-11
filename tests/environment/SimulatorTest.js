@@ -11,6 +11,7 @@ define([
 	var generation = {};
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
+		spyOn(Car.prototype, 'destroyPhysicsBodies');
 		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
@@ -79,6 +80,10 @@ define([
 		expect(FacadeRenderer.prototype.reset).toHaveBeenCalled();
 	};
 
+	var assertCarBodiesDestroyed = function(){
+		expect(Car.prototype.destroyPhysicsBodies.calls.count()).toEqual(2);
+	};
+	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
 			it('instantiates the cars', function(){
@@ -124,8 +129,10 @@ define([
 					assertRendererReset.call(this);
 				});
 				
-				xit('destroys the cars\' physics bodies', function(){
-					
+				it('destroys the cars\' physics bodies', function(){
+					createSimulator.call(this);
+					exerciseRunGenerationAndStop.call(this);
+					assertCarBodiesDestroyed.call(this);
 				});
 				
 				xit('calls the stop callback', function(){
