@@ -38,6 +38,11 @@ define([
 		];
 		this.simulator.runGeneration(generation);
 	};
+
+	var exerciseRunGenerationAndStop = function(){
+		markStoppable.call(this);
+		exerciseRunGeneration.call(this);
+	};
 	
 	var assertCarsInstantiated = function(){
 		expect(CarProvider.prototype.createCar.calls.argsFor(0)[0]).toEqual(generation.genomes[0]);
@@ -100,13 +105,12 @@ define([
 			describe('ending the simulation', function(){
 				it('stops the ticker', function(){
 					createSimulator.call(this);
-					markStoppable.call(this);
-					exerciseRunGeneration.call(this);
+					exerciseRunGenerationAndStop.call(this);
 					expect(Ticker.prototype.stop).toHaveBeenCalled();
 				});
 				
 				xit('resets the renderer', function(){
-
+					
 				});
 				
 				xit('destroys the cars\' physics bodies', function(){
