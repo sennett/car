@@ -19,6 +19,7 @@ define([
 		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
 			tick();
 		});
+		spyOn(Ticker.prototype, 'stop');
 		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
 		spyOn(FacadeRenderer.prototype, 'followBody');
 		spyOn(FacadeRenderer.prototype, 'render');
@@ -60,6 +61,10 @@ define([
 		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
 	};
 	
+	var markStoppable = function(){
+		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
+	};
+	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
 			it('instantiates the cars', function(){
@@ -95,15 +100,20 @@ define([
 			describe('ending the simulation', function(){
 				it('stops the ticker', function(){
 					createSimulator.call(this);
+					markStoppable.call(this);
 					exerciseRunGeneration.call(this);
+					expect(Ticker.prototype.stop).toHaveBeenCalled();
 				});
-				it('resets the renderer', function(){
+				
+				xit('resets the renderer', function(){
 
 				});
-				it('destroys the cars\' physics bodies', function(){
+				
+				xit('destroys the cars\' physics bodies', function(){
 					
 				});
-				it('calls the stop callback', function(){
+				
+				xit('calls the stop callback', function(){
 
 				});
 			});

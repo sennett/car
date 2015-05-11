@@ -2,10 +2,14 @@ define(['underscore'], function(_) {
 	var getGenomeAndStart = function(){
 		this.simulation.start(new Car(this.genome));
 	};
+	
+	var end = function(){
+		this.ticker.stop();
+	};
 
 	var tick = function(){
 		if (this.globalEndStateDetector.simulationEnded())
-			this.end();
+			end.call(this);
 		this.world.Step(
 			1 / 60   //frame-rate
 			,  10       //velocity iterations
