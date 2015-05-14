@@ -118,7 +118,7 @@ define([
 		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
-		spyOn(GlobalEndStateDetector.prototype, 'registerBody');
+		spyOn(GlobalEndStateDetector.prototype, 'setCars');
 		spyOn(GlobalEndStateDetector.prototype, 'clearBodies');
 		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
 			tick();
@@ -163,7 +163,7 @@ define([
 	};
 
 	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
-		expect(GlobalEndStateDetector.prototype.registerBody.calls.count()).toEqual(generation.genomes.length);
+		expect(GlobalEndStateDetector.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
 
 	var assertTickerRun = function(){

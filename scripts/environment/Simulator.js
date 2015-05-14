@@ -42,14 +42,12 @@ define(['underscore'], function(_) {
 			this.cars = _.map(generation.genomes, function(genome){
 				var car = genome.createCar();
 				car.initialisePhysicsBodies(this.world);
-				this.globalEndStateDetector.registerBody(car.body);
 				return car;
 			}.bind(this));
 			
 			this.scoreNotifier.setCars(this.cars);
-			
+			this.globalEndStateDetector.setCars(this.cars);
 			this.renderer.followBody(_.first(this.cars).body);
-			
 			this.ticker.run(tick.bind(this));
 		}
 	});

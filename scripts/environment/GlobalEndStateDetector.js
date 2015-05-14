@@ -2,7 +2,7 @@ define(['underscore'], function(_) {
     var GlobalEndStateDetector = function(){};
     
     GlobalEndStateDetector.prototype = _.extend(GlobalEndStateDetector.prototype, {
-		registerBody: function(){
+		setCars: function(cars){
 			throw 'not implemented';
 		},
 		simulationEnded: function(){
