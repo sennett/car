@@ -2,7 +2,7 @@ define([
 	'environment/Simulator', 
 	'environment/provider/CarProvider',
 	'environment/provider/PhysicsWorldProvider',
-	'core/Car',
+	'domain/Car',
 	'environment/GlobalEndStateDetector',
 	'environment/Ticker',
 	'environment/renderer/FacadeRenderer',

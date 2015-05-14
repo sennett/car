@@ -1,4 +1,4 @@
-define(['underscore', 'core/Car'], function(_, Car) {
+define(['underscore', 'domain/Car'], function(_, Car) {
     var CarProvider = function(){};
     
     CarProvider.prototype = _.extend(CarProvider.prototype, {
