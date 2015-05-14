@@ -1,7 +1,4 @@
 define(['underscore'], function(_) {
-	var getGenomeAndStart = function(){
-		this.simulation.start(new Car(this.genome));
-	};
 	
 	var end = function(){
 		this.ticker.stop();
@@ -28,11 +25,12 @@ define(['underscore'], function(_) {
 		this.world.ClearForces();
 	};
 	
-	var Simulator = function(physicsWorldProvider, globalEndStateDetector, ticker, renderer){
+	var Simulator = function(physicsWorldProvider, globalEndStateDetector, ticker, renderer, scoreNotifier){
 		this.world = physicsWorldProvider.getWorld();
 		this.globalEndStateDetector = globalEndStateDetector;
 		this.ticker = ticker;
 		this.renderer = renderer;
+		this.scoreNotifier = scoreNotifier;
 	};
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
@@ -45,6 +43,8 @@ define(['underscore'], function(_) {
 				this.globalEndStateDetector.registerBody(car.body);
 				return car;
 			}.bind(this));
+			
+			this.scoreNotifier.setCars(this.cars);
 			
 			this.renderer.followBody(_.first(this.cars).body);
 			

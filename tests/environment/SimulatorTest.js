@@ -6,8 +6,9 @@ define([
 	'environment/Ticker',
 	'environment/renderer/FacadeRenderer',
 	'box2dweb',
-	'domain/genome'], function (
-		Simulator, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d, genome) {
+	'domain/genome',
+	'environment/ScoreNotifier'], function (
+		Simulator, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d, genome, ScoreNotifier) {
 	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -39,6 +40,12 @@ define([
 				createSimulator.call(this);
 				exerciseRunGeneration.call(this);
 				assertRendererPassedFirstCar.call(this);
+			});
+			
+			it('passes cars to the score notifier', function(){
+				createSimulator.call(this);
+				exerciseRunGeneration.call(this);
+				assertScoreNotifierPassedCars.call(this);
 			});
 			
 			describe('ending the simulation', function(){
@@ -74,6 +81,10 @@ define([
 			});
 		});
 	});
+	
+	var assertScoreNotifierPassedCars = function(){
+		expect(ScoreNotifier.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
+	};
 
 	var assertBodiesClearedOnEndStateDetector = function(){
 		expect(GlobalEndStateDetector.prototype.clearBodies).toHaveBeenCalled();
@@ -97,12 +108,14 @@ define([
 		spyOn(FacadeRenderer.prototype, 'followBody');
 		spyOn(FacadeRenderer.prototype, 'render');
 		spyOn(FacadeRenderer.prototype, 'reset');
+		spyOn(ScoreNotifier.prototype, 'setCars');
 
 		this.simulator = new Simulator(
 			PhysicsWorldProvider.prototype,
 			GlobalEndStateDetector.prototype,
 			Ticker.prototype,
-			FacadeRenderer.prototype);
+			FacadeRenderer.prototype,
+			ScoreNotifier.prototype);
 	};
 
 	var exerciseRunGeneration = function(){
