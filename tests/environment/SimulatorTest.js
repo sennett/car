@@ -1,13 +1,13 @@
 define([
 	'environment/Simulator', 
-	'environment/provider/CarProvider',
 	'environment/provider/PhysicsWorldProvider',
 	'domain/Car',
 	'environment/GlobalEndStateDetector',
 	'environment/Ticker',
 	'environment/renderer/FacadeRenderer',
-	'box2dweb'], function (
-		Simulator, CarProvider, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d) {
+	'box2dweb',
+	'domain/genome'], function (
+		Simulator, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d, genome) {
 	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -83,7 +83,7 @@ define([
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
 		spyOn(Car.prototype, 'destroyPhysicsBodies');
-		spyOn(CarProvider.prototype, 'createCar').and.returnValue(Car.prototype);
+		spyOn(genome, 'createCar').and.returnValue(Car.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
@@ -99,7 +99,6 @@ define([
 		spyOn(FacadeRenderer.prototype, 'reset');
 
 		this.simulator = new Simulator(
-			CarProvider.prototype,
 			PhysicsWorldProvider.prototype,
 			GlobalEndStateDetector.prototype,
 			Ticker.prototype,
@@ -108,7 +107,7 @@ define([
 
 	var exerciseRunGeneration = function(){
 		generation.genomes = [
-			'genome one', 'genome two'
+			genome, genome
 		];
 		this.onCompleteSpy = jasmine.createSpy('onCompleteSpy');
 		this.simulator.runGeneration(generation, this.onCompleteSpy);
@@ -120,8 +119,7 @@ define([
 	};
 
 	var assertCarsInstantiated = function(){
-		expect(CarProvider.prototype.createCar.calls.argsFor(0)[0]).toEqual(generation.genomes[0]);
-		expect(CarProvider.prototype.createCar.calls.argsFor(1)[0]).toEqual(generation.genomes[1]);
+		expect(genome.createCar.calls.count()).toEqual(generation.genomes.length);
 	};
 
 	var assertPhysicsBodiesCreated = function(){

@@ -28,8 +28,7 @@ define(['underscore'], function(_) {
 		this.world.ClearForces();
 	};
 	
-	var Simulator = function(carProvider, physicsWorldProvider, globalEndStateDetector, ticker, renderer){
-		this.carProvider = carProvider;
+	var Simulator = function(physicsWorldProvider, globalEndStateDetector, ticker, renderer){
 		this.world = physicsWorldProvider.getWorld();
 		this.globalEndStateDetector = globalEndStateDetector;
 		this.ticker = ticker;
@@ -41,7 +40,7 @@ define(['underscore'], function(_) {
 			this.onComplete = onComplete;
 			// todo: remove dep on genomes (construct car from serialised domain obj)
 			this.cars = _.map(generation.genomes, function(genome){
-				var car = this.carProvider.createCar(genome);
+				var car = genome.createCar();
 				car.initialisePhysicsBodies(this.world);
 				this.globalEndStateDetector.registerBody(car.body);
 				return car;

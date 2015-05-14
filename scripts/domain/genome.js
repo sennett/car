@@ -1,4 +1,4 @@
-define(['core/util', 'underscore'], function (util, _) {
+define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 	var minMagnitude = 0.2;
 	var maxMagnitude = 4;
 	var minRadius = 0.1;
@@ -124,6 +124,10 @@ define(['core/util', 'underscore'], function (util, _) {
 		
 		serialise: function(){
 			return this.toArray();
+		},
+		
+		createCar: function(){
+			return new Car(this);
 		}
 	};
 });
