@@ -1,6 +1,7 @@
 define(['underscore'], function(_) {
 	
 	var end = function(){
+		this.scoreNotifier.clearCars();
 		this.ticker.stop();
 		this.renderer.reset();
 		this.globalEndStateDetector.clearBodies();
