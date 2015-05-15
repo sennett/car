@@ -7,7 +7,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 				assertSimulationEnded.call(this);
 			});
 			
-			xit('does not end the simulation when the car body is awake for a short while', function(){
+			it('does not end the simulation when the car body is awake', function(){
 				createCar.call(this);
 				initialiseWithAwakeBody.call(this);
 				assertSimulationNotEnded.call(this);
@@ -45,6 +45,10 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
 		this.car.initialisePhysicsBodies(Box2D.Dynamics.b2World.prototype);
+	};
+	
+	var assertSimulationNotEnded = function(){
+		expect(this.car.serialise().simulationComplete).toEqual(false);
 	};
 
 	var assertSimulationEnded = function(){
