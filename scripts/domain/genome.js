@@ -13,13 +13,27 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 	};
 
 	var addVertex = function(angle, magnitude){
-		this.setVertex(angle, magnitude, this.totalVertices);
+		setVertex.call(this, angle, magnitude, this.totalVertices);
 		this.totalVertices++;
 	};
 
 	var addWheel = function(vertex, radius){
-		this.setWheel(vertex, radius, this.totalWheels);
+		setWheel.call(this, vertex, radius, this.totalWheels);
 		this.totalWheels++;
+	};
+
+	var setVertex = function(angle, magnitude, i){
+		if (!_.isUndefined(angle))
+			this['angle' + i] = angle;
+		if (!_.isUndefined(magnitude))
+			this['magnitude' + i] = magnitude;
+	};
+
+	var setWheel = function(vertex, radius, i) {
+		if (!_.isUndefined(vertex))
+			this['wheelVertex' + i] = vertex;
+		if (!_.isUndefined(radius))
+			this['wheelRadius' + i] = radius;
 	};
 	
 	return {
@@ -33,20 +47,6 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 
 		totalGenes: function(){
 			return this.totalVertices + this.totalWheels;
-		},
-
-		setVertex: function(angle, magnitude, i){
-			if (!_.isUndefined(angle))
-				this['angle' + i] = angle;
-			if (!_.isUndefined(magnitude))
-				this['magnitude' + i] = magnitude;
-		},
-
-		setWheel: function(vertex, radius, i) {
-			if (!_.isUndefined(vertex))
-				this['wheelVertex' + i] = vertex;
-			if (!_.isUndefined(radius))
-				this['wheelRadius' + i] = radius;
 		},
 
 		forEachVertex: function(runForVertex, ctx){
@@ -106,7 +106,7 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 			for (var i = 0; i < totalVertices; i++){
 				var randomAngle = util.random(2 * Math.PI * i / totalVertices, 2 * Math.PI * (i + 1) / totalVertices);
 				var randomMagnitude = util.random(minMagnitude, maxMagnitude);
-				this.setVertex(
+				setVertex.call(this,
 					chanceOfMutation > Math.random() ? randomAngle : undefined,
 					chanceOfMutation > Math.random() ? randomMagnitude : undefined,
 					i);
@@ -115,7 +115,7 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 			for (var i = 0; i < maxWheels; i++){
 				var randomVertex = _.random(0, totalVertices - 1);
 				var randomRadius = util.random(minRadius, maxRadius);
-				this.setWheel(
+				setWheel.call(this,
 					chanceOfMutation > Math.random() ? randomVertex : undefined,
 					chanceOfMutation > Math.random() ? randomRadius : undefined, i);
 			}
