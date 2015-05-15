@@ -76,10 +76,10 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			axleDef.Initialize(this.body, wheel, wheel.GetWorldCenter());
 			axleDef.enableMotor = true;
 			axleDef.motorSpeed = 20;
-
+			
 			// using torque from The Master: http://boxcar2d.com/about.html
 			axleDef.maxMotorTorque = wheel.GetMass() * this.world.GetGravity() / radius / 4;
-
+			
 			this.world.CreateJoint(axleDef);
 
 			wheels.push(wheel);
@@ -92,6 +92,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 
 	var Car = function(genome){
 		this.genome = genome;
+		this.ticks = 0;
 	};
 
 	Car.prototype = _.extend(Car.prototype, {
@@ -105,6 +106,14 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world = world;
 			this.body = createBody.call(this);
 			this.wheels = createWheels.call(this);
+		},
+		registerTick: function(){
+			this.ticks++;
+		},
+		serialise: function(){
+			return {
+				simulationComplete: !this.body.IsAwake()
+			}
 		}
 	});
 
