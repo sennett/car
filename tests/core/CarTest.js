@@ -29,18 +29,26 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		});
 	});
 	
-	var assertSimulationEnded = function(){
-		expect(this.car.serialise().simulationComplete).toEqual(true);
+	var initialiseWithAwakeBody = function(){
+		initialisePhysicsBodies.call(this, true);
 	};
 	
 	var initialiseWithSleepingBody = function(){
-		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake').and.returnValue(false);
+		initialisePhysicsBodies.call(this, false);
+	};
+	
+	var initialisePhysicsBodies = function(awake){
+		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake').and.returnValue(awake);
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'CreateFixture');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetWorldCenter');
 		spyOn(Box2D.Dynamics.Joints.b2RevoluteJointDef.prototype,'Initialize');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
 		this.car.initialisePhysicsBodies(Box2D.Dynamics.b2World.prototype);
+	};
+
+	var assertSimulationEnded = function(){
+		expect(this.car.serialise().simulationComplete).toEqual(true);
 	};
 	
 	var createCar = function(){
