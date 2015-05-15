@@ -6,7 +6,22 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 	var totalVertices = 8;
 	var maxWheels = 2;
 	var chanceOfMutation = 0.05;
+	
+	var clearPreviousInstantiation = function(){
+		this.totalVertices = 0;
+		this.totalWheels = 0;
+	};
 
+	var addVertex = function(angle, magnitude){
+		this.setVertex(angle, magnitude, this.totalVertices);
+		this.totalVertices++;
+	};
+
+	var addWheel = function(vertex, radius){
+		this.setWheel(vertex, radius, this.totalWheels);
+		this.totalWheels++;
+	};
+	
 	return {
 		totalVertices: 0,
 		totalWheels: 0,
@@ -18,16 +33,6 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 
 		totalGenes: function(){
 			return this.totalVertices + this.totalWheels;
-		},
-
-		addVertex: function(angle, magnitude){
-			this.setVertex(angle, magnitude, this.totalVertices);
-			this.totalVertices++;
-		},
-
-		addWheel: function(vertex, radius){
-			this.setWheel(vertex, radius, this.totalWheels);
-			this.totalWheels++;
 		},
 
 		setVertex: function(angle, magnitude, i){
@@ -74,26 +79,26 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		},
 
 		fromArray: function(array){
+			clearPreviousInstantiation.call(this);
 			_.each(array, function(gene){
 				if (gene.type == this.geneType.vertex)
-					this.addVertex(gene.angle, gene.magnitude);
+					addVertex.call(this, gene.angle, gene.magnitude);
 				else if (gene.type == this.geneType.wheel)
-					this.addWheel(gene.vertex, gene.radius);
+					addWheel.call(this, gene.vertex, gene.radius);
 				else
 					throw "unknown gene type '" + gene.type + "'";
 			}, this);
 		},
 
 		randomise: function(){
-			this.totalVertices = 0;
-			this.totalWheels = 0;
+			clearPreviousInstantiation.call(this);
 			for (var i = 0; i < totalVertices; i++){
 				var angle = util.random(2 * Math.PI * i / totalVertices, 2 * Math.PI * (i + 1) / totalVertices);
-				this.addVertex(angle, util.random(minMagnitude, maxMagnitude));
+				addVertex.call(this, angle, util.random(minMagnitude, maxMagnitude));
 			}
 
 			for (var i = 0; i < maxWheels; i++){
-				this.addWheel(_.random(0, totalVertices - 1), util.random(minRadius, maxRadius));
+				addWheel.call(this, _.random(0, totalVertices - 1), util.random(minRadius, maxRadius));
 			}
 		},
 

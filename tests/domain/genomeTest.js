@@ -18,10 +18,12 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 
 		describe('toArray', function(){
 			beforeEach(function(){
-				this.genome.addVertex(1, 2);
-				this.genome.addVertex(3, 4);
-				this.genome.addWheel(0, 5);
-				this.genome.addWheel(1, 6);
+				this.genome.fromArray([
+					{angle: 1, magnitude: 2, type: this.genome.geneType.vertex},
+					{angle: 3, magnitude: 4, type: this.genome.geneType.vertex},
+					{vertex: 0, radius: 5, type: this.genome.geneType.wheel},
+					{vertex: 1, radius: 6, type: this.genome.geneType.wheel}
+				]);
 			});
 
 			it('adds vertex genes', function(){
