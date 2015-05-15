@@ -48,11 +48,15 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	};
 	
 	var assertSimulationNotEnded = function(){
-		expect(this.car.serialise().simulationComplete).toEqual(false);
+		assertSimulationHasState.call(this, false);
 	};
 
 	var assertSimulationEnded = function(){
-		expect(this.car.serialise().simulationComplete).toEqual(true);
+		assertSimulationHasState.call(this, true);
+	};
+	
+	var assertSimulationHasState = function(ended){
+		expect(this.car.serialise().simulationComplete).toEqual(ended);
 	};
 	
 	var createCar = function(){
