@@ -51,16 +51,17 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 				});
 			});
 			
-			xit('provides the score', function(){
+			it('provides the score', function(){
 				createCar.call(this);
 				initialiseWithAwakeBody.call(this);
+				tickSimulation.call(this);
 				assertScoreProvided.call(this);
 			});
 		});
 	});
 	
 	var assertScoreProvided = function(){
-		expect(this.newScoreSpy).toHaveBeenCalledWith(jasmine.any(Object), 'car score');
+		expect(this.newScoreSpy).toHaveBeenCalledWith(jasmine.anything(), 'car score');
 	};
 	
 	var assertCarSetAsContactListener = function(){

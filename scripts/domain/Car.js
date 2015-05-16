@@ -93,6 +93,10 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var resetTicks = function(){
 		this.ticksSinceLastContactAfterOverrun = 0;
 	};
+	
+	var getScore = function(){
+		return this.body.GetPosition().x;
+	};
 
 	var tickTolerance = 120; // ticks
 	var ticksCanOverRunAfter = 120; // ticks
@@ -132,17 +136,21 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		},
 		registerTick: function(){
 			if (simulationComplete.call(this)) {
-				this.onSimulationCompleteCb(this.id);
+				if(this.onSimulationCompleteCb)
+					this.onSimulationCompleteCb(this.id);
 			} else {
 				this.ticksSinceSimulationStart++;
 				if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
 					this.ticksSinceLastContactAfterOverrun++;
+				
+				if (this.onNewScoreCb)
+					this.onNewScoreCb(this.id, getScore.call(this));
 			}
 		},
 		serialise: function(){
 			return {
 				simulationComplete: simulationComplete.call(this),
-				score: this.body.GetPosition().x
+				score: getScore.call(this)
 			}
 		},
 		onNewScore: function(cb){
