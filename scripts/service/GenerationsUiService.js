@@ -1,26 +1,27 @@
 define(['underscore'], function(_) {
-    var GenerationsUiService = function(evolutionEngine){
+    var GenerationsUiService = function(evolutionEngine, scoreNotifier){
 		this.evolutionEngine = evolutionEngine;
+		this.scoreNotifier = scoreNotifier;
 	};
     
     GenerationsUiService.prototype = _.extend(GenerationsUiService.prototype, {
 		onNewGeneration: function(handler){
-			this.evolutionEngine.onStartGeneration = handler;
+			this.evolutionEngine.onNewGeneration = handler;
 		},
 		onNewGenerationHighScore: function(handler){
-			this.evolutionEngine.onHighscore = handler;
+			this.scoreNotifier.onHighscore = handler;
 		},
 		onNewGenerationAverageScore: function(handler){
-			this.evolutionEngine.onGenerationComplete = handler;
+			this.scoreNotifier.onGenerationComplete = handler;
 		},
 		onNewCar: function(handler){
-			this.evolutionEngine.onRunningMember = handler;
+			this.scoreNotifier.onNewCar = handler;
 		},
 		onNewCarScore: function(handler){
-			this.evolutionEngine.onNewCarScore = handler;
+			this.scoreNotifier.onNewCarScore = handler;
 		},
 		onCarSimulationComplete: function(handler){
-			this.evolutionEngine.onCarSimulationComplete = handler;
+			this.scoreNotifier.onCarSimulationComplete = handler;
 		}
 	});
 	
