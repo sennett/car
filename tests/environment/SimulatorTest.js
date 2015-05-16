@@ -78,19 +78,9 @@ define([
 					exerciseRunGenerationAndStop.call(this);
 					assertStopCallbackCalled.call(this);
 				});
-
-				it('it clears the score notifiers on simulation end', function(){
-					createSimulator.call(this);
-					exerciseRunGenerationAndStop.call(this);
-					assertCarsClearedFromScoreNotifier.call(this);
-				});
 			});
 		});
 	});
-	
-	var assertCarsClearedFromScoreNotifier = function(){
-		expect(ScoreNotifier.prototype.clearCars).toHaveBeenCalled();
-	};
 	
 	var assertScoreNotifierNotified = function(){
 		expect(ScoreNotifier.prototype.notifyScores).toHaveBeenCalled();
@@ -119,7 +109,6 @@ define([
 		spyOn(FacadeRenderer.prototype, 'reset');
 		spyOn(ScoreNotifier.prototype, 'setCars');
 		spyOn(ScoreNotifier.prototype, 'notifyScores');
-		spyOn(ScoreNotifier.prototype, 'clearCars');
 
 		this.simulator = new Simulator(
 			PhysicsWorldProvider.prototype,

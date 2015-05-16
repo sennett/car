@@ -1,14 +1,13 @@
 define(['underscore'], function(_) {
-    var ScoreNotifier = function(){};
+    var ScoreNotifier = function(generationsUiService){
+		this.generationsUiService = generationsUiService;
+	};
     
     ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
 		setCars: function(cars){
 			throw 'not implemented';
 		},
 		notifyScores: function(){
-			throw 'not implemeneted';
-		},
-		clearCars: function(){
 			throw 'not implemeneted';
 		}
 	});
