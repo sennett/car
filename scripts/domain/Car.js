@@ -8,9 +8,6 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 	var startPosition = new b2Vec2(config.startPosition.x, config.startPosition.y);
 	
-	var tickTolerance = 120; // ticks
-	var ticksCanOverRunAfter = 120; // ticks
-	
 	var createSubBodyFixtureDef = function(point1, point2){
 		var points = [new b2Vec2(0,0), point1, point2];
 
@@ -94,13 +91,15 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 	
 	var resetTicks = function(){
-		this.ticksSinceLastContact = 0;
+		this.ticksSinceLastContactAfterOverrun = 0;
 	};
+
+	var tickTolerance = 120; // ticks
+	var ticksCanOverRunAfter = 120; // ticks
 	
 	var simulationComplete = function (){
 		var carBodySleeping = !this.body.IsAwake();
-		var ticksCanOverrun = this.ticksSinceSimulationStart > ticksCanOverRunAfter;
-		var ticksOverrun =  ticksCanOverrun && this.ticksSinceLastContact > tickTolerance;
+		var ticksOverrun =  this.ticksSinceLastContactAfterOverrun >= tickTolerance;
 		return carBodySleeping || ticksOverrun;
 	};
 
@@ -130,8 +129,9 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.wheels = createWheels.call(this);
 		},
 		registerTick: function(){
-			this.ticksSinceLastContact++;
 			this.ticksSinceSimulationStart++;
+			if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
+				this.ticksSinceLastContactAfterOverrun++;
 		},
 		serialise: function(){
 			return {
