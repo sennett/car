@@ -32,7 +32,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	});
 	
 	var exerciseTickTillAfterTimeout = function(){
-		_.times(121, this.car.registerTick, this.car);
+		_.times(121, this.car.registerTick);
 	};
 	
 	var registerBodyContact = function(){

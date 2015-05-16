@@ -103,6 +103,13 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var Car = function(genome){
 		this.genome = genome;
 		resetTicks.call(this);
+		_.bindAll(this, 
+			'destroyPhysicsBodies',
+			'initialisePhysicsBodies',
+			'registerTick',
+			'serialise',
+			'BeginContact'
+		);
 	};
 
 	Car.prototype = _.extend(Car.prototype, {
