@@ -11,8 +11,9 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 
 	Engine.prototype = _.extend(Engine.prototype, {
 		nextGeneration: function(scoredGeneration){
+			this.generationCount++;
 			if (this.onNewGeneration)
-				this.onNewGeneration();
+				this.onNewGeneration(this.generationCount);
 			if (scoredGeneration)
 				return this.evolutionAlgorithm.nextGeneration(scoredGeneration);
 			else

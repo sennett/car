@@ -7,7 +7,15 @@ define(['evolution/Engine',
 				createEngine.call(this);
 				bindNewGenerationCallback.call(this);
 				exerciseNextGeneration.call(this);
-				assertNewGenerationCallbackCalled.call(this);
+				assertNewGenerationCallbackCalledFirstTime.call(this);
+			});
+
+			it('calls the callback on subsequent generations with generation number', function(){
+				createEngine.call(this);
+				exerciseNextGeneration.call(this);
+				bindNewGenerationCallback.call(this);
+				exerciseNextGeneration.call(this);
+				assertNewGenerationCallbackCalledSecondTime.call(this);
 			});
 			
 			describe('first generation', function(){
@@ -36,8 +44,16 @@ define(['evolution/Engine',
 		});
 	});
 	
-	var assertNewGenerationCallbackCalled = function(){
-		expect(this.newGenerationCallback).toHaveBeenCalled();
+	var assertNewGenerationCallbackCalledFirstTime = function(){
+		assertNewGenerationCallbackCalledWith.call(this, 1);
+	};
+
+	var assertNewGenerationCallbackCalledSecondTime = function(){
+		assertNewGenerationCallbackCalledWith.call(this, 2);
+	};
+	
+	var assertNewGenerationCallbackCalledWith = function(generationNumber){
+		expect(this.newGenerationCallback).toHaveBeenCalledWith(generationNumber);
 	};
 	
 	var bindNewGenerationCallback = function(){
