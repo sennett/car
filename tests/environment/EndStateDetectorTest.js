@@ -1,4 +1,4 @@
-define(['environment/GlobalEndStateDetector', 'domain/Car'], function (GlobalEndStateDetector, Car) {
+define(['environment/EndStateDetector', 'domain/Car'], function (GlobalEndStateDetector, Car) {
 	describe('GlobalEndStateDetector', function () {
 		describe('simulationEnded', function(){
 			

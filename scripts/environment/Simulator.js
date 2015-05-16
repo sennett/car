@@ -11,7 +11,7 @@ define(['underscore'], function(_) {
 	};
 
 	var tick = function(){
-		if (this.globalEndStateDetector.simulationEnded())
+		if (this.endStateDetector.simulationEnded())
 			end.call(this);
 		this.world.Step(
 			1 / 60   //frame-rate
@@ -26,9 +26,9 @@ define(['underscore'], function(_) {
 		this.world.ClearForces();
 	};
 	
-	var Simulator = function(physicsWorldProvider, globalEndStateDetector, ticker, renderer, scoreNotifier){
+	var Simulator = function(physicsWorldProvider, endStateDetector, ticker, renderer, scoreNotifier){
 		this.world = physicsWorldProvider.getWorld();
-		this.globalEndStateDetector = globalEndStateDetector;
+		this.endStateDetector = endStateDetector;
 		this.ticker = ticker;
 		this.renderer = renderer;
 		this.scoreNotifier = scoreNotifier;
@@ -45,7 +45,7 @@ define(['underscore'], function(_) {
 			}.bind(this));
 			
 			this.scoreNotifier.setCars(this.cars);
-			this.globalEndStateDetector.setCars(this.cars);
+			this.endStateDetector.setCars(this.cars);
 			this.renderer.followBody(_.first(this.cars).body);
 			this.ticker.run(tick.bind(this));
 		}

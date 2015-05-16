@@ -2,13 +2,13 @@ define([
 	'environment/Simulator', 
 	'environment/provider/PhysicsWorldProvider',
 	'domain/Car',
-	'environment/GlobalEndStateDetector',
+	'environment/EndStateDetector',
 	'environment/Ticker',
 	'environment/renderer/FacadeRenderer',
 	'box2dweb',
 	'domain/genome',
 	'environment/ScoreNotifier'], function (
-		Simulator, PhysicsWorldProvider, Car, GlobalEndStateDetector, Ticker, FacadeRenderer, Box2d, genome, ScoreNotifier) {
+		Simulator, PhysicsWorldProvider, Car, EndStateDetector, Ticker, FacadeRenderer, Box2d, genome, ScoreNotifier) {
 	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -27,7 +27,7 @@ define([
 			it('registers all bodies with the global end state detector', function(){
 				createSimulator.call(this);
 				exerciseRunGeneration.call(this);
-				assertAllCarBodiesRegisteredWithGlobalEndStateDetector.call(this);
+				assertAllCarBodiesRegisteredWithEndStateDetector.call(this);
 			});
 			
 			it('starts the ticker', function(){
@@ -108,12 +108,12 @@ define([
 		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
-		spyOn(GlobalEndStateDetector.prototype, 'setCars');
+		spyOn(EndStateDetector.prototype, 'setCars');
 		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
 			tick();
 		});
 		spyOn(Ticker.prototype, 'stop');
-		spyOn(GlobalEndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
+		spyOn(EndStateDetector.prototype, 'simulationEnded').and.returnValue(false);
 		spyOn(FacadeRenderer.prototype, 'followBody');
 		spyOn(FacadeRenderer.prototype, 'render');
 		spyOn(FacadeRenderer.prototype, 'reset');
@@ -123,7 +123,7 @@ define([
 
 		this.simulator = new Simulator(
 			PhysicsWorldProvider.prototype,
-			GlobalEndStateDetector.prototype,
+			EndStateDetector.prototype,
 			Ticker.prototype,
 			FacadeRenderer.prototype,
 			ScoreNotifier.prototype);
@@ -151,8 +151,8 @@ define([
 		expect(Car.prototype.initialisePhysicsBodies.calls.argsFor(1)[0]).toEqual(this.fakeWorld);
 	};
 
-	var assertAllCarBodiesRegisteredWithGlobalEndStateDetector = function(){
-		expect(GlobalEndStateDetector.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
+	var assertAllCarBodiesRegisteredWithEndStateDetector = function(){
+		expect(EndStateDetector.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
 
 	var assertTickerRun = function(){
@@ -164,7 +164,7 @@ define([
 	};
 
 	var markStoppable = function(){
-		GlobalEndStateDetector.prototype.simulationEnded.and.returnValue(true);
+		EndStateDetector.prototype.simulationEnded.and.returnValue(true);
 	};
 
 	var assertTickerStopped = function() {
