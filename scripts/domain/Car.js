@@ -136,7 +136,8 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		},
 		serialise: function(){
 			return {
-				simulationComplete: simulationComplete.call(this)
+				simulationComplete: simulationComplete.call(this),
+				score: this.body.GetPosition().x
 			}
 		},
 		// b2ContactListener

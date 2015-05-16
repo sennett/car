@@ -49,8 +49,18 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 					assertCarSetAsContactListener.call(this);
 				});
 			});
+			
+			it('provides the score', function(){
+				createCar.call(this);
+				initialiseWithAwakeBody.call(this);
+				assertScoreProvided.call(this);
+			});
 		});
 	});
+	
+	var assertScoreProvided = function(){
+		expect(this.car.serialise().score).toEqual('car score');
+	};
 	
 	var assertCarSetAsContactListener = function(){
 		expect(Box2D.Dynamics.b2World.prototype.SetContactListener).toHaveBeenCalledWith(this.car);
@@ -80,6 +90,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake').and.returnValue(awake);
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'CreateFixture');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetWorldCenter');
+		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetPosition').and.returnValue({x:'car score'});
 		spyOn(Box2D.Dynamics.Joints.b2RevoluteJointDef.prototype,'Initialize');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
