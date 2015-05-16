@@ -1,7 +1,7 @@
 define(['underscore'], function(_) {
-    var GlobalEndStateDetector = function(){};
+    var EndStateDetector = function(){};
     
-    GlobalEndStateDetector.prototype = _.extend(GlobalEndStateDetector.prototype, {
+    EndStateDetector.prototype = _.extend(EndStateDetector.prototype, {
 		setCars: function(cars){
 			this.cars = cars;
 		},
@@ -14,5 +14,5 @@ define(['underscore'], function(_) {
 		}
 	});
     
-    return GlobalEndStateDetector;
+    return EndStateDetector;
 });

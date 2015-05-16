@@ -1,5 +1,5 @@
-define(['environment/EndStateDetector', 'domain/Car'], function (GlobalEndStateDetector, Car) {
-	describe('GlobalEndStateDetector', function () {
+define(['environment/EndStateDetector', 'domain/Car'], function (EndStateDetector, Car) {
+	describe('EndStateDetector', function () {
 		describe('simulationEnded', function(){
 			
 			it('ends the simulation when all detectors end the simulation', function(){
@@ -34,7 +34,7 @@ define(['environment/EndStateDetector', 'domain/Car'], function (GlobalEndStateD
 	};
 	
 	var createGlobalEndStateDetector = function(){
-		this.globalEndStateDetector = new GlobalEndStateDetector();
+		this.globalEndStateDetector = new EndStateDetector();
 		spyOn(Car.prototype, 'serialise');
 	};
 	
