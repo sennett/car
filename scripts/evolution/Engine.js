@@ -6,13 +6,13 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 
 	var Engine = function(evolutionAlgorithm){
 		this.evolutionAlgorithm = evolutionAlgorithm;
+		this.generationCount = 0;
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
-		generationSize: 20,
-		currentGenomes: [],
-		genomesSimulatedThisGeneration: 0,
 		nextGeneration: function(scoredGeneration){
+			if (this.onNewGeneration)
+				this.onNewGeneration();
 			if (scoredGeneration)
 				return this.evolutionAlgorithm.nextGeneration(scoredGeneration);
 			else
