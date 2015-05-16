@@ -2,14 +2,19 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 	describe('ScoreNotifier', function () {
 		
 		it('notifies on new car', function(){
-			createScoreNotifier.call(this);
+			createScoreNotifierAndSetGeneration.call(this);
 			setGeneration.call(this);
 			exerciseSetCars.call(this);
 			assertNewCarsNotified.call(this);
 		});
+		
+		it('throws when generation not set', function(){
+			createScoreNotifier.call(this);
+			assertNoGenerationSetThrown.call(this);
+		});
 
 		it('notifies on new car score', function(){
-
+			
 		});
 
 		it('notifies on car complete', function(){
@@ -30,6 +35,15 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 			});
 		});
 	});
+	
+	var assertNoGenerationSetThrown = function(){
+		expect(this.scoreNotifier.setCars).toThrow('generation not set');
+	};
+	
+	var createScoreNotifierAndSetGeneration = function(){
+		createScoreNotifier.call(this);
+		setGeneration.call(this);
+	};
 	
 	var setGeneration = function(){
 		this.scoreNotifier.runningGeneration('generation ID');
