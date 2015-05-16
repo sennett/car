@@ -3,10 +3,12 @@ define(['underscore'], function(_) {
     
     GlobalEndStateDetector.prototype = _.extend(GlobalEndStateDetector.prototype, {
 		setCars: function(cars){
-			throw 'not implemented';
+			this.cars = cars;
 		},
 		simulationEnded: function(){
-			throw 'not implemented';
+			return _.every(this.cars, function(car){
+				return car.serialise().simulationComplete;
+			});
 		},
 		clearBodies: function(){
 			throw 'not implemented';
