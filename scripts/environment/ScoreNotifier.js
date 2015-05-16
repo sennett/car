@@ -5,10 +5,16 @@ define(['underscore'], function(_) {
     
     ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
 		setCars: function(cars){
-			throw 'not implemented';
+			this.cars = cars;
+			_.each(this.cars, function(car){
+				this.onNewCar(this.currentGenerationId, car.serialise().id);
+			}, this);
 		},
 		notifyScores: function(){
 			throw 'not implemeneted';
+		},
+		runningGeneration: function(generationId){
+			this.currentGenerationId = generationId;
 		}
 	});
     
