@@ -20,9 +20,6 @@ define(['underscore'], function(_) {
 		);
 		this.scoreNotifier.notifyScores();
 		this.renderer.render();
-		_.each(this.onUpdateScore, function(cb){
-			cb(getScore.call(this));
-		}, this);
 		this.world.ClearForces();
 	};
 	
