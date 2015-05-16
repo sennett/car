@@ -1,5 +1,6 @@
 define(['evolution/Engine',
-	'evolution/selection/NoBreeding'], function (Engine, SelectionAlgorithm) {
+	'evolution/selection/NoBreeding',
+	'environment/ScoreNotifier'], function (Engine, SelectionAlgorithm, ScoreNotifier) {
 	
 	describe('Engine', function () {
 		describe('nextGeneration', function(){
@@ -16,6 +17,12 @@ define(['evolution/Engine',
 				bindNewGenerationCallback.call(this);
 				exerciseNextGeneration.call(this);
 				assertNewGenerationCallbackCalledSecondTime.call(this);
+			});
+			
+			it('updates the score notifier of the current generation', function(){
+				createEngine.call(this);
+				exerciseNextGeneration.call(this);
+				assertScoreNotifierUpdatedWithGeneration.call(this);
 			});
 			
 			describe('first generation', function(){
@@ -44,6 +51,10 @@ define(['evolution/Engine',
 		});
 	});
 	
+	var assertScoreNotifierUpdatedWithGeneration = function(){
+		expect(ScoreNotifier.prototype.runningGeneration).toHaveBeenCalledWith(1);
+	};
+	
 	var assertNewGenerationCallbackCalledFirstTime = function(){
 		assertNewGenerationCallbackCalledWith.call(this, 1);
 	};
@@ -66,7 +77,8 @@ define(['evolution/Engine',
 
 	var createEngine = function(){
 		spyOn(SelectionAlgorithm.prototype, 'nextGeneration').and.returnValue(nextGenerationFromEvolutionAlgorithm);
-		this.engine = new Engine(SelectionAlgorithm.prototype);
+		spyOn(ScoreNotifier.prototype, 'runningGeneration');
+		this.engine = new Engine(SelectionAlgorithm.prototype, ScoreNotifier.prototype);
 	};
 
 	var exerciseNextGeneration = function(){
