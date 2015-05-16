@@ -41,8 +41,20 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 					assertSimulationNotEnded.call(this);
 				});
 			});
+			
+			describe('body initialisation', function(){
+				it('sets itself as a contact listener on the world', function(){
+					createCar.call(this);
+					initialiseWithAwakeBody.call(this);
+					assertCarSetAsContactListener.call(this);
+				});
+			});
 		});
 	});
+	
+	var assertCarSetAsContactListener = function(){
+		expect(Box2D.Dynamics.b2World.prototype.SetContactListener).toHaveBeenCalledWith(this.car);
+	};
 	
 	var exerciseTickTillAfterTimeout = function(){
 		_.times(121, this.car.registerTick);
@@ -71,6 +83,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.Joints.b2RevoluteJointDef.prototype,'Initialize');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
+		spyOn(Box2D.Dynamics.b2World.prototype, 'SetContactListener');
 		this.car.initialisePhysicsBodies(Box2D.Dynamics.b2World.prototype);
 	};
 	

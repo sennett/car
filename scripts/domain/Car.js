@@ -127,6 +127,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world = world;
 			this.body = createBody.call(this);
 			this.wheels = createWheels.call(this);
+			this.world.SetContactListener(this);
 		},
 		registerTick: function(){
 			this.ticksSinceSimulationStart++;
