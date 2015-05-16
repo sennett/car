@@ -107,6 +107,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		this.genome = genome;
 		resetTicks.call(this);
 		this.ticksSinceSimulationStart = 0;
+		this.id = 'my car ID';
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',
@@ -130,9 +131,13 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world.SetContactListener(this);
 		},
 		registerTick: function(){
-			this.ticksSinceSimulationStart++;
-			if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
-				this.ticksSinceLastContactAfterOverrun++;
+			if (simulationComplete.call(this)) {
+				this.onSimulationCompleteCb(this.id);
+			} else {
+				this.ticksSinceSimulationStart++;
+				if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
+					this.ticksSinceLastContactAfterOverrun++;
+			}
 		},
 		serialise: function(){
 			return {
@@ -140,6 +145,13 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 				score: this.body.GetPosition().x
 			}
 		},
+		onNewScore: function(cb){
+			this.onNewScoreCb = cb;
+		},
+		onSimulationComplete: function(cb){
+			this.onSimulationCompleteCb = cb;
+		},
+		
 		// b2ContactListener
 		BeginContact: function(){
 			resetTicks.call(this);
