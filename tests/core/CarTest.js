@@ -13,10 +13,12 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 				assertSimulationNotEnded.call(this);
 			});
 			
-			xit('does not end the simulation immediately', function(){
+			it('ends the simulation when the car body is awake after a timeout since last contact', function(){
 				createCar.call(this);
-				exerciseTickTillBeforeEnd.call(this);
-				assertCarSimulationNotEnded.call(this);
+				initialiseWithAwakeBody.call(this);
+				registerBodyContact.call(this);
+				exerciseTickTillAfterTimeout.call(this);
+				assertSimulationEnded.call(this);
 			});
 			
 			xit('ends after a while of no contact', function(){
@@ -28,6 +30,14 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 			});
 		});
 	});
+	
+	var exerciseTickTillAfterTimeout = function(){
+		_.times(121, this.car.registerTick, this.car);
+	};
+	
+	var registerBodyContact = function(){
+		this.car.BeginContact();
+	};
 	
 	var initialiseWithAwakeBody = function(){
 		initialisePhysicsBodies.call(this, true);
@@ -61,17 +71,5 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	
 	var createCar = function(){
 		this.car = new Car(genome.createRandom());
-	};
-	
-	var exerciseTickTillBeforeEnd = function(){
-		registerTick.call(this, 60);
-	};
-	
-	var registerTick = function(times){
-		_.times(times, this.car.registerTick);
-	};
-	
-	var assertCarSimulationNotEnded = function(){
-		expect(this.car.serialise().simulationComplete).toEqual(false);
 	};
 });

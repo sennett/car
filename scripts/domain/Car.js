@@ -7,7 +7,9 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	var b2Vec2 = Box2D.Common.Math.b2Vec2;
 	var startPosition = new b2Vec2(config.startPosition.x, config.startPosition.y);
-
+	
+	var tickTolerance = 120;
+	
 	var createSubBodyFixtureDef = function(point1, point2){
 		var points = [new b2Vec2(0,0), point1, point2];
 
@@ -89,10 +91,18 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 
 		return wheels;
 	};
+	
+	var resetTicks = function(){
+		this.ticksSinceLastContact = 0;
+	};
+	
+	var simulationComplete = function (){
+		return !this.body.IsAwake() || this.ticksSinceLastContact > tickTolerance
+	};
 
 	var Car = function(genome){
 		this.genome = genome;
-		this.ticks = 0;
+		resetTicks.call(this);
 	};
 
 	Car.prototype = _.extend(Car.prototype, {
@@ -108,13 +118,20 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.wheels = createWheels.call(this);
 		},
 		registerTick: function(){
-			this.ticks++;
+			this.ticksSinceLastContact++;
 		},
 		serialise: function(){
 			return {
-				simulationComplete: !this.body.IsAwake()
+				simulationComplete: simulationComplete.call(this)
 			}
-		}
+		},
+		// b2ContactListener
+		BeginContact: function(){
+			resetTicks.call(this);
+		},
+		PreSolve: function(){},
+		EndContact: function () {},
+		PostSolve: function(){}
 	});
 
 	return Car;
