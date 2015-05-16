@@ -79,12 +79,6 @@ define([
 					assertStopCallbackCalled.call(this);
 				});
 
-				it('clears all the bodies from the endstate detector', function(){
-					createSimulator.call(this);
-					exerciseRunGenerationAndStop.call(this);
-					assertBodiesClearedOnEndStateDetector.call(this);
-				});
-
 				it('it clears the score notifiers on simulation end', function(){
 					createSimulator.call(this);
 					exerciseRunGenerationAndStop.call(this);
@@ -106,10 +100,6 @@ define([
 		expect(ScoreNotifier.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
 
-	var assertBodiesClearedOnEndStateDetector = function(){
-		expect(GlobalEndStateDetector.prototype.clearBodies).toHaveBeenCalled();
-	};
-
 	var generation = {};
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
@@ -119,7 +109,6 @@ define([
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
 		spyOn(PhysicsWorldProvider.prototype, 'getWorld').and.returnValue(this.fakeWorld);
 		spyOn(GlobalEndStateDetector.prototype, 'setCars');
-		spyOn(GlobalEndStateDetector.prototype, 'clearBodies');
 		spyOn(Ticker.prototype, 'run').and.callFake(function(tick){
 			tick();
 		});

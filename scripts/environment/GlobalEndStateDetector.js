@@ -11,9 +11,6 @@ define(['underscore'], function(_) {
 			return _.every(this.cars, function(car){
 				return car.serialise().simulationComplete;
 			});
-		},
-		clearBodies: function(){
-			throw 'not implemented';
 		}
 	});
     

@@ -1,0 +1,62 @@
+define(['environment/GlobalEndStateDetector', 'domain/Car'], function (GlobalEndStateDetector, Car) {
+	describe('GlobalEndStateDetector', function () {
+		describe('simulationEnded', function(){
+			
+			it('ends the simulation when all detectors end the simulation', function(){
+				createGlobalEndStateDetector.call(this);
+				setDetectors.call(this, [true, true, true]);
+				assertSimulationEnded.call(this);
+			});
+
+			it('does not end the simulation when one detector ends the simulation', function(){
+				createGlobalEndStateDetector.call(this);
+				setDetectors.call(this, [true, true, false]);
+				assertSimulationNotEnded.call(this);
+			});
+
+			it('does not end the simulation when no detectors have ended the simulation', function(){
+				createGlobalEndStateDetector.call(this);
+				setDetectors.call(this, [false, false, false]);
+				assertSimulationNotEnded.call(this);
+			});
+			
+			it('throws if there are no cars registered', function(){
+				createGlobalEndStateDetector.call(this);
+				setDetectors.call(this, []);
+				assertNoCarsExceptionThrown.call(this);
+			});
+
+		});
+	});
+	
+	var assertNoCarsExceptionThrown = function(){
+		expect(this.globalEndStateDetector.simulationEnded).toThrow('no cars in endstate detector');
+	};
+	
+	var createGlobalEndStateDetector = function(){
+		this.globalEndStateDetector = new GlobalEndStateDetector();
+		spyOn(Car.prototype, 'serialise');
+	};
+	
+	var setDetectors = function(detectors){
+		this.globalEndStateDetector.setCars(_.map(detectors, function(detector){
+			var car = _.clone(Car.prototype);
+			car.serialise.and.returnValue({
+				simulationComplete: detector
+			});
+			return car;
+		}));
+	};
+	
+	var assertSimulationNotEnded = function(){
+		assertSimulationHasState.call(this, false);
+	};
+	
+	var assertSimulationEnded = function(){
+		assertSimulationHasState.call(this, true);
+	};
+	
+	var assertSimulationHasState = function(ended){
+		expect(this.globalEndStateDetector.simulationEnded()).toEqual(ended);
+	};
+});

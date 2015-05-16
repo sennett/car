@@ -4,7 +4,6 @@ define(['underscore'], function(_) {
 		this.scoreNotifier.clearCars();
 		this.ticker.stop();
 		this.renderer.reset();
-		this.globalEndStateDetector.clearBodies();
 		_.each(this.cars, function(car){
 			car.destroyPhysicsBodies();
 		});
