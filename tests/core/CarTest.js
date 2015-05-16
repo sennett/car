@@ -13,26 +13,43 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 				assertSimulationNotEnded.call(this);
 			});
 			
-			it('ends the simulation when the car body is awake after a timeout since last contact', function(){
-				createCar.call(this);
-				initialiseWithAwakeBody.call(this);
-				registerBodyContact.call(this);
-				exerciseTickTillAfterTimeout.call(this);
-				assertSimulationEnded.call(this);
-			});
-			
-			xit('ends after a while of no contact', function(){
+			describe('timeouts', function(){
 				
-			});
+				it('ends the simulation when the car body is awake after a timeout since last contact', function(){
+					createCar.call(this);
+					initialiseWithAwakeBody.call(this);
+					exerciseTickTillBeforeTimeout.call(this);
+					registerBodyContact.call(this);
+					exerciseTickTillAfterTimeout.call(this);
+					assertSimulationEnded.call(this);
+				});
 
-			xit('does not end within the buffer period', function(){
-				
+				it('does not end the simulation before timeout since last contact', function(){
+					createCar.call(this);
+					initialiseWithAwakeBody.call(this);
+					exerciseTickTillBeforeTimeout.call(this);
+					registerBodyContact.call(this);
+					exerciseTickTillBeforeTimeout.call(this);
+					assertSimulationNotEnded.call(this);
+				});
+
+				it('increases tolerance at the start of the simulation', function(){
+					createCar.call(this);
+					initialiseWithAwakeBody.call(this);
+					registerBodyContact.call(this);
+					exerciseTickTillAfterTimeout.call(this);
+					assertSimulationNotEnded.call(this);
+				});
 			});
 		});
 	});
 	
 	var exerciseTickTillAfterTimeout = function(){
 		_.times(121, this.car.registerTick);
+	};
+	
+	var exerciseTickTillBeforeTimeout = function(){
+		_.times(119, this.car.registerTick);
 	};
 	
 	var registerBodyContact = function(){
