@@ -6,6 +6,8 @@ define(['underscore'], function(_) {
 			this.cars = cars;
 		},
 		simulationEnded: function(){
+			if (_.isEmpty(this.cars))
+				throw 'no cars in endstate detector';
 			return _.every(this.cars, function(car){
 				return car.serialise().simulationComplete;
 			});
