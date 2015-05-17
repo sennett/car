@@ -9,10 +9,10 @@ define(['underscore'], function(_) {
 			this.evolutionEngine.onNewGeneration = handler;
 		},
 		onNewGenerationHighScore: function(handler){
-			this.scoreNotifier.onHighscore = handler;
+			this.scoreNotifier.onNewGenerationHighScore = handler;
 		},
 		onNewGenerationAverageScore: function(handler){
-			this.scoreNotifier.onGenerationComplete = handler;
+			this.scoreNotifier.onNewGenerationAverageScore = handler;
 		},
 		onNewCar: function(handler){
 			this.scoreNotifier.onNewCar = handler;
