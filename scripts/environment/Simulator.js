@@ -17,6 +17,9 @@ define(['underscore', 'environment/groundData'], function(_, groundData) {
 			,  10       //velocity iterations
 			,  10       //position iterations
 		);
+		_.each(this.cars, function(car){
+			car.registerTick();
+		});
 		this.renderer.render();
 		this.world.ClearForces();
 	};

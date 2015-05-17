@@ -49,6 +49,12 @@ define([
 				assertScoreNotifierPassedCars.call(this);
 			});
 			
+			it('registers the ticks on the cars', function(){
+				createSimulator.call(this);
+				exerciseRunGeneration.call(this);
+				assertTicksRegisteredOnCars.call(this);
+			});
+			
 			describe('ending the simulation', function(){
 				it('stops the ticker', function(){
 					createSimulator.call(this);
@@ -77,6 +83,10 @@ define([
 		});
 	});
 	
+	var assertTicksRegisteredOnCars = function(){
+		expect(Car.prototype.registerTick).toHaveBeenCalled();
+	};
+	
 	var assertScoreNotifierPassedCars = function(){
 		expect(ScoreNotifier.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
@@ -85,6 +95,7 @@ define([
 	var createSimulator = function(){
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
 		spyOn(Car.prototype, 'destroyPhysicsBodies');
+		spyOn(Car.prototype, 'registerTick');
 		spyOn(genome, 'createCar').and.returnValue(Car.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'Step');
 		this.fakeWorld = Box2D.Dynamics.b2World.prototype;
