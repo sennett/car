@@ -1,4 +1,4 @@
-define(['underscore'], function(_) {
+define(['underscore', 'environment/groundData'], function(_, groundData) {
 	
 	var end = function(){
 		this.ticker.stop();
@@ -21,12 +21,14 @@ define(['underscore'], function(_) {
 		this.world.ClearForces();
 	};
 	
-	var Simulator = function(physicsWorldProvider, endStateDetector, ticker, renderer, scoreNotifier){
+	var Simulator = function(physicsWorldProvider, endStateDetector, ticker, renderer, scoreNotifier, ground){
 		this.world = physicsWorldProvider.getWorld();
 		this.endStateDetector = endStateDetector;
 		this.ticker = ticker;
 		this.renderer = renderer;
 		this.scoreNotifier = scoreNotifier;
+		ground.setData(groundData);
+		ground.initialisePhysicsBodies(this.world);
 	};
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
