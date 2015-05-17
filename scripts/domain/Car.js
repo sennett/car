@@ -129,7 +129,11 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		this.genome = genome;
 		resetTicks.call(this);
 		this.ticksSinceSimulationStart = 0;
-		this.id = 'my car ID';
+		// http://stackoverflow.com/a/2117523/614523 :D
+		this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			return v.toString(16);
+		});
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',
@@ -163,7 +167,8 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		serialise: function(){
 			return {
 				simulationComplete: simulationComplete.call(this),
-				score: getScore.call(this)
+				score: getScore.call(this),
+				id: this.id
 			}
 		},
 		onNewScore: function(cb){
