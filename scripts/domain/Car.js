@@ -97,6 +97,22 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var getScore = function(){
 		return this.body.GetPosition().x;
 	};
+	
+	var handleSimulationComplete = function(){
+		if(this.onSimulationCompleteCb)
+			this.onSimulationCompleteCb(this.id);
+	};
+	
+	var incrementTicks = function(){
+		this.ticksSinceSimulationStart++;
+		if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
+			this.ticksSinceLastContactAfterOverrun++;
+	};
+	
+	var handleNewScore = function(){
+		if (this.onNewScoreCb)
+			this.onNewScoreCb(this.id, getScore.call(this));
+	};
 
 	var tickTolerance = 120; // ticks
 	var ticksCanOverRunAfter = 120; // ticks
@@ -136,15 +152,10 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		},
 		registerTick: function(){
 			if (simulationComplete.call(this)) {
-				if(this.onSimulationCompleteCb)
-					this.onSimulationCompleteCb(this.id);
+				handleSimulationComplete.call(this);
 			} else {
-				this.ticksSinceSimulationStart++;
-				if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
-					this.ticksSinceLastContactAfterOverrun++;
-				
-				if (this.onNewScoreCb)
-					this.onNewScoreCb(this.id, getScore.call(this));
+				incrementTicks.call(this);
+				handleNewScore.call(this);
 			}
 		},
 		serialise: function(){
