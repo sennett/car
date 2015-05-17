@@ -109,9 +109,11 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.ticksSinceLastContactAfterOverrun++;
 	};
 	
-	var handleNewScore = function(){
-		if (this.onNewScoreCb)
-			this.onNewScoreCb(this.id, getScore.call(this));
+	var handleScoreUpdate = function(){
+		var currentScore = getScore.call(this);
+		if (currentScore != this.oldScore && this.onNewScoreCb)
+			this.onNewScoreCb(this.id, currentScore);
+		this.oldScore = currentScore;
 	};
 
 	var tickTolerance = 120; // ticks
@@ -155,7 +157,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 				handleSimulationComplete.call(this);
 			} else {
 				incrementTicks.call(this);
-				handleNewScore.call(this);
+				handleScoreUpdate.call(this);
 			}
 		},
 		serialise: function(){
