@@ -148,9 +148,9 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 	};
 	
 	var assertNewCarsNotified = function(){
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[0]).toEqual('generation ID');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[1]).toEqual('car ID 1');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[0]).toEqual('generation ID');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[1]).toEqual('car ID 2');
+		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[0]).toEqual('car ID 1');
+		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[1]).toEqual('generation ID');
+		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[0]).toEqual('car ID 2');
+		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[1]).toEqual('generation ID');
 	};
 });
