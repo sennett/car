@@ -1,4 +1,8 @@
 define(['underscore'], function(_) {
+	var newCarScoreListener = function(){
+		this.onNewCarScore.apply(null, arguments);
+	};
+	
     var ScoreNotifier = function(generationsUiService){
 		this.generationsUiService = generationsUiService;
 	};
@@ -10,6 +14,7 @@ define(['underscore'], function(_) {
 			this.cars = cars;
 			_.each(this.cars, function(car){
 				this.onNewCar(this.currentGenerationId, car.serialise().id);
+				car.onNewScore(newCarScoreListener.bind(this));
 			}, this);
 		},
 		notifyScores: function(){

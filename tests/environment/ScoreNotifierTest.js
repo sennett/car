@@ -14,7 +14,10 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 		});
 
 		it('notifies on new car score', function(){
-			
+			createScoreNotifierAndSetGeneration.call(this);
+			exerciseSetCars.call(this);
+			fireNewCarScore.call(this);
+			assertNewCarScoreListenerBound.call(this);
 		});
 
 		it('notifies on car complete', function(){
@@ -35,6 +38,15 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 			});
 		});
 	});
+	
+	var fireNewCarScore = function(){
+		this.fireableCallbackNewScore();
+	};
+	
+	var assertNewCarScoreListenerBound = function(){
+		expect(Car.prototype.onNewScore.calls.count()).toEqual(this.dummyCars.length);
+		expect(this.scoreNotifier.onNewCarScore).toHaveBeenCalled();
+	};
 	
 	var assertNoGenerationSetThrown = function(){
 		expect(this.scoreNotifier.setCars).toThrow('generation not set');
@@ -57,13 +69,18 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 				id: 'car ID ' + callsToSerialise
 			};
 		});
+		spyOn(Car.prototype, 'onNewScore').and.callFake(function(cb){
+			this.fireableCallbackNewScore = cb;
+		}.bind(this));
+		this.dummyCars = [Car.prototype, Car.prototype];
 		this.onNewCarSpy = jasmine.createSpy('new car spy');
 		this.scoreNotifier = new ScoreNotifier();
 		this.scoreNotifier.onNewCar = this.onNewCarSpy;
+		this.scoreNotifier.onNewCarScore = jasmine.createSpy('on new car score dummy');
 	};
 	
 	var exerciseSetCars = function(){
-		this.scoreNotifier.setCars([Car.prototype, Car.prototype]);
+		this.scoreNotifier.setCars(this.dummyCars);
 	};
 	
 	var assertNewCarsNotified = function(){
