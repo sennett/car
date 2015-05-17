@@ -7,8 +7,9 @@ define([
 	'environment/renderer/FacadeRenderer',
 	'box2dweb',
 	'domain/genome',
-	'environment/ScoreNotifier'], function (
-		Simulator, PhysicsWorldProvider, Car, EndStateDetector, Ticker, FacadeRenderer, Box2d, genome, ScoreNotifier) {
+	'environment/ScoreNotifier',
+	'environment/Ground'], function (
+		Simulator, PhysicsWorldProvider, Car, EndStateDetector, Ticker, FacadeRenderer, Box2d, genome, ScoreNotifier, Ground) {
 	
 	describe('Simulator', function () {
 		describe('runGeneration', function(){
@@ -97,14 +98,17 @@ define([
 		spyOn(FacadeRenderer.prototype, 'followBody');
 		spyOn(FacadeRenderer.prototype, 'render');
 		spyOn(FacadeRenderer.prototype, 'reset');
+		spyOn(FacadeRenderer.prototype, 'initialise');
 		spyOn(ScoreNotifier.prototype, 'setCars');
-
+		spyOn(Ground.prototype, 'setData');
+		spyOn(Ground.prototype, 'initialisePhysicsBodies');
 		this.simulator = new Simulator(
 			PhysicsWorldProvider.prototype,
 			EndStateDetector.prototype,
 			Ticker.prototype,
 			FacadeRenderer.prototype,
-			ScoreNotifier.prototype);
+			ScoreNotifier.prototype,
+			Ground.prototype);
 	};
 
 	var exerciseRunGeneration = function(){
