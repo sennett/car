@@ -1,6 +1,14 @@
 define(['underscore'], function(_) {
-	var newCarScoreListener = function(){
-		this.onNewCarScore.apply(null, arguments);
+	
+	var generationAverageScore = function(){
+		return _.reduce(this.cars, function(memo, car){
+			return memo + car.serialise().score
+		}, 0) / this.cars.length;
+	};
+	
+	var newCarScoreListener = function(carId, score){
+		this.onNewCarScore(carId, score);
+		this.onNewGenerationAverageScore(this.currentGenerationId, generationAverageScore.call(this));
 	};
 	
 	var simulationCompleteListener = function(){
