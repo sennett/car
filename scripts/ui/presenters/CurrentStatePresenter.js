@@ -1,7 +1,6 @@
 define(function() {
 
-    var CurrentStatePresenter = function(view, currentScoreProvider, speedChanger, appRunner, endStateDetector){
-		currentScoreProvider.onUpdateScore.push(view.updateCurrentScore.bind(view));
+    var CurrentStatePresenter = function(view, speedChanger, appRunner, endStateDetector){
 
 		view.onChangeSpeedRequest = function(){
 			speedChanger.changeSpeed(speedChangeResponseObject);

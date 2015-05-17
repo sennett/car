@@ -17,7 +17,7 @@ define([
 		this.onForceSimulationEndRequest();
 	};
 
-	return function(currentScoreProvider, speedChanger, appRunner, endStateDetector){
+	return function(speedChanger, appRunner, endStateDetector){
 		var view = new Ractive({
 			el: '#currentState',
 			template: template,
@@ -40,7 +40,7 @@ define([
 			}
 		});
 
-		new CurrentStatePresenter(view, currentScoreProvider, speedChanger, appRunner, endStateDetector);
+		new CurrentStatePresenter(view, speedChanger, appRunner, endStateDetector);
 		view.on('changeSpeed', speedChangeClick.bind(view));
 		view.on('run', runClick.bind(view)); 
 		view.on('forceSimulationEnd', forceSimulationEnd.bind(view));

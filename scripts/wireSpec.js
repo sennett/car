@@ -109,7 +109,7 @@ define({
 	currentStateView: {
 		create: {
 			module: 'ui/CurrentStateView',
-			args: [{$ref: 'simulation'}, {$ref: 'fastForward'}, {$ref: 'app'}, {$ref:'endStateDetector'}]
+			args: [{$ref: 'fastForward'}, {$ref: 'app'}, {$ref:'endStateDetector'}]
 		}
 	},
 
