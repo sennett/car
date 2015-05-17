@@ -1,8 +1,8 @@
-define(['domain/genome', 'underscore'], function(baseGenome, _){
+define(['domain/genome', 'underscore'], function(genome, _){
 	
 	describe('genome', function(){
 		beforeEach(function(){
-			this.genome = _.extend({}, baseGenome);
+			this.genome = genome.create();
 		});
 
 		describe('toArray', function(){
@@ -71,7 +71,7 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 	});
 	
 	var createRandomGenome = function(){
-		return baseGenome.createRandom();
+		return genome.createRandom();
 	};
 
 	var exerciseRandomGenomeAndSerialise = function(){
