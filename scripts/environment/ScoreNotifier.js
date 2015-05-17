@@ -9,6 +9,7 @@ define(['underscore'], function(_) {
 	var newCarScoreListener = function(carId, score){
 		this.onNewCarScore(carId, score);
 		this.onNewGenerationAverageScore(this.currentGenerationId, generationAverageScore.call(this));
+		this.onNewGenerationHighScore(this.currentGenerationId, score);
 	};
 	
 	var simulationCompleteListener = function(){
