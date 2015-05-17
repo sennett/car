@@ -1,15 +1,4 @@
 define(['domain/genome', 'underscore'], function(baseGenome, _){
-	var exerciseRandomGenomeAndSerialise = function(){
-		return baseGenome.createRandom().serialise();
-	};
-	
-	var assertBothContainTheSameNumberOfGenes = function(arrayOne, arrayTwo){
-		expect(arrayOne.length).toEqual(arrayTwo.length);
-	};
-	
-	var assertBothContainDifferentGenes = function(arrayOne, arrayTwo) {
-		expect(arrayOne).not.toEqual(arrayTwo);
-	};
 	
 	describe('genome', function(){
 		beforeEach(function(){
@@ -64,15 +53,36 @@ define(['domain/genome', 'underscore'], function(baseGenome, _){
 		
 		describe('randomise', function(){
 			it('clears old genes', function(){
-				var genomeOne = exerciseRandomGenomeAndSerialise();
-				var genomeTwo = exerciseRandomGenomeAndSerialise();
+				var genomeOne = exerciseRandomGenomeAndSerialise.call(this);
+				var genomeTwo = exerciseRandomGenomeAndSerialise.call(this);
 				assertBothContainTheSameNumberOfGenes(genomeOne, genomeTwo);
 			});
 			it('does not copy reference to new genes', function(){
-				var genomeOne = exerciseRandomGenomeAndSerialise();
-				var genomeTwo = exerciseRandomGenomeAndSerialise();
+				var genomeOne = exerciseRandomGenomeAndSerialise.call(this);
+				var genomeTwo = exerciseRandomGenomeAndSerialise.call(this);
 				assertBothContainDifferentGenes(genomeOne, genomeTwo);
 			});
+			it('returns a new thing', function(){
+				var genomeOne = createRandomGenome.call(this);
+				var genomeTwo = createRandomGenome.call(this);
+				expect(genomeOne).not.toBe(genomeTwo);
+			})
 		});
 	});
+	
+	var createRandomGenome = function(){
+		return baseGenome.createRandom();
+	};
+
+	var exerciseRandomGenomeAndSerialise = function(){
+		return createRandomGenome.call(this).serialise();
+	};
+
+	var assertBothContainTheSameNumberOfGenes = function(arrayOne, arrayTwo){
+		expect(arrayOne.length).toEqual(arrayTwo.length);
+	};
+
+	var assertBothContainDifferentGenes = function(arrayOne, arrayTwo) {
+		expect(arrayOne).not.toEqual(arrayTwo);
+	};
 });

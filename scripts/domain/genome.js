@@ -122,7 +122,7 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		},
 		
 		createRandom: function(){
-			var newGenome = _.extend(this, {});
+			var newGenome = _.extend({}, this);
 			newGenome.randomise();
 			return newGenome;
 		},
