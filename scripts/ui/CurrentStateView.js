@@ -22,13 +22,9 @@ define([
 			el: '#currentState',
 			template: template,
 			data: {
-				score: 0,
 				speed: 'fast forward',
 				runDisabled: false
 			},
-			updateCurrentScore: _.throttle(function(score){
-				this.set('score', utils.roundScore(score));
-			}, 100),
 			onSimulationSpeedUp: function(){
 				this.set('speed', 'slow down');
 			},
