@@ -42,8 +42,12 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 				assertHighScoreProvided.call(this);
 			});
 
-			xit('does not notify on a lower score', function(){
-
+			it('does not notify on a lower score', function(){
+				createScoreNotifierAndSetGeneration.call(this);
+				exerciseSetCars.call(this);
+				fireNewCarScore.call(this);
+				fireNewCarScore.call(this);
+				assertHighScoreProvided.call(this);
 			});
 		});
 	});

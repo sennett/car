@@ -1,5 +1,12 @@
 define(['underscore'], function(_) {
 	
+	var detectHighScore = function(score){
+		if (this.highScore < score){
+			this.highScore = score;
+			this.onNewGenerationHighScore(this.currentGenerationId, score);
+		}
+	};
+	
 	var generationAverageScore = function(){
 		return _.reduce(this.cars, function(memo, car){
 			return memo + car.serialise().score
@@ -9,7 +16,7 @@ define(['underscore'], function(_) {
 	var newCarScoreListener = function(carId, score){
 		this.onNewCarScore(carId, score);
 		this.onNewGenerationAverageScore(this.currentGenerationId, generationAverageScore.call(this));
-		this.onNewGenerationHighScore(this.currentGenerationId, score);
+		detectHighScore.call(this, score);
 	};
 	
 	var simulationCompleteListener = function(){
@@ -17,6 +24,7 @@ define(['underscore'], function(_) {
 	};
 	
     var ScoreNotifier = function(){
+		this.highScore = 0;
 	};
     
     ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
