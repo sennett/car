@@ -34,7 +34,7 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 			assertGenerationAverageScoreProvided.call(this);
 		});
 
-		xdescribe('generation high score', function(){
+		describe('generation high score', function(){
 			it('notifies when there is a new high score', function(){
 				createScoreNotifierAndSetGeneration.call(this);
 				exerciseSetCars.call(this);
@@ -70,8 +70,8 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 	};
 	
 	var fireNewCarScore = function(){
-		this.fireableCallbackNewScoreCarOne();
-		this.fireableCallbackNewScoreCarTwo();
+		this.fireableCallbackNewScoreCarOne('car ID one', 1);
+		this.fireableCallbackNewScoreCarTwo('car ID two', 2);
 	};
 	
 	var assertNewCarScoreListenerBound = function(){
