@@ -4,14 +4,26 @@ define({
 	],
 	app: {
 		create: {
-			module: 'core/App',
-			args: [{ $ref: "simulation"}, { $ref: "evolutionEngine"}, { $ref: "ticker" }]
+			module: 'core/Evolver',
+			args: [{ $ref: "simulator"}, { $ref: "evolutionEngine"}]
 		}
 	},
-	simulation: {
+	simulator: {
 		create:{
-			module: 'environment/Simulation',
-			args: [{ $ref: "physicsWorldProvider"}, { $ref: "facadeRenderer"}, { $ref: "ticker" }, { $ref: "endStateDetector" }, {$ref: 'ground'}, 'id!fastForward']
+			module: 'environment/Simulator',
+			args: [
+				{ $ref: "physicsWorldProvider"},
+				{ $ref: "endStateDetector" },
+				{ $ref: "ticker" },
+				{ $ref: "facadeRenderer"},
+				{ $ref: "scoreNotifier"},
+				{ $ref: 'ground'}
+			]
+		}
+	},
+	scoreNotifier: {
+		create: {
+			module: 'environment/ScoreNotifier'
 		}
 	},
 	physicsWorldProvider: {
@@ -63,12 +75,10 @@ define({
 	evolutionEngine: {
 		create: {
 			module: 'evolution/Engine',
-			args:[{$ref:'randomGenomeGenerator'}, {$ref: 'rouletteSelection'}]
-		}
-	},
-	randomGenomeGenerator: {
-		create: {
-			module: 'evolution/RandomGenomeGenerator'
+			args:[
+				{$ref: 'rouletteSelection'}, 
+				{$ref:'scoreNotifier'}
+			]
 		}
 	},
 	noBreeding: {
@@ -79,7 +89,7 @@ define({
 	rouletteSelection: {
 		create: {
 			module: 'evolution/selection/RouletteWheel',
-			args:[{$ref: 'genomeMater'}, {$ref: 'randomGenomeGenerator'}]
+			args:[{$ref: 'genomeMater'}]
 		}
 	},
 	genomeMater: {
@@ -113,7 +123,10 @@ define({
 	generationsUiService: {
 		create: {
 			module: 'service/GenerationsUiService',
-			args: [{ $ref: "evolutionEngine"}]
+			args: [
+				{ $ref: "evolutionEngine"},
+				{ $ref: "scoreNotifier"}
+			]
 		}
 	}
 });

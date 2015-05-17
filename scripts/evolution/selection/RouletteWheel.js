@@ -1,15 +1,14 @@
-define(['underscore', 'core/util'], function (_, util) {
+define(['underscore', 'core/util', 'domain/genome'], function (_, util, genome) {
 	// detailed here:  http://boxcar2d.com/about.html
 
-	var Roulette = function(genomeMater, randomGenomeGenerator){
+	var Roulette = function(genomeMater){
 		this.genomeMater = genomeMater;
-		this.randomGenomeGenerator = randomGenomeGenerator;
 	};
 
 	Roulette.prototype = {
 		getRandomGenome: function(selectableGenomes){
 			// who knows why this does not return sometimes.  don't care.  evolution baby.
-			return util.selectAtScore(selectableGenomes, _.random(0, 100)) || this.randomGenomeGenerator.getOne();
+			return util.selectAtScore(selectableGenomes, _.random(0, 100)) || genome.createRandom();
 		},
 		nextGeneration: function(genomes, generationSize){
 			// filter out negative scores
@@ -19,7 +18,7 @@ define(['underscore', 'core/util'], function (_, util) {
 
 			// create new random genomes to complete generation
 			for (var i = genomes.length; i < generationSize; i++){
-				var newGenome = this.randomGenomeGenerator.getOne();
+				var newGenome = genome.createRandom();
 				newGenome.score = 0.1;
 				genomes.push(newGenome);
 			}
