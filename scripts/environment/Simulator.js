@@ -29,6 +29,7 @@ define(['underscore', 'environment/groundData'], function(_, groundData) {
 		this.scoreNotifier = scoreNotifier;
 		ground.setData(groundData);
 		ground.initialisePhysicsBodies(this.world);
+		this.renderer.initialise(this.world);
 	};
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
