@@ -33,7 +33,7 @@ define(['underscore'], function(_) {
 				throw 'generation not set';
 			this.cars = cars;
 			_.each(this.cars, function(car){
-				this.onNewCar(this.currentGenerationId, car.serialise().id);
+				this.onNewCar(car.serialise().id, this.currentGenerationId);
 				car.onNewScore(newCarScoreListener.bind(this));
 				car.onSimulationComplete(simulationCompleteListener.bind(this));
 			}, this);
