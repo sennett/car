@@ -3,6 +3,10 @@ define(['underscore'], function(_) {
 		this.onNewCarScore.apply(null, arguments);
 	};
 	
+	var simulationCompleteListener = function(){
+		this.onCarSimulationComplete.apply(null, arguments);
+	};
+	
     var ScoreNotifier = function(generationsUiService){
 		this.generationsUiService = generationsUiService;
 	};
@@ -15,6 +19,7 @@ define(['underscore'], function(_) {
 			_.each(this.cars, function(car){
 				this.onNewCar(this.currentGenerationId, car.serialise().id);
 				car.onNewScore(newCarScoreListener.bind(this));
+				car.onSimulationComplete(simulationCompleteListener.bind(this));
 			}, this);
 		},
 		notifyScores: function(){
