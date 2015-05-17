@@ -47,12 +47,6 @@ define([
 				exerciseRunGeneration.call(this);
 				assertScoreNotifierPassedCars.call(this);
 			});
-
-			it('calls score notifier on tick', function(){
-				createSimulator.call(this);
-				exerciseRunGeneration.call(this);
-				assertScoreNotifierNotified.call(this);
-			});
 			
 			describe('ending the simulation', function(){
 				it('stops the ticker', function(){
@@ -82,10 +76,6 @@ define([
 		});
 	});
 	
-	var assertScoreNotifierNotified = function(){
-		expect(ScoreNotifier.prototype.notifyScores).toHaveBeenCalled();
-	};
-	
 	var assertScoreNotifierPassedCars = function(){
 		expect(ScoreNotifier.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
@@ -108,7 +98,6 @@ define([
 		spyOn(FacadeRenderer.prototype, 'render');
 		spyOn(FacadeRenderer.prototype, 'reset');
 		spyOn(ScoreNotifier.prototype, 'setCars');
-		spyOn(ScoreNotifier.prototype, 'notifyScores');
 
 		this.simulator = new Simulator(
 			PhysicsWorldProvider.prototype,

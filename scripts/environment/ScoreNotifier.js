@@ -7,8 +7,7 @@ define(['underscore'], function(_) {
 		this.onCarSimulationComplete.apply(null, arguments);
 	};
 	
-    var ScoreNotifier = function(generationsUiService){
-		this.generationsUiService = generationsUiService;
+    var ScoreNotifier = function(){
 	};
     
     ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
@@ -21,9 +20,6 @@ define(['underscore'], function(_) {
 				car.onNewScore(newCarScoreListener.bind(this));
 				car.onSimulationComplete(simulationCompleteListener.bind(this));
 			}, this);
-		},
-		notifyScores: function(){
-			throw 'not implemeneted';
 		},
 		runningGeneration: function(generationId){
 			this.currentGenerationId = generationId;

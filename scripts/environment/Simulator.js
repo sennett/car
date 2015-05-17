@@ -17,7 +17,6 @@ define(['underscore'], function(_) {
 			,  10       //velocity iterations
 			,  10       //position iterations
 		);
-		this.scoreNotifier.notifyScores();
 		this.renderer.render();
 		this.world.ClearForces();
 	};

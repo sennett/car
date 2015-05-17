@@ -28,10 +28,10 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 		});
 
 		it('notifies when there is a new generation average score', function(){
-
+			
 		});
 
-		describe('generation high score', function(){
+		xdescribe('generation high score', function(){
 			it('notifies when there is a new high score', function(){
 
 			});
