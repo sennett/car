@@ -9,9 +9,17 @@ define(['underscore'], function(_) {
 			if (_.isEmpty(this.cars))
 				throw 'no cars in endstate detector';
 			
+			if (this.forceSimulationEnd) {
+				this.forceSimulationEnd = false;
+				return true;
+			}
+			
 			return _.every(this.cars, function(car){
 				return car.serialise().simulationComplete;
 			});
+		},
+		endSimulation: function() {
+			this.forceSimulationEnd = true;
 		}
 	});
     

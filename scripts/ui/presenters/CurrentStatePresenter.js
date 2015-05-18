@@ -11,7 +11,7 @@ define(function() {
 		};
 		
 		view.onForceSimulationEndRequest = function(){
-			endStateDetector.forceEnd();
+			endStateDetector.endSimulation();
 		};
 		
 		var speedChangeResponseObject = {

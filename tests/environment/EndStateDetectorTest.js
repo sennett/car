@@ -16,7 +16,7 @@ define(['environment/EndStateDetector', 'domain/Car'], function (EndStateDetecto
 
 			it('does not end the simulation when no detectors have ended the simulation', function(){
 				createGlobalEndStateDetector.call(this);
-				setDetectors.call(this, [false, false, false]);
+				noDetectorsEnd.call(this);
 				assertSimulationNotEnded.call(this);
 			});
 			
@@ -27,13 +27,28 @@ define(['environment/EndStateDetector', 'domain/Car'], function (EndStateDetecto
 			});
 			
 			it('ends the simulation upon direct request', function(){
-				//setDetectors.call(this, []);
+				createGlobalEndStateDetector.call(this);
+				someDetectorsEnd.call(this);
+				requestSimulationEnd.call(this);
+				assertSimulationEnded.call(this);
 			});
 		});
 	});
 	
+	var requestSimulationEnd = function(){
+		this.globalEndStateDetector.endSimulation();
+	};
+	
+	var noDetectorsEnd = function(){
+		setDetectors.call(this, [false, false, false]);
+	};
+	
 	var setWithNoDetectors = function(){
 		setDetectors.call(this, []);
+	};
+
+	var someDetectorsEnd = function(){
+		setDetectors.call(this, [true, true, false]);
 	};
 	
 	var assertNoCarsExceptionThrown = function(){
