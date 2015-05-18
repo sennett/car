@@ -22,12 +22,19 @@ define(['environment/EndStateDetector', 'domain/Car'], function (EndStateDetecto
 			
 			it('throws if there are no cars registered', function(){
 				createGlobalEndStateDetector.call(this);
-				setDetectors.call(this, []);
+				setWithNoDetectors.call(this);
 				assertNoCarsExceptionThrown.call(this);
 			});
-
+			
+			it('ends the simulation upon direct request', function(){
+				//setDetectors.call(this, []);
+			});
 		});
 	});
+	
+	var setWithNoDetectors = function(){
+		setDetectors.call(this, []);
+	};
 	
 	var assertNoCarsExceptionThrown = function(){
 		expect(this.globalEndStateDetector.simulationEnded).toThrow('no cars in endstate detector');
