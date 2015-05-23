@@ -157,12 +157,11 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world.SetContactListener(this);
 		},
 		registerTick: function(){
-			if (simulationComplete.call(this)) {
+			incrementTicks.call(this);
+			handleScoreUpdate.call(this);
+
+			if (simulationComplete.call(this)) 
 				handleSimulationComplete.call(this);
-			} else {
-				incrementTicks.call(this);
-				handleScoreUpdate.call(this);
-			}
 		},
 		serialise: function(){
 			return {
