@@ -99,6 +99,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 	
 	var handleSimulationComplete = function(){
+		this.simulationWasEnded = true;
 		if(this.onSimulationCompleteCb)
 			this.onSimulationCompleteCb(this.id);
 	};
@@ -134,6 +135,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
 			return v.toString(16);
 		});
+		this.simulationWasEnded = false;
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',
@@ -157,6 +159,9 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world.SetContactListener(this);
 		},
 		registerTick: function(){
+			if(this.simulationWasEnded)
+				return;
+			
 			incrementTicks.call(this);
 			handleScoreUpdate.call(this);
 
