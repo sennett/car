@@ -23,12 +23,12 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 
 	var createBody = function(){
-		var createVertex = function(angle, magnitude, id){
+		var createVertex = _.bind(function(angle, magnitude, id) {
 			this.twoDVertices.push({
 				id: id,
 				location: new b2Vec2(Math.cos(angle) * magnitude, Math.sin(angle) * magnitude)
 			});
-		};
+		}, this);
 
 		this.twoDVertices = [];
 		this.genome.forEachVertex(createVertex, this);
@@ -37,12 +37,14 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.position = startPosition;
 		var carBody = this.world.CreateBody(bodyDef);
-
+		var fixture;
 		// create body shape using multiple fixtures (box2d does not support convex polygons)
-		for (var i = 0; i < this.twoDVertices.length - 1; i++)
-			carBody.CreateFixture(createSubBodyFixtureDef.call(this, this.twoDVertices[i].location, this.twoDVertices[i + 1].location));
-		carBody.CreateFixture(createSubBodyFixtureDef.call(this, _.last(this.twoDVertices).location, _.first(this.twoDVertices).location));
-
+		for (var i = 0; i < this.twoDVertices.length - 1; i++) {
+			fixture = carBody.CreateFixture(createSubBodyFixtureDef.call(this, this.twoDVertices[i].location, this.twoDVertices[i + 1].location));
+			this.fixtures.push(fixture);
+		}
+		fixture = carBody.CreateFixture(createSubBodyFixtureDef.call(this, _.last(this.twoDVertices).location, _.first(this.twoDVertices).location));
+		this.fixtures.push(fixture);
 		return carBody;
 	};
 
@@ -70,7 +72,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			fixtureDef.filter.groupIndex = -1;
 
 			var wheel = this.world.CreateBody(bodyDef);
-			wheel.CreateFixture(fixtureDef);
+			this.fixtures.push(wheel.CreateFixture(fixtureDef));
 
 			var axleDef = new b2RevoluteJointDef();
 			axleDef.Initialize(this.body, wheel, wheel.GetWorldCenter());
@@ -125,6 +127,11 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		var ticksOverrun =  this.ticksSinceLastContactAfterOverrun >= tickTolerance;
 		return carBodySleeping || ticksOverrun;
 	};
+	
+	var contactWithThisCar = function(b2Contact){
+		return (_.contains(this.fixtures, b2Contact.GetFixtureA())
+			|| _.contains(this.fixtures, b2Contact.GetFixtureB()));
+	};
 
 	var Car = function(genome){
 		this.genome = genome;
@@ -136,12 +143,15 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			return v.toString(16);
 		});
 		this.simulationWasEnded = false;
+		this.fixtures = [];
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',
 			'registerTick',
 			'serialise',
-			'BeginContact'
+			'BeginContact',
+			'onNewScore',
+			'onSimulationComplete'
 		);
 	};
 
@@ -151,6 +161,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			_.each(this.wheels, function(wheel){
 				this.world.DestroyBody(wheel);
 			}, this);
+			this.fixtures = [];
 		},
 		initialisePhysicsBodies: function(world){
 			this.world = world;
@@ -183,8 +194,9 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		},
 		
 		// b2ContactListener
-		BeginContact: function(){
-			resetTicks.call(this);
+		BeginContact: function(b2Contact){
+			if(contactWithThisCar.call(this, b2Contact))
+				resetTicks.call(this);
 		},
 		PreSolve: function(){},
 		EndContact: function () {},

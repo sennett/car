@@ -91,7 +91,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	};
 	
 	var registerBodyContact = function(){
-		this.car.BeginContact();
+		this.car.BeginContact(Box2D.Dynamics.Contacts.b2Contact.prototype);
 	};
 	
 	var initialiseWithAwakeBody = function(){
@@ -111,6 +111,8 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'SetContactListener');
+		spyOn(Box2D.Dynamics.Contacts.b2Contact.prototype, 'GetFixtureA');
+		spyOn(Box2D.Dynamics.Contacts.b2Contact.prototype, 'GetFixtureB');
 		this.simulationCompleteSpy = jasmine.createSpy('simulation complete');
 		this.newScoreSpy = jasmine.createSpy('new score spy');
 		this.car.initialisePhysicsBodies(Box2D.Dynamics.b2World.prototype);
