@@ -107,6 +107,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 	
 	var incrementTicks = function(){
+		this.pastScores.push(getScore.call(this));
 		this.ticksSinceSimulationStart++;
 		if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
 			this.ticksSinceLastContactAfterOverrun++;
@@ -121,11 +122,28 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 
 	var tickTolerance = 120; // ticks
 	var ticksCanOverRunAfter = 120; // ticks
+
+	var detectEndStateFromCollisions = function () {
+		var carBodySleeping = !this.body.IsAwake();
+		var ticksOverrun = this.ticksSinceLastContactAfterOverrun >= tickTolerance;
+		return carBodySleeping || ticksOverrun;
+	};
+	
+	var MIN_SPEED = 0.01; // meters per tick
+	var SPEED_SAMPLE_SIZE = 100; // ticks
+	var detectEndStateFromScore = function(){
+		if (this.ticksSinceSimulationStart < ticksCanOverRunAfter)
+			return false;
+		return (
+			this.pastScores[this.ticksSinceSimulationStart - 1] 
+			- this.pastScores[this.ticksSinceSimulationStart - 1 - SPEED_SAMPLE_SIZE]
+			< MIN_SPEED
+		);
+	};
 	
 	var simulationComplete = function (){
-		var carBodySleeping = !this.body.IsAwake();
-		var ticksOverrun =  this.ticksSinceLastContactAfterOverrun >= tickTolerance;
-		return carBodySleeping || ticksOverrun;
+		//return detectEndStateFromCollisions.call(this) || detectEndStateFromScore.call(this);
+		return detectEndStateFromScore.call(this);
 	};
 	
 	var contactWithThisCar = function(b2Contact){
@@ -144,6 +162,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		});
 		this.simulationWasEnded = false;
 		this.fixtures = [];
+		this.pastScores = [];
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',

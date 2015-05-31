@@ -2,62 +2,24 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	describe('Car', function () {
 		describe('simulation', function(){ 
 			describe('ending', function(){
-				describe('from collisions', function(){
-					it('sets itself as a contact listener on the world', function(){
+				
+				describe('body distance', function(){
+					it('does not end the simulation when the car moves', function(){
 						createCar.call(this);
-						initialiseWithAwakeBody.call(this);
-						assertCarSetAsContactListener.call(this);
-					});
-					
-					it('ends the simulation when the car body is sleeping', function(){
-						createCar.call(this);
-						initialiseWithSleepingBody.call(this);
-						tickSimulation.call(this);
-						assertSimulationEnded.call(this);
-					});
-
-					it('does not end the simulation when the car body is awake', function(){
-						createCar.call(this);
-						initialiseWithAwakeBody.call(this);
+						moveCarEnoughToNotEnd.call(this);
 						assertSimulationNotEnded.call(this);
 					});
 
-					describe('timeouts', function(){
-
-						it('ends the simulation when the car body is awake after a timeout since last contact', function(){
-							createCar.call(this);
-							initialiseWithAwakeBody.call(this);
-							exerciseTickTillBeforeTimeout.call(this);
-							registerBodyContact.call(this);
-							exerciseTickTillAfterTimeout.call(this);
-							assertSimulationEnded.call(this);
-						});
-
-						it('does not end the simulation before timeout since last contact', function(){
-							createCar.call(this);
-							initialiseWithAwakeBody.call(this);
-							exerciseTickTillBeforeTimeout.call(this);
-							registerBodyContact.call(this);
-							exerciseTickTillBeforeTimeout.call(this);
-							assertSimulationNotEnded.call(this);
-						});
-
-						it('increases tolerance at the start of the simulation', function(){
-							createCar.call(this);
-							initialiseWithAwakeBody.call(this);
-							registerBodyContact.call(this);
-							exerciseTickTillAfterTimeout.call(this);
-							assertSimulationNotEnded.call(this);
-						});
+					it('ends the simulation when the car does not move', function(){
+						createCar.call(this);
+						carStopped.call(this);
+						assertSimulationEnded.call(this);
 					});
-				});
-				
-				describe('body distance', function(){
 
-					describe('distance-based end state', function(){
-						it('does not end the simulation when the car moves', function(){
-
-						});
+					it('does not end the simulation at the start', function(){
+						createCar.call(this);
+						carStoppedImmediately.call(this);
+						assertSimulationNotEnded.call(this);
 					});
 				});
 			});
@@ -65,56 +27,53 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 			describe('notifications', function(){
 				it('provides the score once when changed', function(){
 					createCar.call(this);
-					initialiseWithAwakeBody.call(this);
 					tickSimulation.call(this, 2);
 					assertScoreProvided.call(this);
 				});
 				
 				it('notifies only once when simulation complete', function(){
 					createCar.call(this);
-					initialiseWithSleepingBody.call(this);
 					tickSimulation.call(this, 2);
-					assertSimulationEnded.call(this);
+					assertScoreProvided.call(this);
 				});
 			});
 		});
 	});
+	
+	var moveCarEnoughToNotEnd = function(){
+		moveCar.call(this, 10, 100);
+	};
+	
+	var carStopped = function(){
+		moveCar.call(this, 200, 0);
+	};
+	
+	var carStoppedImmediately = function(){
+		moveCar.call(this, 100, 0);
+	};
+	
+	var moveCar = function(numberOfTicks, totalXMovement){
+		_.times(numberOfTicks, function(index){
+			setBodyXPosition(totalXMovement * ((index + 1) / numberOfTicks));
+			this.car.registerTick();
+		}, this);
+	};
+	
+	var setBodyXPosition = function(xPosition){
+		Box2D.Dynamics.b2Body.prototype.GetPosition.and.returnValue({x: xPosition});
+	};
 	
 	var assertScoreProvided = function(){
 		expect(this.newScoreSpy).toHaveBeenCalledWith(jasmine.anything(), 'car score');
 		expect(this.newScoreSpy.calls.count()).toEqual(1);
 	};
 	
-	var assertCarSetAsContactListener = function(){
-		expect(Box2D.Dynamics.b2World.prototype.SetContactListener).toHaveBeenCalledWith(this.car);
-	};
-	
-	var exerciseTickTillAfterTimeout = function(){
-		tickSimulation.call(this, 121);
-	};
-	
-	var exerciseTickTillBeforeTimeout = function(){
-		tickSimulation.call(this, 119);
-	};
-	
 	var tickSimulation = function(times){
 		_.times(times || 1, this.car.registerTick);
 	};
 	
-	var registerBodyContact = function(){
-		this.car.BeginContact(Box2D.Dynamics.Contacts.b2Contact.prototype);
-	};
-	
-	var initialiseWithAwakeBody = function(){
-		initialisePhysicsBodies.call(this, true);
-	};
-	
-	var initialiseWithSleepingBody = function(){
-		initialisePhysicsBodies.call(this, false);
-	};
-	
-	var initialisePhysicsBodies = function(awake){
-		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake').and.returnValue(awake);
+	var initialisePhysicsBodies = function(){
+		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'CreateFixture');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetWorldCenter');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetPosition').and.returnValue({x:'car score'});
@@ -142,5 +101,6 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	
 	var createCar = function(){
 		this.car = new Car(genome.createRandom());
+		initialisePhysicsBodies.call(this);
 	};
 });
