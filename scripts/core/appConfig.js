@@ -4,6 +4,6 @@ define(function() {
 			x: 0,
 			y: 12
 		},
-		generationSize: 3
+		generationSize: 20
 	}
 });
