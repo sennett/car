@@ -5,9 +5,7 @@ define(['underscore'], function(_){
 	};
 
 	var runEvolution = function(scoredGeneration){
-		var nextGeneration = scoredGeneration ? 
-			this.evolutionEngine.nextGeneration(scoredGeneration)
-			: this.evolutionEngine.nextGeneration();
+		var nextGeneration = this.evolutionEngine.nextGeneration(scoredGeneration);
 		this.simulator.runGeneration(nextGeneration, runEvolution.bind(this));
 	};
 

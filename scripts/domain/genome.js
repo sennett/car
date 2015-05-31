@@ -4,7 +4,7 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 	var minRadius = 0.1;
 	var maxRadius = 1;
 	var totalVertices = 8;
-	var maxWheels = 1;
+	var maxWheels = 0;
 	var chanceOfMutation = 0.05;
 	
 	var clearPreviousInstantiation = function(){
