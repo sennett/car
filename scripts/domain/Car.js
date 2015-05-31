@@ -92,10 +92,6 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		return wheels;
 	};
 	
-	var resetTicks = function(){
-		this.ticksSinceLastContactAfterOverrun = 0;
-	};
-	
 	var getScore = function(){
 		return this.body.GetPosition().x;
 	};
@@ -109,8 +105,6 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	var incrementTicks = function(){
 		this.pastScores.push(getScore.call(this));
 		this.ticksSinceSimulationStart++;
-		if (this.ticksSinceSimulationStart >= ticksCanOverRunAfter)
-			this.ticksSinceLastContactAfterOverrun++;
 	};
 	
 	var handleScoreUpdate = function(){
@@ -119,20 +113,12 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.onNewScoreCb(this.id, currentScore);
 		this.oldScore = currentScore;
 	};
-
-	var tickTolerance = 120; // ticks
-	var ticksCanOverRunAfter = 120; // ticks
-
-	var detectEndStateFromCollisions = function () {
-		var carBodySleeping = !this.body.IsAwake();
-		var ticksOverrun = this.ticksSinceLastContactAfterOverrun >= tickTolerance;
-		return carBodySleeping || ticksOverrun;
-	};
 	
+	var SIMULATION_MIN_TICKS = 120; // ticks
 	var MIN_SPEED = 0.01; // meters per tick
 	var SPEED_SAMPLE_SIZE = 100; // ticks
 	var detectEndStateFromScore = function(){
-		if (this.ticksSinceSimulationStart < ticksCanOverRunAfter)
+		if (this.ticksSinceSimulationStart < SIMULATION_MIN_TICKS)
 			return false;
 		return (
 			this.pastScores[this.ticksSinceSimulationStart - 1] 
@@ -142,18 +128,11 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 	
 	var simulationComplete = function (){
-		//return detectEndStateFromCollisions.call(this) || detectEndStateFromScore.call(this);
 		return detectEndStateFromScore.call(this);
-	};
-	
-	var contactWithThisCar = function(b2Contact){
-		return (_.contains(this.fixtures, b2Contact.GetFixtureA())
-			|| _.contains(this.fixtures, b2Contact.GetFixtureB()));
 	};
 
 	var Car = function(genome){
 		this.genome = genome;
-		resetTicks.call(this);
 		this.ticksSinceSimulationStart = 0;
 		// http://stackoverflow.com/a/2117523/614523 :D
 		this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -168,7 +147,6 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			'initialisePhysicsBodies',
 			'registerTick',
 			'serialise',
-			'BeginContact',
 			'onNewScore',
 			'onSimulationComplete'
 		);
@@ -186,7 +164,6 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 			this.world = world;
 			this.body = createBody.call(this);
 			this.wheels = createWheels.call(this);
-			this.world.SetContactListener(this);
 		},
 		registerTick: function(){
 			if(this.simulationWasEnded)
@@ -210,16 +187,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		},
 		onSimulationComplete: function(cb){
 			this.onSimulationCompleteCb = cb;
-		},
-		
-		// b2ContactListener
-		BeginContact: function(b2Contact){
-			if(contactWithThisCar.call(this, b2Contact))
-				resetTicks.call(this);
-		},
-		PreSolve: function(){},
-		EndContact: function () {},
-		PostSolve: function(){}
+		}
 	});
 
 	return Car;
