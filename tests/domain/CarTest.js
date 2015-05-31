@@ -1,53 +1,64 @@
 define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car, _, Box2D, genome) {
 	describe('Car', function () {
 		describe('simulation', function(){ 
-			it('ends the simulation when the car body is sleeping', function(){
-				createCar.call(this);
-				initialiseWithSleepingBody.call(this);
-				tickSimulation.call(this);
-				assertSimulationEnded.call(this);
-			});
-			
-			it('does not end the simulation when the car body is awake', function(){
-				createCar.call(this);
-				initialiseWithAwakeBody.call(this);
-				assertSimulationNotEnded.call(this);
-			});
-			
-			describe('timeouts', function(){
+			describe('ending', function(){
+				describe('from collisions', function(){
+					it('sets itself as a contact listener on the world', function(){
+						createCar.call(this);
+						initialiseWithAwakeBody.call(this);
+						assertCarSetAsContactListener.call(this);
+					});
+					
+					it('ends the simulation when the car body is sleeping', function(){
+						createCar.call(this);
+						initialiseWithSleepingBody.call(this);
+						tickSimulation.call(this);
+						assertSimulationEnded.call(this);
+					});
+
+					it('does not end the simulation when the car body is awake', function(){
+						createCar.call(this);
+						initialiseWithAwakeBody.call(this);
+						assertSimulationNotEnded.call(this);
+					});
+
+					describe('timeouts', function(){
+
+						it('ends the simulation when the car body is awake after a timeout since last contact', function(){
+							createCar.call(this);
+							initialiseWithAwakeBody.call(this);
+							exerciseTickTillBeforeTimeout.call(this);
+							registerBodyContact.call(this);
+							exerciseTickTillAfterTimeout.call(this);
+							assertSimulationEnded.call(this);
+						});
+
+						it('does not end the simulation before timeout since last contact', function(){
+							createCar.call(this);
+							initialiseWithAwakeBody.call(this);
+							exerciseTickTillBeforeTimeout.call(this);
+							registerBodyContact.call(this);
+							exerciseTickTillBeforeTimeout.call(this);
+							assertSimulationNotEnded.call(this);
+						});
+
+						it('increases tolerance at the start of the simulation', function(){
+							createCar.call(this);
+							initialiseWithAwakeBody.call(this);
+							registerBodyContact.call(this);
+							exerciseTickTillAfterTimeout.call(this);
+							assertSimulationNotEnded.call(this);
+						});
+					});
+				});
 				
-				it('ends the simulation when the car body is awake after a timeout since last contact', function(){
-					createCar.call(this);
-					initialiseWithAwakeBody.call(this);
-					exerciseTickTillBeforeTimeout.call(this);
-					registerBodyContact.call(this);
-					exerciseTickTillAfterTimeout.call(this);
-					assertSimulationEnded.call(this);
-				});
+				describe('body distance', function(){
 
-				it('does not end the simulation before timeout since last contact', function(){
-					createCar.call(this);
-					initialiseWithAwakeBody.call(this);
-					exerciseTickTillBeforeTimeout.call(this);
-					registerBodyContact.call(this);
-					exerciseTickTillBeforeTimeout.call(this);
-					assertSimulationNotEnded.call(this);
-				});
+					describe('distance-based end state', function(){
+						it('does not end the simulation when the car moves', function(){
 
-				it('increases tolerance at the start of the simulation', function(){
-					createCar.call(this);
-					initialiseWithAwakeBody.call(this);
-					registerBodyContact.call(this);
-					exerciseTickTillAfterTimeout.call(this);
-					assertSimulationNotEnded.call(this);
-				});
-			});
-			
-			describe('body initialisation', function(){
-				it('sets itself as a contact listener on the world', function(){
-					createCar.call(this);
-					initialiseWithAwakeBody.call(this);
-					assertCarSetAsContactListener.call(this);
+						});
+					});
 				});
 			});
 			
