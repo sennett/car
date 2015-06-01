@@ -28,7 +28,7 @@ define([
 			}
 
 			var nextGeneration = generation.createNew();
-			while(nextGeneration.genomes.length <= config.generationSize){
+			while(nextGeneration.genomes.length < config.generationSize){
 				var parentOne = selectRandomGenome(genomes);
 				var genomesWithoutParentOne = _.without(genomes, parentOne);
 

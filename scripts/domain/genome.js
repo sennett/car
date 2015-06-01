@@ -36,6 +36,10 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 			this['wheelRadius' + i] = radius;
 	};
 	
+	var setScore = function(carId, score){
+		this.score = score;
+	};
+	
 	return {
 		totalVertices: 0,
 		totalWheels: 0,
@@ -132,7 +136,9 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		},
 		
 		createCar: function(){
-			return new Car(this);
+			var car = new Car(this);
+			car.onNewScore(_.bind(setScore, this));
+			return car;
 		},
 		
 		create: function(){
