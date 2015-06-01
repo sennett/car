@@ -62,10 +62,14 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	var setBodyXPosition = function(xPosition){
 		Box2D.Dynamics.b2Body.prototype.GetPosition.and.returnValue({x: xPosition});
 	};
-	
+
+	var assertScoreSpyCalled = function (scoreSpy) {
+		expect(scoreSpy).toHaveBeenCalledWith(jasmine.anything(), 'car score');
+		expect(scoreSpy.calls.count()).toEqual(1);
+	};
 	var assertScoreProvided = function(){
-		expect(this.newScoreSpy).toHaveBeenCalledWith(jasmine.anything(), 'car score');
-		expect(this.newScoreSpy.calls.count()).toEqual(1);
+		assertScoreSpyCalled(this.newScoreSpy);
+		assertScoreSpyCalled(this.anotherNewScoreSpy);
 	};
 	
 	var tickSimulation = function(times){
@@ -85,8 +89,10 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.Contacts.b2Contact.prototype, 'GetFixtureB');
 		this.simulationCompleteSpy = jasmine.createSpy('simulation complete');
 		this.newScoreSpy = jasmine.createSpy('new score spy');
+		this.anotherNewScoreSpy = jasmine.createSpy('another new score spy');
 		this.car.initialisePhysicsBodies(Box2D.Dynamics.b2World.prototype);
 		this.car.onNewScore(this.newScoreSpy);
+		this.car.onNewScore(this.anotherNewScoreSpy);
 		this.car.onSimulationComplete(this.simulationCompleteSpy);
 	};
 	
