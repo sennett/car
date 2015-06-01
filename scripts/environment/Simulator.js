@@ -6,7 +6,7 @@ define(['underscore', 'environment/groundData'], function(_, groundData) {
 		_.each(this.cars, function(car){
 			car.destroyPhysicsBodies();
 		});
-		this.onComplete();
+		this.onComplete(this.generation);
 	};
 
 	var tick = function(){
@@ -37,6 +37,7 @@ define(['underscore', 'environment/groundData'], function(_, groundData) {
 	
     Simulator.prototype = _.extend(Simulator.prototype, {
 		runGeneration: function(generation, onComplete){
+			this.generation = generation;
 			this.onComplete = onComplete;
 			// todo: remove dep on genomes (construct car from serialised domain obj)
 			this.cars = _.map(generation.genomes, function(genome){

@@ -91,8 +91,8 @@ define([
 		expect(ScoreNotifier.prototype.setCars).toHaveBeenCalledWith([Car.prototype, Car.prototype]);
 	};
 
-	var generation = {};
 	var createSimulator = function(){
+		this.generation = {};
 		spyOn(Car.prototype, 'initialisePhysicsBodies');
 		spyOn(Car.prototype, 'destroyPhysicsBodies');
 		spyOn(Car.prototype, 'registerTick');
@@ -123,11 +123,11 @@ define([
 	};
 
 	var exerciseRunGeneration = function(){
-		generation.genomes = [
+		this.generation.genomes = [
 			genome, genome
 		];
 		this.onCompleteSpy = jasmine.createSpy('onCompleteSpy');
-		this.simulator.runGeneration(generation, this.onCompleteSpy);
+		this.simulator.runGeneration(this.generation, this.onCompleteSpy);
 	};
 
 	var exerciseRunGenerationAndStop = function(){
@@ -136,7 +136,7 @@ define([
 	};
 
 	var assertCarsInstantiated = function(){
-		expect(genome.createCar.calls.count()).toEqual(generation.genomes.length);
+		expect(genome.createCar.calls.count()).toEqual(this.generation.genomes.length);
 	};
 
 	var assertPhysicsBodiesCreated = function(){
@@ -173,6 +173,6 @@ define([
 	};
 
 	var assertStopCallbackCalled = function(){
-		expect(this.onCompleteSpy).toHaveBeenCalled();
+		expect(this.onCompleteSpy).toHaveBeenCalledWith(this.generation);
 	};
 });
