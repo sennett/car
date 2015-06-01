@@ -1,9 +1,5 @@
 <li style="display: block" class="generation">
-    {{ #if (!generationComplete) }}
-        Running generation {{ generationNumber }}
-    {{ else }}
-        Generation {{ generationNumber }} average score {{ averageScore }}
-    {{ /if }}
+    Generation {{ generationNumber }} average score {{ averageScore }}
     {{ #if (highscore) }}
         New highscore: {{ highscore }}
     {{ /if }}

@@ -14,8 +14,7 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 		nextGeneration: function(scoredGeneration){
 			this.generationCount++;
 			this.scoreNotifier.runningGeneration(this.generationCount);
-			if (this.onNewGeneration)
-				this.onNewGeneration(this.generationCount);
+			this.onNewGeneration(this.generationCount, this.generationCount);
 			if (scoredGeneration)
 				return this.evolutionAlgorithm.nextGeneration(scoredGeneration);
 			else

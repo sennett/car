@@ -7,11 +7,11 @@ define([
 
 	function createPrototype(generationNumber) {
 		return new Ractive({
-			generationNumber: generationNumber,
 			template: template,
 			append: true,
 			data: {
-				cars: []
+				cars: [],
+				generationNumber: generationNumber,
 			},
 			onNewAverageScore: function(averageScore){
 				this.set('averageScore', utils.roundScore(averageScore));
