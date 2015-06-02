@@ -17,11 +17,17 @@ define(['underscore'], function(_) {
 		this.onNewCarScore(carId, score);
 		this.onNewGenerationAverageScore(this.currentGenerationId, generationAverageScore.call(this));
 		detectHighScore.call(this, score);
-		updateRenderer.call(this);
+		updateRenderer.call(this, carId, score);
 	};
 	
-	var updateRenderer = function(){
-		
+	var updateRenderer = function(carId, score){
+		var body = this.cars[carId].body;
+		if (this.highestScoreForCurrentCars < score + 10 && this.currentBody != body) {
+			this.renderer.reset();
+			this.renderer.followBody(body);
+			this.currentBody = body;
+			this.highestScoreForCurrentCars = score;
+		}
 	};
 	
 	var simulationCompleteListener = function(){
@@ -43,7 +49,8 @@ define(['underscore'], function(_) {
 		}, this);
 	};
 	
-    var ScoreNotifier = function(){
+    var ScoreNotifier = function(renderer){
+		this.renderer = renderer;
 		this.highScore = 0;
 	};
 	
@@ -51,6 +58,7 @@ define(['underscore'], function(_) {
 		setCars: function(cars){
 			if(_.isUndefined(this.currentGenerationId))
 				throw 'generation not set';
+			this.highestScoreForCurrentCars = 0;
 			createKeyBasedCars.call(this, cars);
 			addListenersToCars.call(this);
 		},

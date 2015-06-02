@@ -23,7 +23,10 @@ define({
 	},
 	scoreNotifier: {
 		create: {
-			module: 'environment/ScoreNotifier'
+			module: 'environment/ScoreNotifier',
+			args: [
+				{ $ref: "facadeRenderer"}
+			]
 		}
 	},
 	physicsWorldProvider: {

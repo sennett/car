@@ -34,13 +34,21 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 			assertGenerationAverageScoreProvided.call(this);
 		});
 		
-		it('causes the renderer to follow the highest scoring car', function(){
-			createScoreNotifierAndSetGeneration.call(this);
-			exerciseSetCars.call(this);
-			setCarTwoCurrentScore.call(this, 200);
-			setCarTwoCurrentScore.call(this, 210);
-			assertRendererFollowsNewCar.call(this);
-			assertRendererCalledOnlyOnce.call(this);
+		describe('updating the renderer', function(){
+			it('causes the renderer to follow the highest scoring car', function(){
+				createScoreNotifierAndSetGeneration.call(this);
+				exerciseSetCars.call(this);
+				fireNewCarScore.call(this);
+				assertRendererFollowedBothCars.call(this);
+			});
+			
+			it('does not re-render when the same car scores higher', function(){
+				createScoreNotifierAndSetGeneration.call(this);
+				exerciseSetCars.call(this);
+				setCarTwoCurrentScore.call(this, 200);
+				setCarTwoCurrentScore.call(this, 210);
+				assertRendererCalledOnlyOnce.call(this);
+			});
 		});
 
 		describe('generation high score', function(){
@@ -65,12 +73,13 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
 	};
 	
-	var assertRendererFollowsNewCar = function(){
+	var assertRendererFollowedBothCars = function(){
+		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalledWith(this.carOne.body);
 		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalledWith(this.carTwo.body);
 	};
 	
 	var setCarTwoCurrentScore = function(score){
-		this.fireableCallbackNewScoreCarTwo(score);
+		this.fireableCallbackNewScoreCarTwo('car ID 2', score);
 	};
 	
 	var assertHighScoreProvided = function(){
@@ -95,8 +104,8 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	};
 	
 	var fireNewCarScore = function(){
-		this.fireableCallbackNewScoreCarOne('car ID one', 1);
-		this.fireableCallbackNewScoreCarTwo('car ID two', 2);
+		this.fireableCallbackNewScoreCarOne('car ID 1', 1);
+		this.fireableCallbackNewScoreCarTwo('car ID 2', 2);
 	};
 	
 	var assertNewCarScoreListenerBound = function(){
