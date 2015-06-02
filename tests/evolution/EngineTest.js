@@ -64,7 +64,8 @@ define(['evolution/Engine',
 	};
 	
 	var assertNewGenerationCallbackCalledWith = function(generationNumber){
-		expect(this.newGenerationCallback).toHaveBeenCalledWith(generationNumber);
+		var generationId = generationNumber;
+		expect(this.newGenerationCallback).toHaveBeenCalledWith(generationId, generationNumber);
 	};
 	
 	var bindNewGenerationCallback = function(){
