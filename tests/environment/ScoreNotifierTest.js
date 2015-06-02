@@ -1,4 +1,4 @@
-define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car) {
+define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeRenderer'], function (ScoreNotifier, Car, FacadeRenderer) {
 	describe('ScoreNotifier', function () {
 		
 		it('notifies on new car', function(){
@@ -33,6 +33,15 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 			fireNewCarScore.call(this);
 			assertGenerationAverageScoreProvided.call(this);
 		});
+		
+		it('causes the renderer to follow the highest scoring car', function(){
+			createScoreNotifierAndSetGeneration.call(this);
+			exerciseSetCars.call(this);
+			setCarTwoCurrentScore.call(this, 200);
+			setCarTwoCurrentScore.call(this, 210);
+			assertRendererFollowsNewCar.call(this);
+			assertRendererCalledOnlyOnce.call(this);
+		});
 
 		describe('generation high score', function(){
 			it('notifies when there is a new high score', function(){
@@ -51,6 +60,18 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 			});
 		});
 	});
+	
+	var assertRendererCalledOnlyOnce = function(){
+		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
+	};
+	
+	var assertRendererFollowsNewCar = function(){
+		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalledWith(this.carTwo.body);
+	};
+	
+	var setCarTwoCurrentScore = function(score){
+		this.fireableCallbackNewScoreCarTwo(score);
+	};
 	
 	var assertHighScoreProvided = function(){
 		expect(this.scoreNotifier.onNewGenerationHighScore.calls.count()).toEqual(2);
@@ -111,6 +132,7 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 		}.bind(this));
 		
 		this.carOne = _.clone(Car.prototype);
+		this.carOne.body = 'car one body';
 		spyOn(this.carOne, 'onNewScore').and.callFake(function(cb){
 			this.fireableCallbackNewScoreCarOne = cb;
 		}.bind(this));
@@ -119,6 +141,7 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 		}.bind(this));
 		
 		this.carTwo = _.clone(Car.prototype);
+		this.carTwo.body = 'car two body';
 		spyOn(this.carTwo, 'onNewScore').and.callFake(function(cb){
 			this.fireableCallbackNewScoreCarTwo = cb;
 		}.bind(this));
@@ -139,7 +162,8 @@ define(['environment/ScoreNotifier', 'domain/Car'], function (ScoreNotifier, Car
 
 	var createScoreNotifier = function(){
 		createCarSpy.call(this);
-		this.scoreNotifier = new ScoreNotifier();
+		spyOn(FacadeRenderer.prototype, 'followBody');
+		this.scoreNotifier = new ScoreNotifier(FacadeRenderer.prototype);
 		bindPublicEventListenersToScoreNotifier.call(this);
 	};
 	
