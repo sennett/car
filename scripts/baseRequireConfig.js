@@ -21,5 +21,12 @@ require.config({
 			exports: 'Box2D'
 		}
 	},
+
+	map: {
+		'*': {
+			'css': '../../bower_components/require-css/css' // or whatever the path to require-css is
+		}
+	},
+	
 	deps: ['main']
 });
