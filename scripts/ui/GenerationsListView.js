@@ -1,7 +1,7 @@
 define(['underscore', 
 	'ui/GenerationView', 
 	'ui/presenters/GenerationsPresenter',
-	'css!ui/styles/generations.css'], function(_, GenerationView, GenerationsPresenter, css) {
+	'css!ui/styles/generations'], function(_, GenerationView, GenerationsPresenter, css) {
 	
 	var checkGeneration = function(id){
 		if (!this.generations[id])

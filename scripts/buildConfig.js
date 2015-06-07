@@ -21,7 +21,12 @@
 	paths: {
 		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder',
 		'css-builder': '../bower_components/require-css/css-builder',
+		// not sure why it can't find it here...
 		'normalize': '../bower_components/require-css/normalize'
+	},
+
+	pragmasOnSave: {
+		excludeRequireCss: true
 	},
 	
 	optimize: "none",
