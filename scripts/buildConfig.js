@@ -3,19 +3,14 @@
 
 	modules: [
 		{
-			name: "Spinner"	
-		},
-		{
-			"name": 'main',
-			// exclude shallow because `exclude` also excludes main from output (?)
-			excludeShallow: ['Spinner']
+			"name": 'main'
 		},
 		{
 			"name": "productionBuildWrapper",
 			// exclude shallow because of some weirdness with wire.js
-			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive', 'box2dweb', 'css/normalize'],
+			"excludeShallow": ['wire/wire'],
 			"stubModules": ['rv', 'text'],
-			exclude: ['main', 'Spinner']
+			exclude: ['main', 'Spinner', 'normalize', 'underscore', 'ractiveRuntime', 'box2dweb', 'ractive']
 		}
 	],
 	
