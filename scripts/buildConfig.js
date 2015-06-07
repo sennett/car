@@ -14,7 +14,8 @@
 			"name": "productionBuildWrapper",
 			// exclude shallow because of some weirdness with wire.js
 			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive', 'box2dweb', 'css/normalize'],
-			"stubModules": ['rv', 'text']
+			"stubModules": ['rv', 'text'],
+			exclude: ['main', 'Spinner']
 		}
 	],
 	
@@ -28,7 +29,7 @@
 		'normalize': '../bower_components/require-css/normalize'
 	},
 	
-	optimize: "uglify2",
+	optimize: "none",
 	removeCombined: true,
 	waitSeconds: 7
 })
