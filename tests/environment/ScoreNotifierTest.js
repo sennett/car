@@ -68,14 +68,20 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 			});
 		});
 	});
+
+	var assertRendererReset = function (times) {
+		expect(FacadeRenderer.prototype.reset.calls.count()).toEqual(times);
+	};
 	
 	var assertRendererCalledOnlyOnce = function(){
 		expect(FacadeRenderer.prototype.followBody.calls.count()).toEqual(1);
+		assertRendererReset(1);
 	};
 	
 	var assertRendererFollowedBothCars = function(){
 		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalledWith(this.carOne.body);
 		expect(FacadeRenderer.prototype.followBody).toHaveBeenCalledWith(this.carTwo.body);
+		assertRendererReset(2);
 	};
 	
 	var setCarTwoCurrentScore = function(score){
@@ -172,6 +178,7 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	var createScoreNotifier = function(){
 		createCarSpy.call(this);
 		spyOn(FacadeRenderer.prototype, 'followBody');
+		spyOn(FacadeRenderer.prototype, 'reset');
 		this.scoreNotifier = new ScoreNotifier(FacadeRenderer.prototype);
 		bindPublicEventListenersToScoreNotifier.call(this);
 	};

@@ -22,7 +22,7 @@ define(['underscore'], function(_) {
 	
 	var updateRenderer = function(carId, score){
 		var body = this.cars[carId].body;
-		if (this.highestScoreForCurrentCars < score + 10 && this.currentBody != body) {
+		if (this.highestScoreForCurrentCars < score && this.currentBody != body) {
 			this.renderer.reset();
 			this.renderer.followBody(body);
 			this.currentBody = body;
@@ -52,6 +52,7 @@ define(['underscore'], function(_) {
     var ScoreNotifier = function(renderer){
 		this.renderer = renderer;
 		this.highScore = 0;
+		_.bindAll(this, 'setCars', 'runningGeneration')
 	};
 	
 	ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
