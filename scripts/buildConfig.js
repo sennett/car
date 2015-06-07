@@ -13,7 +13,7 @@
 		{
 			"name": "productionBuildWrapper",
 			// exclude shallow because of some weirdness with wire.js
-			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive', 'box2dweb'],
+			"excludeShallow": ['underscore', 'ractiveRuntime', 'wire/wire', 'ractive', 'box2dweb', 'css/normalize'],
 			"stubModules": ['rv', 'text']
 		}
 	],
@@ -23,7 +23,9 @@
 	mainConfigFile: 'baseRequireConfig.js',
 
 	paths: {
-		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder'
+		'wire/builder/rjs': '../node_modules/wire-rjs-builder/builder',
+		'css-builder': '../bower_components/require-css/css-builder',
+		'normalize': '../bower_components/require-css/normalize'
 	},
 	
 	optimize: "uglify2",
