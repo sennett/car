@@ -1,10 +1,30 @@
 define(['underscore', 
 	'ui/GenerationView', 
-	'ui/presenters/GenerationsPresenter'], 
-	function(_, GenerationView, GenerationsPresenter) {
+	'ui/presenters/GenerationsPresenter',
+	'css!ui/styles/generations.css'], function(_, GenerationView, GenerationsPresenter, css) {
+	
+	var checkGeneration = function(id){
+		if (!this.generations[id])
+			throw 'application exception: no generation with id ' + id + ' found';
+	};
+
+	var checkCar = function(id){
+		if (!this.cars[id])
+			throw 'application exception: no car with id ' + id + ' found';
+	};
+
+	var getGenerationForCarId = function(carId){
+		return this.generations[this.cars[carId].generation];
+	};
+
+	var getIndexForCarId = function(carId){
+		return this.cars[carId].index;
+	};
+	
     var GenerationsListView = function(generationsUiService){
 		this.generations = {};
 		this.cars = {};
+		this.domNode = document.getElementById('generations');
 
 		_.bindAll(this,
 			'onNewGeneration',
@@ -19,28 +39,12 @@ define(['underscore',
 			new GenerationsPresenter(this, generationsUiService);
 	};
     
-	var checkGeneration = function(id){
-		if (!this.generations[id])
-			throw 'application exception: no generation with id ' + id + ' found';
-	};
-
-	var checkCar = function(id){
-		if (!this.cars[id])
-			throw 'application exception: no car with id ' + id + ' found';
-	};
-		
-	var getGenerationForCarId = function(carId){
-		return this.generations[this.cars[carId].generation];
-	};
-
-	var getIndexForCarId = function(carId){
-		return this.cars[carId].index;
-	};
+	
 	
     GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id, generationNumber){
 			var generationView = new GenerationView(generationNumber);
-			generationView.render(document.getElementById('generations'));
+			generationView.render(this.domNode);
 			this.generations[id] = generationView;
 		},
 		onNewGenerationHighScore: function(id, highScore){

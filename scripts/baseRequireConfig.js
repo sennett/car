@@ -13,7 +13,8 @@ require.config({
 		rv: '../bower_components/rv/rv',
 		require: '../bower_components/requirejs/require',
 		ractiveRuntime: '../bower_components/ractive/ractive.runtime',
-		Spinner: '../bower_components/spin.js/spin'
+		Spinner: '../bower_components/spin.js/spin',
+		css: '../bower_components/require-css/css'
 	},
 	shim: {
 		box2dweb: {

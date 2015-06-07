@@ -24,6 +24,7 @@
     "underscore": "~1.8.2",
     "requirejs": "~2.1.16",
     "spin.js": "~2.0.2",
-    "postal": "~1.0.4"
+    "postal": "~1.0.4",
+    "require-css": "~0.1.8"
   }
 }

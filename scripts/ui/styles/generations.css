@@ -1,0 +1,35 @@
+#generations {
+	margin:0;
+	padding: 0;
+}
+li.generation {
+	margin-top: 5px;
+	border:solid 1px #888888;
+}
+.progress {
+	height:4px;
+	background-color: red;
+}
+.complete {
+	height:100%;
+	background-color: #90e289;
+	float:left;
+}
+.running {
+	height:100%;
+	background-color: #ffff00;
+	float:left;
+}
+ul.cars {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+ul.cars li {
+	float:left;
+	margin:0;
+	padding:0;
+	width:5%;
+	overflow: hidden;
+	border:none;
+}
