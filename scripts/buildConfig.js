@@ -29,7 +29,7 @@
 		excludeRequireCss: true
 	},
 	
-	optimize: "none",
+	optimize: "uglify2",
 	removeCombined: true,
 	waitSeconds: 7
 })
