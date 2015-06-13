@@ -17,7 +17,7 @@ define([
 				this.set('averageScore', utils.roundScore(averageScore));
 			},
 			newHighScore: function (highscore) {
-				this.set('highscore', utils.roundScore(highscore));
+				this.set('highScore', utils.roundScore(highscore));
 			},
 			addCar: function(){
 				var carData = {

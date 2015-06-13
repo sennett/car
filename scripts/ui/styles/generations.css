@@ -5,6 +5,22 @@
 li.generation {
 	margin-top: 5px;
 }
+.generation-header {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+.generation-header-item {
+	flex-grow: 1;
+	flex-basis: 0;
+}
+.generation-header-item:nth-child(2) {
+	text-align: center;
+}
+.generation-header-item:last-child {
+	text-align: right;
+}
 .progress {
 	height:4px;
 	background-color: red;
