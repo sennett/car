@@ -56,7 +56,7 @@ ul.cars {
 	align-items: baseline;
 }
 ul.cars li {
-	margin:0 0 0 7px;
+	margin:0 0 0 1%;
 	overflow: hidden;
 	border:none;
 	flex-grow: 1;
