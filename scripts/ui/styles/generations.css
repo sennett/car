@@ -11,11 +11,20 @@ li.generation {
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
+	padding: 5px;
+	align-items: baseline;
 }
 .generation-header-item {
 	flex-grow: 1;
 	flex-basis: 0;
 }
+.generation-title {
+	font-weight: bold;
+}
+.generation-average-score, .generation-high-score {
+	font-size: 0.8em;
+}
+
 
 .progress {
 	height:4px;

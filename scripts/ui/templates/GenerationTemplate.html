@@ -1,12 +1,12 @@
 <li style="display: block" class="bordered generation">
     <div class="generation-header">
-        <div class="generation-header-item">
+        <div class="generation-header-item generation-title">
             Generation {{ generationNumber }}
         </div>
-        <div class="generation-header-item">
-            Average score {{ averageScore }}
+        <div class="generation-header-item generation-average-score">
+            Average score: {{ averageScore }}
         </div>
-        <div class="generation-header-item">
+        <div class="generation-header-item generation-high-score">
             {{ #if (highScore) }}
                 New high score: {{ highScore }}
             {{ /if }}
