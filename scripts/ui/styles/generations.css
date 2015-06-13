@@ -2,6 +2,7 @@
 	margin:0;
 	padding: 0;
 }
+
 li.generation {
 	margin-top: 5px;
 }
@@ -15,12 +16,7 @@ li.generation {
 	flex-grow: 1;
 	flex-basis: 0;
 }
-.generation-header-item:nth-child(2) {
-	text-align: center;
-}
-.generation-header-item:last-child {
-	text-align: right;
-}
+
 .progress {
 	height:4px;
 	background-color: red;
