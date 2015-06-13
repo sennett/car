@@ -10,8 +10,9 @@ define(['underscore'], function(_){
 	};
 
 	Evolver.prototype = _.extend(Evolver.prototype, {
-		run: function() {
+		run: function(onRunning) {
 			runEvolution.call(this);
+			onRunning();
 		}
 	});
 
