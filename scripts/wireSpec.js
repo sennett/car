@@ -119,7 +119,7 @@ define({
 	generationsListView: {
 		create: {
 			module: 'ui/GenerationsListView',
-			args: [{ $ref: "generationsUiService"}]
+			args: [{ $ref: "generationsUiService"}, {$ref: 'domNodeProvider'}]
 		}
 	},
 
@@ -131,5 +131,9 @@ define({
 				{ $ref: "scoreNotifier"}
 			]
 		}
+	},
+
+	domNodeProvider: {
+		module: 'ui/domNodeProvider'
 	}
 });
