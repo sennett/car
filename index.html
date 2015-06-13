@@ -8,9 +8,11 @@
             height:100%;
             margin:0;
             padding:0;
+            background-color: #262626;
+            color:#cbcbcb;
+            font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'ralewaythin', 'Helvetica Neue', "Calibri Light", "Calibri", Helvetica, Arial, sans-serif;
         }
         canvas#worldRender {
-            border: solid 1px #888888;
             margin: 0 auto;
             display: block;
         }
@@ -23,10 +25,14 @@
             margin: 0 auto;
         }
         
+        .bordered {
+            border: solid 1px #888888;
+        }
+        
     </style>
 </head>
 <body>
-<canvas width="800" height="300" id="worldRender"></canvas>
+<canvas width="800" height="300" id="worldRender" class="bordered"></canvas>
 <div id="loadingTarget"></div>
 <div id="hud">
     <div id="currentState"></div>

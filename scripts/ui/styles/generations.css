@@ -4,7 +4,6 @@
 }
 li.generation {
 	margin-top: 5px;
-	border:solid 1px #888888;
 }
 .progress {
 	height:4px;
@@ -12,7 +11,7 @@ li.generation {
 }
 .complete {
 	height:100%;
-	background-color: #90e289;
+	background-color: #054500;
 	float:left;
 }
 .running {
