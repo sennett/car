@@ -4,7 +4,11 @@
 }
 
 li.generation {
-	margin-top: 5px;
+	padding-bottom: 5px;
+	border-bottom:solid 1px #3C3C3C;
+}
+li.generation:last-child {
+	border-bottom:none;
 }
 .generation-header {
 	display: flex;
