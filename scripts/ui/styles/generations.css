@@ -36,8 +36,8 @@ li.generation:last-child {
 }
 .complete {
 	height:100%;
-	background-color: #054500;
 	float:left;
+	color:#666;
 }
 .running {
 	height:100%;
@@ -51,9 +51,9 @@ ul.cars {
 }
 ul.cars li {
 	float:left;
-	margin:0;
+	margin:0 0 0 7px;
 	padding:0;
-	width:5%;
+	width:9%;
 	overflow: hidden;
 	border:none;
 }
