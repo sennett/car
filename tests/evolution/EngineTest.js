@@ -7,7 +7,7 @@ define(['evolution/Engine',
 			it('calls the callback on new generation', function(){
 				createEngine.call(this);
 				bindNewGenerationCallback.call(this);
-				exerciseNextGeneration.call(this);
+				exerciseFirstGeneration.call(this);
 				assertNewGenerationCallbackCalledFirstTime.call(this);
 			});
 
@@ -25,6 +25,14 @@ define(['evolution/Engine',
 				assertScoreNotifierUpdatedWithGeneration.call(this);
 			});
 			
+			it('updates the mutation rate on the generation', function(){
+				createEngine.call(this);
+				exerciseFirstGeneration.call(this);
+				exerciseUpdateMutationRate.call(this);
+				exerciseSubsequentGeneration.call(this);
+				assertGenerationUpdatedWithMutationRate.call(this);
+			});
+			
 			describe('first generation', function(){
 				it('creates random generation', function(){
 					createEngine.call(this);
@@ -36,20 +44,38 @@ define(['evolution/Engine',
 			describe('subsequent generations', function(){
 				it('passes scored generation to the evolution algorithm', function(){
 					createEngine.call(this);
-					exerciseNextGeneration.call(this);
-					exerciseNextGeneration.call(this, generation);
+					exerciseFirstGeneration.call(this);
+					exerciseSubsequentGeneration.call(this);
 					assertScoredGenerationPassedToEvolutionAlgorithm.call(this);
 				});
 				
 				it('returns the result from the evolution algorithm', function(){
 					createEngine.call(this);
-					exerciseNextGeneration.call(this);
-					exerciseNextGeneration.call(this, generation);
+					exerciseFirstGeneration.call(this);
+					exerciseSubsequentGeneration.call(this);
 					assertNextGenerationReturnedFromEvolutionAlgorithm.call(this);
 				});
 			});
 		});
 	});
+	
+	var exerciseSubsequentGeneration = function(){
+		exerciseNextGeneration.call(this, generation);
+	};
+	
+	var exerciseFirstGeneration = function(){
+		exerciseNextGeneration.call(this);
+	};
+	
+	var assertGenerationUpdatedWithMutationRate = function(){
+		expect(generation.createViaRoulette).toHaveBeenCalledWith(0.1);
+	};
+	
+	var exerciseUpdateMutationRate = function(){
+		this.updateMutationRateCompleteSpy = 
+			jasmine.createSpyObj('updateMutationRateCompleteSpy', ['success', 'fail']);
+		this.engine.updateMutationRate(0.1, this.updateMutationRateCompleteSpy);
+	};
 	
 	var assertScoreNotifierUpdatedWithGeneration = function(){
 		expect(ScoreNotifier.prototype.runningGeneration).toHaveBeenCalledWith(1);

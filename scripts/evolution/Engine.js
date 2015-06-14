@@ -1,4 +1,4 @@
-define(['underscore', 'domain/generation'], function (_, generation) {
+define(['underscore', 'domain/generation', 'core/appConfig'], function (_, generation, config) {
 	
 	var getGenomeId = function(){
 		return this.currentGeneration + '-' + this.genomesSimulatedThisGeneration;
@@ -7,6 +7,7 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 	var Engine = function(scoreNotifier){
 		this.scoreNotifier = scoreNotifier;
 		this.generationCount = 0;
+		this.mutationRate = config.defaultMutationRate;
 	};
 
 	Engine.prototype = _.extend(Engine.prototype, {
@@ -16,9 +17,12 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 			if(this.onNewGeneration)
 				this.onNewGeneration(this.generationCount, this.generationCount);
 			if (scoredGeneration)
-				return scoredGeneration.createViaRoulette();
+				return scoredGeneration.createViaRoulette(this.mutationRate);
 			else
 				return generation.createRandom();
+		},
+		updateMutationRate: function(mutationRate, onCompleteResponse){
+			this.mutationRate = mutationRate;
 		}
 	});
 

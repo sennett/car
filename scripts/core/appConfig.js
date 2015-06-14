@@ -4,6 +4,7 @@ define(function() {
 			x: 0,
 			y: 12
 		},
-		generationSize: 20
+		generationSize: 20,
+		defaultMutationRate: 0.05
 	}
 });
