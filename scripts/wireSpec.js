@@ -115,6 +115,16 @@ define({
 			]
 		}
 	},
+	
+	settingsUiService: {
+		create: {
+			module: 'service/SettingsUiService',
+			args: [
+				{ $ref: "evolutionEngine"},
+				{ $ref: "simulator"}
+			]
+		}
+	},
 
 	domNodeProvider: {
 		module: 'ui/domNodeProvider'
