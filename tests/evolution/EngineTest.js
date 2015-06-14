@@ -25,12 +25,14 @@ define(['evolution/Engine',
 				assertScoreNotifierUpdatedWithGeneration.call(this);
 			});
 			
-			it('updates the mutation rate on the generation', function(){
-				createEngine.call(this);
-				exerciseFirstGeneration.call(this);
-				exerciseUpdateMutationRate.call(this);
-				exerciseSubsequentGeneration.call(this);
-				assertGenerationUpdatedWithMutationRate.call(this);
+			describe('updating the mutation rate', function(){
+				it('updates the mutation rate on the generation', function(){
+					createEngine.call(this);
+					exerciseFirstGeneration.call(this);
+					exerciseUpdateMutationRate.call(this);
+					exerciseSubsequentGeneration.call(this);
+					assertGenerationUpdatedWithMutationRate.call(this);
+				});
 			});
 			
 			describe('first generation', function(){
