@@ -21,6 +21,9 @@ define(['underscore', 'core/appConfig', 'domain/genome'], function(_, config, ge
 			var newGeneration = _.extend({}, this);
 			resetPreviousInstantiation.call(newGeneration);
 			return newGeneration;
+		},
+		createViaRoulette: function(){
+			
 		}
 	};
 });

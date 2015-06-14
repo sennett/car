@@ -9,8 +9,7 @@ define([
 		return util.selectAtScore(selectableGenomes, _.random(0, 100)) || genome.createRandom();
 	};
 	
-	var Roulette = function(genomeMater){
-		this.genomeMater = genomeMater;
+	var Roulette = function(){
 	};
 
 	Roulette.prototype = _.extend(Roulette.prototype, {
@@ -34,7 +33,7 @@ define([
 
 				var parentTwo = selectRandomGenome(genomesWithoutParentOne);
 
-				var children = this.genomeMater.mate(parentOne, parentTwo);
+				var children = parentOne.mate(parentTwo);
 				children.one.mutate();
 				children.two.mutate();
 				nextGeneration.genomes.push(children.one);

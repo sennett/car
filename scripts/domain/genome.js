@@ -40,7 +40,7 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		this.score = score;
 	};
 	
-	return {
+	var genome = {
 		totalVertices: 0,
 		totalWheels: 0,
 
@@ -143,6 +143,21 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		
 		create: function(){
 			return _.extend({}, this);
+		},
+		
+		mate: function (otherGenome) {
+
+			var firstRand = _.random(0, this.totalGenes());
+			var offspringData = util.crossover(this.toArray(), otherGenome.toArray(), firstRand, _.random(firstRand, 10)),
+				childOne = _.extend({}, genome),
+				childTwo = _.extend({}, genome);
+			childOne.fromArray(offspringData.one);
+			childTwo.fromArray(offspringData.two);
+			return {
+				one: childOne,
+				two: childTwo
+			};
 		}
 	};
+	return genome;
 });
