@@ -16,20 +16,25 @@ define([
 	var forceSimulationEnd = function(){
 		this.onForceSimulationEndRequest();
 	};
+	
+	var speedLabels = {
+		fastForward: "Fast forward",
+		slowDown: "Slow down"
+	};
 
 	return function(speedChanger, appRunner, endStateDetector){
 		var view = new Ractive({
 			el: '#currentState',
 			template: template,
 			data: {
-				speed: 'fast forward',
+				speed: speedLabels.fastForward,
 				runDisabled: false
 			},
 			onSimulationSpeedUp: function(){
-				this.set('speed', 'slow down');
+				this.set('speed', speedLabels.slowDown);
 			},
 			onSimulationSlowDown: function(){
-				this.set('speed', 'fast forward');
+				this.set('speed', speedLabels.fastForward);
 			},
 			onSimulationRunning: function(){
 				this.set('runDisabled', true);
