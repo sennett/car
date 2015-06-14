@@ -34,8 +34,6 @@ define([
 				var parentTwo = selectRandomGenome(genomesWithoutParentOne);
 
 				var children = parentOne.mate(parentTwo);
-				children.one.mutate();
-				children.two.mutate();
 				nextGeneration.genomes.push(children.one);
 				nextGeneration.genomes.push(children.two);
 			}

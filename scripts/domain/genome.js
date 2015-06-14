@@ -143,6 +143,8 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		
 		create: function(){
 			return _.extend({}, this);
+				children.one.mutate();
+				children.two.mutate();
 		},
 		
 		mate: function (otherGenome) {
@@ -153,6 +155,8 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 				childTwo = _.extend({}, genome);
 			childOne.fromArray(offspringData.one);
 			childTwo.fromArray(offspringData.two);
+			childOne.mutate();
+			childTwo.mutate();
 			return {
 				one: childOne,
 				two: childTwo
