@@ -29,7 +29,7 @@ define(['underscore', 'core/appConfig', 'domain/genome', 'core/util'], function(
 			return newGeneration;
 		},
 		// roulette selection detailed here:  http://boxcar2d.com/about.html
-		createViaRoulette: function(){
+		createViaRoulette: function(mutationRate){
 			// filter out negative scores
 			var genomes = _.filter(this.genomes, function(genome){
 				return genome.score > 0;
@@ -49,7 +49,7 @@ define(['underscore', 'core/appConfig', 'domain/genome', 'core/util'], function(
 
 				var parentTwo = selectRandomGenome(genomesWithoutParentOne);
 
-				var children = parentOne.mate(parentTwo);
+				var children = parentOne.mate(parentTwo, mutationRate);
 				nextGeneration.genomes.push(children.one);
 				nextGeneration.genomes.push(children.two);
 			}

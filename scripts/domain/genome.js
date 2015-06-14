@@ -5,7 +5,6 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 	var maxRadius = 1;
 	var totalVertices = 8;
 	var maxWheels = 2;
-	var chanceOfMutation = 0.05;
 	
 	var clearPreviousInstantiation = function(){
 		this.totalVertices = 0;
@@ -106,13 +105,13 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 			}
 		},
 
-		mutate: function(){
+		mutate: function(mutationRate){
 			for (var i = 0; i < totalVertices; i++){
 				var randomAngle = util.random(2 * Math.PI * i / totalVertices, 2 * Math.PI * (i + 1) / totalVertices);
 				var randomMagnitude = util.random(minMagnitude, maxMagnitude);
 				setVertex.call(this,
-					chanceOfMutation > Math.random() ? randomAngle : undefined,
-					chanceOfMutation > Math.random() ? randomMagnitude : undefined,
+					mutationRate > Math.random() ? randomAngle : undefined,
+					mutationRate > Math.random() ? randomMagnitude : undefined,
 					i);
 			}
 
@@ -120,8 +119,8 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 				var randomVertex = _.random(0, totalVertices - 1);
 				var randomRadius = util.random(minRadius, maxRadius);
 				setWheel.call(this,
-					chanceOfMutation > Math.random() ? randomVertex : undefined,
-					chanceOfMutation > Math.random() ? randomRadius : undefined, i);
+					mutationRate > Math.random() ? randomVertex : undefined,
+					mutationRate > Math.random() ? randomRadius : undefined, i);
 			}
 		},
 		
@@ -143,11 +142,9 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 		
 		create: function(){
 			return _.extend({}, this);
-				children.one.mutate();
-				children.two.mutate();
 		},
 		
-		mate: function (otherGenome) {
+		mate: function (otherGenome, mutationRate) {
 
 			var firstRand = _.random(0, this.totalGenes());
 			var offspringData = util.crossover(this.toArray(), otherGenome.toArray(), firstRand, _.random(firstRand, 10)),
@@ -155,8 +152,8 @@ define(['core/util', 'underscore', 'domain/Car'], function (util, _, Car) {
 				childTwo = _.extend({}, genome);
 			childOne.fromArray(offspringData.one);
 			childTwo.fromArray(offspringData.two);
-			childOne.mutate();
-			childTwo.mutate();
+			childOne.mutate(mutationRate);
+			childTwo.mutate(mutationRate);
 			return {
 				one: childOne,
 				two: childTwo
