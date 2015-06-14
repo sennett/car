@@ -1,6 +1,6 @@
 define(['evolution/Engine',
-	'evolution/selection/NoBreeding',
-	'environment/ScoreNotifier'], function (Engine, SelectionAlgorithm, ScoreNotifier) {
+	'environment/ScoreNotifier',
+	'domain/generation'], function (Engine, ScoreNotifier, generation) {
 	
 	describe('Engine', function () {
 		describe('nextGeneration', function(){
@@ -37,14 +37,14 @@ define(['evolution/Engine',
 				it('passes scored generation to the evolution algorithm', function(){
 					createEngine.call(this);
 					exerciseNextGeneration.call(this);
-					exerciseNextGeneration.call(this, scoredGeneration);
+					exerciseNextGeneration.call(this, generation);
 					assertScoredGenerationPassedToEvolutionAlgorithm.call(this);
 				});
 				
 				it('returns the result from the evolution algorithm', function(){
 					createEngine.call(this);
 					exerciseNextGeneration.call(this);
-					exerciseNextGeneration.call(this, scoredGeneration);
+					exerciseNextGeneration.call(this, generation);
 					assertNextGenerationReturnedFromEvolutionAlgorithm.call(this);
 				});
 			});
@@ -73,13 +73,12 @@ define(['evolution/Engine',
 		this.engine.onNewGeneration = this.newGenerationCallback;
 	};
 	
-	var nextGenerationFromEvolutionAlgorithm = 'generation from evolution algorithm';
-	var scoredGeneration = 'scored generation';
-
+	var nextGenerationFromEvolutionAlgorithm = 'next generation from evolution algorithm';
+	
 	var createEngine = function(){
-		spyOn(SelectionAlgorithm.prototype, 'nextGeneration').and.returnValue(nextGenerationFromEvolutionAlgorithm);
+		spyOn(generation, 'createViaRoulette').and.returnValue(nextGenerationFromEvolutionAlgorithm);
 		spyOn(ScoreNotifier.prototype, 'runningGeneration');
-		this.engine = new Engine(SelectionAlgorithm.prototype, ScoreNotifier.prototype);
+		this.engine = new Engine(ScoreNotifier.prototype);
 	};
 
 	var exerciseNextGeneration = function(){
@@ -87,11 +86,11 @@ define(['evolution/Engine',
 	};
 
 	var assertRandomGenerationCreated = function(){
-		expect(SelectionAlgorithm.prototype.nextGeneration).not.toHaveBeenCalled();
+		expect(generation.createViaRoulette).not.toHaveBeenCalled();
 	};
 
 	var assertScoredGenerationPassedToEvolutionAlgorithm = function(){
-		expect(SelectionAlgorithm.prototype.nextGeneration).toHaveBeenCalledWith(scoredGeneration);
+		expect(generation.createViaRoulette).toHaveBeenCalled();
 	};
 
 	var assertNextGenerationReturnedFromEvolutionAlgorithm = function(){
