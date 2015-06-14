@@ -85,6 +85,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'SetContactListener');
+		spyOn(Box2D.Dynamics.b2World.prototype, 'GetGravity').and.returnValue({y:30});
 		spyOn(Box2D.Dynamics.Contacts.b2Contact.prototype, 'GetFixtureA');
 		spyOn(Box2D.Dynamics.Contacts.b2Contact.prototype, 'GetFixtureB');
 		this.simulationCompleteSpy = jasmine.createSpy('simulation complete');
