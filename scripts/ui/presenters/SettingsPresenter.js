@@ -1,12 +1,13 @@
-define(['underscore'], function(_) {
+define(function() {
+	
     var SettingsPresenter = function(view, model){
+		
 		view.onMutationRateChange(function(newMutationRate){
-			model.setMutationRate(newMutationRate, mutationRateChangeResponse);
-			
+			model.updateMutationRate(newMutationRate, mutationRateChangeResponse);
 		});
 		
 		view.onWheelTorqueChange(function(newWheelTorque){
-			model.setNewWheelTorque(newWheelTorque, wheelTalkChangeResponse);
+			model.updateWheelTorqueModifier(newWheelTorque, wheelTorqueChangeResponse);
 		});
 		
 		var mutationRateChangeResponse = {
@@ -14,7 +15,7 @@ define(['underscore'], function(_) {
 			fail: view.mutationRateNotUpdated()
 		};
 		
-		var wheelTalkChangeResponse = {
+		var wheelTorqueChangeResponse = {
 			success: view.wheelTorqueUpdated(),
 			fail: view.wheelTorqueNotUpdated()
 		}
