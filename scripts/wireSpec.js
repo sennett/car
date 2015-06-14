@@ -78,20 +78,9 @@ define({
 	evolutionEngine: {
 		create: {
 			module: 'evolution/Engine',
-			args:[
-				{$ref: 'rouletteSelection'}, 
+			args:[ 
 				{$ref:'scoreNotifier'}
 			]
-		}
-	},
-	noBreeding: {
-		create: {
-			module: 'evolution/selection/NoBreeding'
-		}
-	},
-	rouletteSelection: {
-		create: {
-			module: 'evolution/selection/RouletteWheel'
 		}
 	},
 	fastForward:{

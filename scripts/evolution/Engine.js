@@ -4,8 +4,7 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 		return this.currentGeneration + '-' + this.genomesSimulatedThisGeneration;
 	};
 
-	var Engine = function(evolutionAlgorithm, scoreNotifier){
-		this.evolutionAlgorithm = evolutionAlgorithm;
+	var Engine = function(scoreNotifier){
 		this.scoreNotifier = scoreNotifier;
 		this.generationCount = 0;
 	};
@@ -17,7 +16,7 @@ define(['underscore', 'domain/generation'], function (_, generation) {
 			if(this.onNewGeneration)
 				this.onNewGeneration(this.generationCount, this.generationCount);
 			if (scoredGeneration)
-				return this.evolutionAlgorithm.nextGeneration(scoredGeneration);
+				return scoredGeneration.createViaRoulette();
 			else
 				return generation.createRandom();
 		}

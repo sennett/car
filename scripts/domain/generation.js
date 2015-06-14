@@ -1,8 +1,14 @@
-define(['underscore', 'core/appConfig', 'domain/genome'], function(_, config, genome) {
+define(['underscore', 'core/appConfig', 'domain/genome', 'core/util'], function(_, config, genome, util) {
+	var selectRandomGenome = function (selectableGenomes){
+		// who knows why this does not return sometimes.  don't care.  evolution baby.
+		return util.selectAtScore(selectableGenomes, _.random(0, 100)) || genome.createRandom();
+	};
+	
 	var resetPreviousInstantiation = function(){
 		this.genomes = [];
 	};
-    return {
+	
+    var generation = {
 		genomes: [],
 		createRandom: function(){
 			var newGeneration = this.createNew();
@@ -22,8 +28,34 @@ define(['underscore', 'core/appConfig', 'domain/genome'], function(_, config, ge
 			resetPreviousInstantiation.call(newGeneration);
 			return newGeneration;
 		},
+		// roulette selection detailed here:  http://boxcar2d.com/about.html
 		createViaRoulette: function(){
-			
+			// filter out negative scores
+			var genomes = _.filter(this.genomes, function(genome){
+				return genome.score > 0;
+			});
+
+			// create new random genomes to complete generation
+			for (var i = genomes.length; i < config.generationSize; i++){
+				var newGenome = genome.createRandom();
+				newGenome.score = 0.1;
+				genomes.push(newGenome);
+			}
+
+			var nextGeneration = generation.createNew();
+			while(nextGeneration.genomes.length < config.generationSize){
+				var parentOne = selectRandomGenome(genomes);
+				var genomesWithoutParentOne = _.without(genomes, parentOne);
+
+				var parentTwo = selectRandomGenome(genomesWithoutParentOne);
+
+				var children = parentOne.mate(parentTwo);
+				nextGeneration.genomes.push(children.one);
+				nextGeneration.genomes.push(children.two);
+			}
+			return nextGeneration;
 		}
 	};
+	
+	return generation;
 });
