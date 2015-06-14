@@ -3,7 +3,7 @@ define([
 	'ractiveRuntime',
 	'ui/presenters/CurrentStatePresenter',
 	'rv!ui/templates/CurrentStateTemplate',
-	'ui/utils'], function(_, Ractive, CurrentStatePresenter, template, utils) {
+	'css!ui/styles/currentState'], function(_, Ractive, CurrentStatePresenter, template, css) {
 
 	var speedChangeClick = function(){
 		this.onChangeSpeedRequest();
