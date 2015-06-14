@@ -26,7 +26,7 @@ define(['evolution/Engine',
 			});
 			
 			describe('updating the mutation rate', function(){
-				it('updates the mutation rate on the generation', function(){
+				it('passes the mutation rate to the generation', function(){
 					createEngine.call(this);
 					exerciseFirstGeneration.call(this);
 					exerciseUpdateMutationRate.call(this);
