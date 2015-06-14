@@ -28,10 +28,16 @@ define(['evolution/Engine',
 			describe('updating the mutation rate', function(){
 				it('passes the mutation rate to the generation', function(){
 					createEngine.call(this);
-					exerciseFirstGeneration.call(this);
 					exerciseUpdateMutationRate.call(this);
 					exerciseSubsequentGeneration.call(this);
 					assertGenerationUpdatedWithMutationRate.call(this);
+				});
+
+				it('informs the view of the change', function(){
+					createEngine.call(this);
+					exerciseUpdateMutationRate.call(this);
+					exerciseSubsequentGeneration.call(this);
+					assertViewInformedOfMutationRateUpdate.call(this);
 				});
 			});
 			
@@ -60,6 +66,11 @@ define(['evolution/Engine',
 			});
 		});
 	});
+	
+	var assertViewInformedOfMutationRateUpdate = function(){
+		expect(this.updateMutationRateCompleteSpy.success)
+			.toHaveBeenCalledWith('New mutation rate will be applied from next generation');
+	};
 	
 	var exerciseSubsequentGeneration = function(){
 		exerciseNextGeneration.call(this, generation);
