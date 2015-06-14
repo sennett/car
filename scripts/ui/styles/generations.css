@@ -61,4 +61,5 @@ ul.cars li {
 	border:none;
 	flex-grow: 1;
 	flex-basis: 9%;
+	font-size: 0.9em;
 }
