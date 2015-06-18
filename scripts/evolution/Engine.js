@@ -23,7 +23,7 @@ define(['underscore', 'domain/generation', 'core/appConfig'], function (_, gener
 		},
 		updateMutationRate: function(mutationRate, onCompleteResponse){
 			this.mutationRate = mutationRate;
-			onCompleteResponse.success("New mutation rate will be applied from next generation");
+			onCompleteResponse.success("New mutation rate will be applied from next generation", mutationRate);
 		}
 	});
 

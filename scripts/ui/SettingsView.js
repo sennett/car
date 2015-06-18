@@ -6,7 +6,6 @@ define([
 	'core/appConfig'], function(_, Ractive, template, SettingsPresenter, config) {
 	
     return function(settingsUiService){
-		var mutationRateChangeCb;
 		
 		var templateInterface = new Ractive({
 			template: template,
@@ -16,14 +15,15 @@ define([
 			}
 		});
 		
-		
-		
 		var publicInterface = {
 			onMutationRateChange: function(updateRateCb){
-				mutationRateChangeCb = updateRateCb;
+				templateInterface.observe('mutationRate', function(newValue){
+					updateRateCb(newValue);
+				}, { init: false });
 			},
-			mutationRateUpdated: function(newRate){
-				templateInterface.set('mutationRate', newRate);
+			mutationRateUpdated: function(responseMessage, mutationRate){
+				console.log(responseMessage);
+				templateInterface.set('mutationRate', mutationRate);
 			},
 			mutationRateNotUpdated: function(){},
 			onWheelTorqueChange: function(){},
@@ -32,6 +32,7 @@ define([
 		};
 		
 		new SettingsPresenter(publicInterface, settingsUiService);
+		
 		return publicInterface;
 	};
 });
