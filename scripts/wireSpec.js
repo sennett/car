@@ -125,6 +125,13 @@ define({
 			]
 		}
 	},
+	
+	settingsView: {
+		create: {
+			module: 'ui/SettingsView',
+			args: [{$ref: 'settingsUiService'}]
+		}
+	},
 
 	domNodeProvider: {
 		module: 'ui/domNodeProvider'

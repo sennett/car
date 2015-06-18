@@ -1,16 +1,29 @@
-define(['underscore'], function(_) {
-    var SettingsView = function(){
+define([
+	'underscore',
+	'ractiveRuntime',
+	'rv!ui/templates/SettingsTemplate',
+	'ui/presenters/SettingsPresenter'], function(_, Ractive, template, SettingsPresenter) {
+    
+    return function(settingsUiService){
+		var view = new Ractive({
+			template: template,
+			el: '#settingsTarget',
+			data: {
+				mutationRate: 'hello!'
+			},
+			onMutationRateChange: function(updateRateCb){
+				this.updateRateCb
+			},
+			mutationRateUpdated: function(newRate){
+				this.set('mutationRate', newRate);
+			},
+			mutationRateNotUpdated: function(){},
+			onWheelTorqueChange: function(){},
+			wheelTorqueUpdated: function(){},
+			wheelTorqueNotUpdated: function(){}
+		});
 		
+		new SettingsPresenter(view, settingsUiService);
+		return view;
 	};
-    
-    SettingsView.prototype = _.extend(SettingsView.prototype, {
-		onMutationRateChange: function(){},
-		onWheelTorqueChange: function(){},
-		mutationRateUpdated: function(){},
-		mutationRateNotUpdated: function(){},
-		wheelTorqueUpdated: function(){},
-		wheelTorqueNotUpdated: function(){}
-	});
-    
-    return SettingsView;
 });

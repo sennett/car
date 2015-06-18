@@ -7,7 +7,7 @@ define(['underscore'], function(_) {
     
     SettingsUiService.prototype = _.extend(SettingsUiService.prototype, {
 		updateMutationRate: function(newMutationRate, responseObj){
-			throw 'not implemented';
+			this.evolutionEngine.updateMutationRate(newMutationRate, responseObj);
 		},
 		updateWheelTorqueModifier: function(newMutationRate, responseObj){
 			throw 'not implemented';
