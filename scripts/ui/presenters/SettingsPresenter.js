@@ -11,13 +11,13 @@ define(function() {
 		});
 		
 		var mutationRateChangeResponse = {
-			success: view.mutationRateUpdated(),
-			fail: view.mutationRateNotUpdated()
+			success: view.mutationRateUpdated,
+			fail: view.mutationRateNotUpdated
 		};
 		
 		var wheelTorqueChangeResponse = {
-			success: view.wheelTorqueUpdated(),
-			fail: view.wheelTorqueNotUpdated()
+			success: view.wheelTorqueUpdated,
+			fail: view.wheelTorqueNotUpdated
 		}
 	};
     
