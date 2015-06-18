@@ -17,9 +17,10 @@ define([
 		
 		var publicInterface = {
 			onMutationRateChange: function(updateRateCb){
-				templateInterface.observe('mutationRate', function(newValue){
+				var updateMutation = _.debounce(function(newValue){
 					updateRateCb(newValue);
-				}, { init: false });
+				}, 1000);
+				templateInterface.observe('mutationRate', updateMutation, { init: false });
 			},
 			mutationRateUpdated: function(responseMessage, mutationRate){
 				console.log(responseMessage);
