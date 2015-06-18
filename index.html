@@ -20,11 +20,27 @@
             font-size: 20px;
             text-align: center;
         }
-        #hud {
+        
+        .pageWidth {
             width: 800px;
             margin: 0 auto;
+            padding: 0;
         }
         
+        #hud {
+            /*display: flex;*/
+            /*flex-direction: row;*/
+            /*flex-wrap: nowrap;*/
+            /*justify-content: space-between;*/
+            /*align-items: baseline;*/
+        /*}*/
+        /**/
+        /*#currentState, #settingsTarget {*/
+            /*flex-grow: 1;*/
+            /*flex-basis: 0;*/
+        /*}*/
+        
+        }
         .region {
             border: solid 1px #888888;
             margin: 5px 0;
@@ -35,12 +51,14 @@
 <body>
 <canvas width="798" height="300" id="worldRender" class="region"></canvas>
 <div id="loadingTarget"></div>
-<div id="hud">
+<div id="hud" class="pageWidth">
     <div id="currentState"></div>
     <div id="settingsTarget"></div>
-    <ul id="generations" class="region"></ul>
 </div>
 
+<div class="pageWidth">
+    <ul id="generations" class="region"></ul>
+</div>
 <script src="bower_components/requirejs/require.js" data-main="scripts/baseRequireConfig.js"></script>
 
 </body>

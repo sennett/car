@@ -3,7 +3,8 @@ define([
 	'ractiveRuntime',
 	'rv!ui/templates/SettingsTemplate',
 	'ui/presenters/SettingsPresenter',
-	'core/appConfig'], function(_, Ractive, template, SettingsPresenter, config) {
+	'core/appConfig',
+	'css!ui/styles/settings'], function(_, Ractive, template, SettingsPresenter, config, css) {
 	
     return function(settingsUiService){
 		
