@@ -24,9 +24,6 @@ li.generation:last-child {
 .generation-title {
 	font-weight: bold;
 }
-.generation-average-score, .generation-high-score {
-	font-size: 0.8em;
-}
 
 
 .progress {
