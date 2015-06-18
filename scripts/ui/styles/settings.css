@@ -1,4 +1,7 @@
 .settings input {
-	width: 100px;
-	
+	width: 60px;
+}
+
+#mutationRateValue {
+	margin-right: 20px;
 }
