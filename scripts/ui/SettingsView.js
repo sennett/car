@@ -4,7 +4,8 @@ define([
 	'rv!ui/templates/SettingsTemplate',
 	'ui/presenters/SettingsPresenter',
 	'core/appConfig',
-	'css!ui/styles/settings'], function(_, Ractive, template, SettingsPresenter, config, css) {
+	'css!ui/styles/settings',
+	'ractiveTransitionsFade'], function(_, Ractive, template, SettingsPresenter, config, css, ractiveTransitionsFade) {
 	
     return function(settingsUiService){
 		
@@ -12,8 +13,20 @@ define([
 			template: template,
 			el: '#settingsTarget',
 			data: {
-				mutationRate: config.defaultMutationRate
+				mutationRate: config.defaultMutationRate,
+				mutationRateMessage: "",
+				mutationRateMessageVisible: false
+			},
+			transitions: {
+				fade: ractiveTransitionsFade
 			}
+		});
+
+		templateInterface.observe('mutationRateMessage', function(){
+			templateInterface.set('mutationRateMessageVisible', true);
+			setTimeout(function(){
+				templateInterface.set('mutationRateMessageVisible', false);
+			}, 1000);
 		});
 		
 		var publicInterface = {
@@ -24,7 +37,7 @@ define([
 				templateInterface.observe('mutationRate', updateMutation, { init: false });
 			},
 			mutationRateUpdated: function(responseMessage, mutationRate){
-				console.log(responseMessage);
+				templateInterface.set('mutationRateMessage', responseMessage);
 				templateInterface.set('mutationRate', mutationRate);
 			},
 			mutationRateNotUpdated: function(){},

@@ -1,6 +1,13 @@
 <div class="settings small-font">
-    <label for="mutationRateValue">Mutation rate</label>
-    <input type="text" id="mutationRateValue" value="{{mutationRate}}" />
-    <label for="wheelTorque">Wheel torque</label>
-    <input type="text" id="wheelTorque" />
+    <div>
+        <label for="mutationRateValue">Mutation rate</label>
+        <input type="text" id="mutationRateValue" value="{{mutationRate}}" />
+        {{#if  mutationRateMessageVisible}}
+            <div class="message" outro='fade:1000'>{{mutationRateMessage}}</div>
+        {{/if}} 
+    </div>
+    <!--<div>-->
+        <!--<label for="wheelTorque">Wheel torque</label>-->
+        <!--<input type="text" id="wheelTorque" />-->
+    <!--</div>-->
 </div>

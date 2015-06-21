@@ -1,7 +1,11 @@
-.settings input {
-	width: 60px;
+.settings {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	flex-direction: row;
+	text-align: right;
 }
 
-#mutationRateValue {
-	margin-right: 20px;
+.settings input {
+	width: 60px;
 }
