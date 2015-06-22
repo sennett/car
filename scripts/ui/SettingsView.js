@@ -29,6 +29,16 @@ define([
 			}, 1000);
 		});
 		
+		templateInterface.observe('mutationRate', function(newValue, oldValue, keypath){
+			function isNumber(n) {
+				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			if (!isNumber(newValue))
+				setTimeout(function(){
+					myRactive.set(keypath, oldValue);
+				}, 0);
+		});
+		
 		var publicInterface = {
 			onMutationRateChange: function(updateRateCb){
 				var updateMutation = _.debounce(function(newValue){
