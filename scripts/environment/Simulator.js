@@ -13,7 +13,7 @@ define(['underscore', 'environment/groundData'], function(_, groundData) {
 		if (this.endStateDetector.simulationEnded())
 			end.call(this);
 		this.world.Step(
-			1 / 60   //frame-rate
+			3 / 120   //frame-rate
 			,  10       //velocity iterations
 			,  10       //position iterations
 		);

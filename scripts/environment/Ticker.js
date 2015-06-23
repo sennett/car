@@ -8,7 +8,7 @@ define(['underscore'], function (_) {
 		var run = function(){
 			// deferred because the tick function could stop the ticker
 			_.defer(this.tick);
-			this.timeoutId = this.timeoutProvider.setTimeout(run, this.interval);
+			this.timeoutId = this.timeoutProvider.requestAnimationFrame(run, this.interval);
 		}.bind(this);
 		run();
 	};
@@ -39,7 +39,7 @@ define(['underscore'], function (_) {
 		},
 
 		stop: function(){
-			this.timeoutProvider.clearTimeout(this.timeoutId);
+			this.timeoutProvider.cancelAnimationFrame(this.timeoutId);
 			this.running = false;
 		},
 

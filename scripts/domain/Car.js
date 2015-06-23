@@ -117,7 +117,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	};
 	
 	var SIMULATION_MIN_TICKS = 120; // ticks
-	var MIN_SPEED = 0.01; // meters per tick
+	var MIN_SPEED = 0.1; // meters per tick
 	var SPEED_SAMPLE_SIZE = 100; // ticks
 	var detectEndStateFromScore = function(){
 		if (this.ticksSinceSimulationStart < SIMULATION_MIN_TICKS)
