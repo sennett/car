@@ -1,8 +1,4 @@
 define(['underscore', 'domain/generation', 'core/appConfig'], function (_, generation, config) {
-	
-	var getGenomeId = function(){
-		return this.currentGeneration + '-' + this.genomesSimulatedThisGeneration;
-	};
 
 	var Engine = function(scoreNotifier){
 		this.scoreNotifier = scoreNotifier;
@@ -23,7 +19,7 @@ define(['underscore', 'domain/generation', 'core/appConfig'], function (_, gener
 		},
 		updateMutationRate: function(mutationRate, onCompleteResponse){
 			this.mutationRate = mutationRate;
-			onCompleteResponse.success("New mutation rate will be applied from next generation", mutationRate);
+			onCompleteResponse.success(mutationRate + " will be used from next generation", mutationRate);
 		}
 	});
 

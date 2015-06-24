@@ -69,7 +69,7 @@ define(['evolution/Engine',
 	
 	var assertViewInformedOfMutationRateUpdate = function(){
 		expect(this.updateMutationRateCompleteSpy.success)
-			.toHaveBeenCalledWith('New mutation rate will be applied from next generation', 0.1);
+			.toHaveBeenCalledWith(jasmine.any(String), 0.1);
 	};
 	
 	var exerciseSubsequentGeneration = function(){
