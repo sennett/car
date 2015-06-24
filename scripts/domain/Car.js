@@ -109,15 +109,16 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 	
 	var handleScoreUpdate = function(){
 		var currentScore = getScore.call(this);
-		if (currentScore != this.oldScore)
+		if (currentScore > this.oldScore) {
 			_.each(this.onNewScoreCbs, function(cb) {
 				cb(this.id, currentScore);
 			}, this);
-		this.oldScore = currentScore;
+			this.oldScore = currentScore;
+		}
 	};
 	
 	var SIMULATION_MIN_TICKS = 120; // ticks
-	var MIN_SPEED = 0.01; // meters per tick
+	var MIN_SPEED = 0.1; // meters per tick
 	var SPEED_SAMPLE_SIZE = 100; // ticks
 	var detectEndStateFromScore = function(){
 		if (this.ticksSinceSimulationStart < SIMULATION_MIN_TICKS)
@@ -145,6 +146,7 @@ define(['box2dweb', 'underscore', 'core/appConfig'], function(Box2D, _, config){
 		this.fixtures = [];
 		this.pastScores = [];
 		this.onNewScoreCbs = [];
+		this.oldScore = 0;
 		_.bindAll(this, 
 			'destroyPhysicsBodies',
 			'initialisePhysicsBodies',
