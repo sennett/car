@@ -1,6 +1,6 @@
 define(['underscore', 'ractiveRuntime'], function(_, Ractive){
+	// ensure ractive not in debug mode in prod
 	Ractive.DEBUG = /unminified/.test(function(){/*unminified*/});
-	
 	
 	var Evolver = function(simulator, evolutionEngine){
 		this.simulator = simulator;
