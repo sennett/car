@@ -8,6 +8,7 @@ define([
 	'ractiveTransitionsFade'], function(_, Ractive, template, SettingsPresenter, config, css, ractiveTransitionsFade) {
 	
     return function(settingsUiService){
+		var updateMutationRateChangeListener;
 		
 		var templateInterface = new Ractive({
 			template: template,
@@ -30,24 +31,37 @@ define([
 		});
 		
 		templateInterface.observe('mutationRate', function(newValue, oldValue, keypath){
+			if (!isNumber(newValue) || isEmpty(newValue))
+				resetValue();
+			
+			function isEmpty(value){
+				return value == '';
+			}
+			
 			function isNumber(n) {
 				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
-			if (!isNumber(newValue))
+
+			function resetValue(){
+				// does not work without timeout. 
+				// afaik, ractive 0.7 was supposed to fix this
+				// but apparently is still needed
 				setTimeout(function(){
-					myRactive.set(keypath, oldValue);
+					templateInterface.set(keypath, oldValue);
 				}, 0);
+			}
+		});
+		
+		templateInterface.on('confirmValue', function(){
+			updateMutationRateChangeListener(parseFloat(templateInterface.get('mutationRate')));
 		});
 		
 		var publicInterface = {
 			onMutationRateChange: function(updateRateCb){
-				var updateMutation = _.debounce(function(newValue){
-					updateRateCb(newValue);
-				}, 1000);
-				templateInterface.observe('mutationRate', updateMutation, { init: false });
+				updateMutationRateChangeListener = updateRateCb;
 			},
-			mutationRateUpdated: function(responseMessage, mutationRate){
-				templateInterface.set('mutationRateMessage', responseMessage);
+			mutationRateUpdated: function(message, mutationRate){
+				templateInterface.set('mutationRateMessage', message);
 				templateInterface.set('mutationRate', mutationRate);
 			},
 			mutationRateNotUpdated: function(){},
