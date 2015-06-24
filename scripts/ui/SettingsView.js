@@ -29,14 +29,14 @@ define([
 				templateInterface.set('mutationRateMessageVisible', false);
 			}, 1000);
 		});
+
+		function isEmpty(value){
+			return value == '';
+		}
 		
 		templateInterface.observe('mutationRate', function(newValue, oldValue, keypath){
-			if (!isNumber(newValue) || isEmpty(newValue))
+			if (!isNumber(newValue) && !isEmpty(newValue))
 				resetValue();
-			
-			function isEmpty(value){
-				return value == '';
-			}
 			
 			function isNumber(n) {
 				return !isNaN(parseFloat(n)) && isFinite(n);
@@ -52,8 +52,18 @@ define([
 			}
 		});
 		
-		templateInterface.on('confirmValue', function(){
-			updateMutationRateChangeListener(parseFloat(templateInterface.get('mutationRate')));
+		var preEditMutationRate;
+		
+		templateInterface.on('rememberMutationRate', function(){
+			preEditMutationRate = templateInterface.get('mutationRate');
+		});
+		
+		templateInterface.on('confirmMutationRate', function(){
+			var newMutationRate = templateInterface.get('mutationRate');
+			if (isEmpty(newMutationRate))
+				templateInterface.set('mutationRate', preEditMutationRate);
+			else 
+				updateMutationRateChangeListener(parseFloat(templateInterface.get('mutationRate')));
 		});
 		
 		var publicInterface = {

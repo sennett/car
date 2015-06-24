@@ -1,7 +1,7 @@
 <div class="settings small-font">
     <div>
         <label for="mutationRateValue">Mutation rate</label>
-        <input type="text" id="mutationRateValue" value="{{mutationRate}}" on-blur="confirmValue" />
+        <input type="text" id="mutationRateValue" value="{{mutationRate}}" on-blur="confirmMutationRate" on-focus="rememberMutationRate" />
         {{#if  mutationRateMessageVisible}}
             <div class="message" outro='fade:1000'>{{mutationRateMessage}}</div>
         {{/if}} 
