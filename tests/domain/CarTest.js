@@ -36,9 +36,21 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 					tickSimulation.call(this, 2);
 					assertScoreProvided.call(this);
 				});
+				
+				it('provides the highest score reached', function () {
+					createCar.call(this, function(){
+						return {x: this.score-- };
+					}.bind(this));
+					tickSimulation.call(this, 2);
+					assertScoreNotProvidedOnce.call(this);
+				})
 			});
 		});
 	});
+	
+	var assertScoreNotProvidedOnce = function(){
+		expect(this.newScoreSpy.calls.count()).toEqual(1);
+	};
 	
 	var moveCarEnoughToNotEnd = function(){
 		moveCar.call(this, 10, 100);
@@ -64,7 +76,7 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 	};
 
 	var assertScoreSpyCalled = function (scoreSpy) {
-		expect(scoreSpy).toHaveBeenCalledWith(jasmine.anything(), 'car score');
+		expect(scoreSpy).toHaveBeenCalledWith(jasmine.anything(), 1);
 		expect(scoreSpy.calls.count()).toEqual(1);
 	};
 	var assertScoreProvided = function(){
@@ -76,11 +88,15 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		_.times(times || 1, this.car.registerTick);
 	};
 	
-	var initialisePhysicsBodies = function(){
+	var initialisePhysicsBodies = function(fakeScoreProvider){
+		fakeScoreProvider = fakeScoreProvider || function(){
+			return {x: 1};
+		}.bind(this);
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'IsAwake');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'CreateFixture');
 		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetWorldCenter');
-		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetPosition').and.returnValue({x:'car score'});
+		this.score = 2;
+		spyOn(Box2D.Dynamics.b2Body.prototype, 'GetPosition').and.callFake(fakeScoreProvider);
 		spyOn(Box2D.Dynamics.Joints.b2RevoluteJointDef.prototype,'Initialize');
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateBody').and.returnValue(Box2D.Dynamics.b2Body.prototype);
 		spyOn(Box2D.Dynamics.b2World.prototype, 'CreateJoint');
@@ -106,8 +122,8 @@ define(['domain/Car', 'underscore', 'box2dweb', 'domain/genome'], function (Car,
 		expect(this.simulationCompleteSpy).toHaveBeenCalledWith(jasmine.anything());
 	};
 	
-	var createCar = function(){
+	var createCar = function(fakeScoreProvider){
 		this.car = new Car(genome.createRandom());
-		initialisePhysicsBodies.call(this);
+		initialisePhysicsBodies.call(this, fakeScoreProvider);
 	};
 });
