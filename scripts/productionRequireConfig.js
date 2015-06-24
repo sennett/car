@@ -15,7 +15,7 @@ require.config({
 			'require'
 		],
 		'ractiveRuntime': [
-			'//cdn.ractivejs.org/0.6.1/ractive',
+			'//cdn.ractivejs.org/0.7.3/ractive',
 			'ractiveRuntime'
 		],
 		'wire/wire': ['wire.min'],

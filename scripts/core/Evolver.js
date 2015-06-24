@@ -1,4 +1,7 @@
-define(['underscore'], function(_){
+define(['underscore', 'ractiveRuntime'], function(_, Ractive){
+	Ractive.DEBUG = /unminified/.test(function(){/*unminified*/});
+	
+	
 	var Evolver = function(simulator, evolutionEngine){
 		this.simulator = simulator;
 		this.evolutionEngine = evolutionEngine;
