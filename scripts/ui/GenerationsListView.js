@@ -20,25 +20,6 @@ define(['underscore',
 	var getIndexForCarId = function(carId){
 		return this.cars[carId].index;
 	};
-
-	var previousGenerationsRendered = function () {
-		return this.domNode.children.length > 0;
-	};
-
-	var insertGenerationAtTopOfList = function (generationView) {
-		generationView.insert(this.domNode, this.domNode.children[0]);
-	};
-	
-	var renderGeneration = function (generationView) {
-		if (previousGenerationsRendered.call(this)) {
-			// not sure why we need to renderer it first, 
-			// but Ractive errors in the console
-			generationView.render(this.domNode);
-			insertGenerationAtTopOfList.call(this, generationView);
-		} else {
-			generationView.render(this.domNode);
-		}
-	};
 	
     var GenerationsListView = function(generationsUiService, domNodeProvider){
 		this.generations = {};
@@ -58,8 +39,8 @@ define(['underscore',
 	
 	GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id, generationNumber){
-			var generationView = new GenerationView(generationNumber);
-			renderGeneration.call(this, generationView);
+			var generationView = GenerationView(generationNumber);
+			generationView.render(this.domNode);
 			this.generations[id] = generationView;
 		},
 		onNewGenerationHighScore: function(id, highScore){

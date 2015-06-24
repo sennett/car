@@ -4,47 +4,57 @@ define([
 	'rv!ui/templates/GenerationTemplate',
 	'ui/utils',
 	'ui/CarView'], function(_, Ractive, template, utils, CarView) {
-
-	function createPrototype(generationNumber) {
-		return new Ractive({
+	
+	return function(generationNumber){
+		
+		var templateInterface = new Ractive({
 			template: template,
 			append: true,
 			data: {
 				cars: [],
-				generationNumber: generationNumber,
+				generationNumber: generationNumber
 			},
+			components: {
+				car: CarView
+			}
+		});
+		
+		var previousGenerationsRendered = function (domNode) {
+			return domNode.children.length > 0;
+		};
+
+		var renderAtTopOfList = function (domNode) {
+			templateInterface.render(domNode);
+			templateInterface.insert(domNode, domNode.children[0]);
+		};
+		
+		return {
 			onNewAverageScore: function(averageScore){
-				this.set('averageScore', utils.roundScore(averageScore));
+				templateInterface.set('averageScore', utils.roundScore(averageScore));
 			},
 			newHighScore: function (highscore) {
-				this.set('highScore', utils.roundScore(highscore));
+				templateInterface.set('highScore', utils.roundScore(highscore));
 			},
 			addCar: function(){
 				var carData = {
 					score:0,
 					complete: false
 				};
-				this.push('cars', carData);
-				return this.get('cars').length - 1;
+				templateInterface.push('cars', carData);
+				return templateInterface.get('cars').length - 1;
 			},
 			setCarScore: function(index, newCarScore){
-				this.set('cars[' + index + '].score', utils.roundScore(newCarScore));
+				templateInterface.set('cars[' + index + '].score', utils.roundScore(newCarScore));
 			},
 			setCarSimulationComplete: function(index){
-				this.set('cars[' + index + '].complete', true);
+				templateInterface.set('cars[' + index + '].complete', true);
 			},
-			components: {
-				car: CarView
+			render: function(domNode){
+				if (previousGenerationsRendered(domNode))
+					renderAtTopOfList(domNode);
+				else
+					templateInterface.render(domNode);
 			}
-		});
+		};
 	};
-
-	var GenerationView = function(generationNumber){
-		var view = createPrototype(generationNumber);
-		return view;
-	};
-	
-	GenerationView.prototype = _.extend(GenerationView.prototype, createPrototype());
-	
-    return GenerationView;
 });
