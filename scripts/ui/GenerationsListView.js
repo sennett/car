@@ -1,7 +1,7 @@
 define(['underscore', 
-	'ui/GenerationView', 
+	'ui/generationView', 
 	'ui/presenters/GenerationsPresenter',
-	'css!ui/styles/generations'], function(_, GenerationView, GenerationsPresenter, css) {
+	'css!ui/styles/generations'], function(_, GenerationViewCreator, GenerationsPresenter, css) {
 	
 	var checkGeneration = function(id){
 		if (!this.generations[id])
@@ -39,7 +39,7 @@ define(['underscore',
 	
 	GenerationsListView.prototype = _.extend(GenerationsListView.prototype, {
 		onNewGeneration:function(id, generationNumber){
-			var generationView = GenerationView(generationNumber);
+			var generationView = GenerationViewCreator(generationNumber);
 			generationView.render(this.domNode);
 			this.generations[id] = generationView;
 		},
