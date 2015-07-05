@@ -12,7 +12,7 @@ define(['underscore'], function(_) {
 			this.scoreNotifier.onNewGenerationHighScore(handler);
 		},
 		onNewGenerationAverageScore: function(handler){
-			this.scoreNotifier.onNewGenerationAverageScore = handler;
+			this.scoreNotifier.onNewGenerationAverageScore(handler);
 		},
 		onNewCar: function(handler){
 			this.scoreNotifier.onNewCar = handler;
