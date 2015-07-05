@@ -31,7 +31,7 @@ define(['underscore', 'util/callbackList'], function(_, callbackList) {
 	};
 	
 	var simulationCompleteListener = function(){
-		this.onCarSimulationComplete.apply(null, arguments);
+		this.onCarSimulationCompleteCallbacks.callAll.apply(null, arguments);
 	};
 	
 	var createKeyBasedCars = function(cars){
@@ -56,13 +56,15 @@ define(['underscore', 'util/callbackList'], function(_, callbackList) {
 		this.onNewGenerationAverageScoreCallbacks = callbackList.create();
 		this.onNewCarCallbacks = callbackList.create();
 		this.onNewCarScoreCallbacks = callbackList.create();
+		this.onCarSimulationCompleteCallbacks = callbackList.create();
 		_.bindAll(this, 
 			'setCars', 
 			'runningGeneration', 
 			'onNewGenerationHighScore', 
 			'onNewGenerationAverageScore',
 			'onNewCar',
-			'onNewCarScore');
+			'onNewCarScore',
+			'onCarSimulationComplete');
 	};
 	
 	ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
@@ -85,8 +87,11 @@ define(['underscore', 'util/callbackList'], function(_, callbackList) {
 		onNewCar: function(cb){
 			this.onNewCarCallbacks.register(cb);
 		},
-		onNewCarScore:function(cb){
+		onNewCarScore: function(cb){
 			this.onNewCarScoreCallbacks.register(cb);
+		},
+		onCarSimulationComplete: function(cb){
+			this.onCarSimulationCompleteCallbacks.register(cb);
 		}
 	});
     

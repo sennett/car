@@ -21,7 +21,7 @@ define(['underscore'], function(_) {
 			this.scoreNotifier.onNewCarScore(handler);
 		},
 		onCarSimulationComplete: function(handler){
-			this.scoreNotifier.onCarSimulationComplete = handler;
+			this.scoreNotifier.onCarSimulationComplete(handler);
 		}
 	});
 	

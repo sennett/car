@@ -101,7 +101,7 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	var assertCarCompleteListenerBound = function(){
 		expect(this.carOne.onSimulationComplete.calls.count()).toEqual(1);
 		expect(this.carTwo.onSimulationComplete.calls.count()).toEqual(1);
-		expect(this.scoreNotifier.onCarSimulationComplete).toHaveBeenCalled();
+		expect(this.onCarSimulationCompleteListener).toHaveBeenCalled();
 	};
 	
 	var fireCarComplete = function(){
@@ -172,7 +172,8 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 		this.scoreNotifier.onNewCar(this.onNewCarListener);
 		this.onNewCarScoreListener = jasmine.createSpy('on new car score dummy');
 		this.scoreNotifier.onNewCarScore(this.onNewCarScoreListener);
-		this.scoreNotifier.onCarSimulationComplete = jasmine.createSpy('on car simulation complete dummy');
+		this.onCarSimulationCompleteListener = jasmine.createSpy('on car simulation complete dummy');
+		this.scoreNotifier.onCarSimulationComplete(this.onCarSimulationCompleteListener);
 		this.onNewGenerationAverageScoreListener = jasmine.createSpy('on new generation average score dummy');
 		this.scoreNotifier.onNewGenerationAverageScore(this.onNewGenerationAverageScoreListener);
 		this.onNewGenerationHighScoreListener = jasmine.createSpy('on new high score dummy');
