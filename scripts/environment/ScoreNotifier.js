@@ -30,10 +30,6 @@ define(['underscore', 'util/callbackList'], function(_, callbackList) {
 		}
 	};
 	
-	var simulationCompleteListener = function(){
-		this.onCarSimulationCompleteCallbacks.callAll.apply(null, arguments);
-	};
-	
 	var createKeyBasedCars = function(cars){
 		this.cars = {};
 		_.each(cars, function(car){
@@ -45,7 +41,7 @@ define(['underscore', 'util/callbackList'], function(_, callbackList) {
 		_.each(this.cars, function (car, carId) {
 			this.onNewCarCallbacks.callAll(carId, this.currentGenerationId);
 			car.onNewScore(newCarScoreListener.bind(this));
-			car.onSimulationComplete(simulationCompleteListener.bind(this));
+			car.onSimulationComplete(this.onCarSimulationCompleteCallbacks.callAll);
 		}, this);
 	};
 	
