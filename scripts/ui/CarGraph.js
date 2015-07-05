@@ -1,10 +1,14 @@
 define(['underscore', 'ui/presenters/GenerationsPresenter'], function (_, GenerationsPresenter) {
-	return function Graph(generationUiService) {
+	return function CarGraph(generationUiService) {
+		var node = document.getElementById('carGraph');
+		
 		var publicInterface = {
 			onNewGeneration: function(){},
 			onNewGenerationHighScore: function(){},
 			onNewGenerationAverageScore: function(){},
-			onNewCar: function(){},
+			onNewCar: function(){
+				
+			},
 			onNewCarScore: function(){},
 			onCarSimulationComplete: function(){}
 		};

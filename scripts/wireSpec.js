@@ -135,7 +135,7 @@ define({
 	
 	graphView: {
 		create: {
-			module: 'ui/Graph',
+			module: 'ui/CarGraph',
 			args: [{$ref: 'generationsUiService'}]
 		}
 	},
