@@ -168,7 +168,8 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	};
 	
 	var bindPublicEventListenersToScoreNotifier = function(){
-		this.scoreNotifier.onNewCar = jasmine.createSpy('new car spy');
+		this.onNewCarListener = jasmine.createSpy('new car spy');
+		this.scoreNotifier.onNewCar(this.onNewCarListener);
 		this.scoreNotifier.onNewCarScore = jasmine.createSpy('on new car score dummy');
 		this.scoreNotifier.onCarSimulationComplete = jasmine.createSpy('on car simulation complete dummy');
 		this.onNewGenerationAverageScoreListener = jasmine.createSpy('on new generation average score dummy');
@@ -190,9 +191,9 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	};
 	
 	var assertNewCarsNotified = function(){
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[0]).toEqual('car ID 1');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(0)[1]).toEqual('generation ID');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[0]).toEqual('car ID 2');
-		expect(this.scoreNotifier.onNewCar.calls.argsFor(1)[1]).toEqual('generation ID');
+		expect(this.onNewCarListener.calls.argsFor(0)[0]).toEqual('car ID 1');
+		expect(this.onNewCarListener.calls.argsFor(0)[1]).toEqual('generation ID');
+		expect(this.onNewCarListener.calls.argsFor(1)[0]).toEqual('car ID 2');
+		expect(this.onNewCarListener.calls.argsFor(1)[1]).toEqual('generation ID');
 	};
 });
