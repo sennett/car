@@ -18,7 +18,7 @@ define(['underscore'], function(_) {
 			this.scoreNotifier.onNewCar(handler);
 		},
 		onNewCarScore: function(handler){
-			this.scoreNotifier.onNewCarScore = handler;
+			this.scoreNotifier.onNewCarScore(handler);
 		},
 		onCarSimulationComplete: function(handler){
 			this.scoreNotifier.onCarSimulationComplete = handler;
