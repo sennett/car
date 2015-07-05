@@ -9,7 +9,7 @@ define(['underscore'], function(_) {
 			this.evolutionEngine.onNewGeneration(handler);
 		},
 		onNewGenerationHighScore: function(handler){
-			this.scoreNotifier.onNewGenerationHighScore = handler;
+			this.scoreNotifier.onNewGenerationHighScore(handler);
 		},
 		onNewGenerationAverageScore: function(handler){
 			this.scoreNotifier.onNewGenerationAverageScore = handler;

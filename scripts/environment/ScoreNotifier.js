@@ -1,9 +1,9 @@
-define(['underscore'], function(_) {
+define(['underscore', 'util/callbackList'], function(_, callbackList) {
 	
 	var detectHighScore = function(score){
 		if (this.highScore < score){
 			this.highScore = score;
-			this.onNewGenerationHighScore(this.currentGenerationId, score);
+			this.onNewGenerationHighScoreCallbacks.callAll(this.currentGenerationId, score);
 		}
 	};
 	
@@ -52,7 +52,8 @@ define(['underscore'], function(_) {
     var ScoreNotifier = function(renderer){
 		this.renderer = renderer;
 		this.highScore = 0;
-		_.bindAll(this, 'setCars', 'runningGeneration')
+		this.onNewGenerationHighScoreCallbacks = callbackList.create();
+		_.bindAll(this, 'setCars', 'runningGeneration', 'onNewGenerationHighScore')
 	};
 	
 	ScoreNotifier.prototype = _.extend(ScoreNotifier.prototype, {
@@ -65,6 +66,9 @@ define(['underscore'], function(_) {
 		},
 		runningGeneration: function(generationId){
 			this.currentGenerationId = generationId;
+		},
+		onNewGenerationHighScore: function(cb){
+			this.onNewGenerationHighScoreCallbacks.register(cb);
 		}
 	});
     

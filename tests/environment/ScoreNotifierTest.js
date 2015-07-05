@@ -89,9 +89,9 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 	};
 	
 	var assertHighScoreProvided = function(){
-		expect(this.scoreNotifier.onNewGenerationHighScore.calls.count()).toEqual(2);
-		expect(this.scoreNotifier.onNewGenerationHighScore).toHaveBeenCalledWith('generation ID', 1);
-		expect(this.scoreNotifier.onNewGenerationHighScore).toHaveBeenCalledWith('generation ID', 2);
+		expect(this.onNewGenerationHighScoreListener.calls.count()).toEqual(2);
+		expect(this.onNewGenerationHighScoreListener).toHaveBeenCalledWith('generation ID', 1);
+		expect(this.onNewGenerationHighScoreListener).toHaveBeenCalledWith('generation ID', 2);
 	};
 	
 	var assertGenerationAverageScoreProvided = function(){
@@ -172,7 +172,8 @@ define(['environment/ScoreNotifier', 'domain/Car', 'environment/renderer/FacadeR
 		this.scoreNotifier.onNewCarScore = jasmine.createSpy('on new car score dummy');
 		this.scoreNotifier.onCarSimulationComplete = jasmine.createSpy('on car simulation complete dummy');
 		this.scoreNotifier.onNewGenerationAverageScore = jasmine.createSpy('on new generation average score dummy');
-		this.scoreNotifier.onNewGenerationHighScore = jasmine.createSpy('on new high score dummy');
+		this.onNewGenerationHighScoreListener = jasmine.createSpy('on new high score dummy');
+		this.scoreNotifier.onNewGenerationHighScore(this.onNewGenerationHighScoreListener);
 	};
 
 	var createScoreNotifier = function(){
