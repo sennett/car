@@ -6,7 +6,7 @@ define(['underscore'], function(_) {
     
     GenerationsUiService.prototype = _.extend(GenerationsUiService.prototype, {
 		onNewGeneration: function(handler){
-			this.evolutionEngine.onNewGeneration = handler;
+			this.evolutionEngine.onNewGeneration(handler);
 		},
 		onNewGenerationHighScore: function(handler){
 			this.scoreNotifier.onNewGenerationHighScore = handler;

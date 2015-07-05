@@ -109,7 +109,7 @@ define(['evolution/Engine',
 	
 	var bindNewGenerationCallback = function(){
 		this.newGenerationCallback = jasmine.createSpy('new generation callback');
-		this.engine.onNewGeneration = this.newGenerationCallback;
+		this.engine.onNewGeneration(this.newGenerationCallback);
 	};
 	
 	var nextGenerationFromEvolutionAlgorithm = 'next generation from evolution algorithm';
