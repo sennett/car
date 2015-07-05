@@ -132,6 +132,13 @@ define({
 			args: [{$ref: 'settingsUiService'}]
 		}
 	},
+	
+	graphView: {
+		create: {
+			module: 'ui/Graph',
+			args: [{$ref: 'generationsUiService'}]
+		}
+	},
 
 	domNodeProvider: {
 		module: 'ui/domNodeProvider'
