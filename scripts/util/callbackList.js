@@ -7,8 +7,9 @@ define(['underscore'], function (_) {
 					callbacks.push(callback)
 				},
 				callAll: function(){
+					var args = arguments;
 					_.each(callbacks, function(cb){
-						cb();
+						cb.apply(null, args);
 					});
 				}
 			}

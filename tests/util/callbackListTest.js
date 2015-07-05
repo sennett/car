@@ -34,6 +34,7 @@ define(['util/callbackList'], function (callbackList) {
 
 	var assertCallbackCalled = function (cb) {
 		expect(cb.calls.count()).toEqual(1);
+		expect(cb).toHaveBeenCalledWith('some', 'arguments');
 	};
 	
 	var assertCallbacksCalled = function() {
