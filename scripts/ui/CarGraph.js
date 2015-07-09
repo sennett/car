@@ -22,20 +22,22 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts'], funct
 					text: 'Average score'
 				}
 			},
-			series: [{
-				data: [1, 2, 3, 4, 5, 6],
-				pointStart: 1
+			series:[{
+				name: 'Average score'
 			}]
 		});
+		var averageScoreSeries = chart.series[0];
 		var publicInterface = {
-			onNewGeneration: function(){},
+			onNewGeneration: function(generationId){
+				averageScoreSeries.addPoint([generationId, 0]);
+				chart.redraw();
+			},
 			onNewGenerationHighScore: function(){},
 			onNewGenerationAverageScore: function(generationId, score){
-				dataSet.add({
-					x: generationId,
-					y: score,
-					z: 0
-				})
+				_.find(averageScoreSeries.data, function(point){
+					return point.x == generationId;
+				}).update(score, false);
+				
 			},
 			onNewCar: function(){},
 			onNewCarScore: function(){},
