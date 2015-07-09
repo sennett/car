@@ -26,6 +26,7 @@
     "postal": "~1.0.4",
     "require-css": "~0.1.8",
     "ractive-transitions-fade": "ractivejs/ractive-transitions-fade#~0.2.1",
-    "ractive": "~0.7.3"
+    "ractive": "~0.7.3",
+    "highcharts": "~4.1.7"
   }
 }

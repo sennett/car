@@ -15,11 +15,17 @@ require.config({
 		ractiveRuntime: '../bower_components/ractive/ractive.runtime',
 		ractiveTransitionsFade: '../bower_components/ractive-transitions-fade/dist/ractive-transitions-fade',
 		Spinner: '../bower_components/spin.js/spin',
-		css: '../bower_components/require-css/css'
+		css: '../bower_components/require-css/css',
+		'Highcharts': '../bower_components/highcharts/highcharts.src',
+		'HighchartsStandalone': '../bower_components/highcharts/adapters/standalone-framework.src'
 	},
 	shim: {
 		box2dweb: {
 			exports: 'Box2D'
+		},
+		Highcharts: {
+			exports: 'Highcharts',
+			deps: ['HighchartsStandalone']
 		}
 	},
 	
