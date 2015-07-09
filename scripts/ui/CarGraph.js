@@ -1,4 +1,4 @@
-define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts'], function (_, GenerationsPresenter, Highcharts) {
+define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/utils'], function (_, GenerationsPresenter, Highcharts, utils) {
 	return function CarGraph(generationUiService) {
 		var node = document.getElementById('carGraph');
 		console.log(node);
@@ -34,6 +34,7 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts'], funct
 			},
 			onNewGenerationHighScore: function(){},
 			onNewGenerationAverageScore: function(generationId, score){
+				score = utils.roundScore(score);
 				_.find(averageScoreSeries.data, function(point){
 					return point.x == generationId;
 				}).update(score, false);
