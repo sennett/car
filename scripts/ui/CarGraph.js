@@ -1,7 +1,6 @@
 define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/utils'], function (_, GenerationsPresenter, Highcharts, utils) {
 	return function CarGraph(generationUiService) {
 		var node = document.getElementById('carGraph');
-		console.log(node);
 		var chart = new Highcharts.Chart({
 			chart:{
 				renderTo: node,
