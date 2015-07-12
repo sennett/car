@@ -7,7 +7,7 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/ut
 				type: 'area'
 			},
 			title: {
-				text: 'Average Generation Score'
+				text: 'Scores'
 			},
 			xAxis: {
 				title: {
@@ -23,21 +23,31 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/ut
 			},
 			series:[{
 				name: 'Average score'
+			},{
+				name: 'High score'
 			}]
 		});
 		var averageScoreSeries = chart.series[0];
+		var highScoreSeries = chart.series[1];
+		var findGenerationPoint = function (generationId, series) {
+			return _.find(series.data, function (point) {
+				return point.x == generationId;
+			});
+		};
+		
 		var publicInterface = {
 			onNewGeneration: function(generationId){
 				averageScoreSeries.addPoint([generationId, 0]);
+				highScoreSeries.addPoint([generationId, 0]);
 				chart.redraw();
 			},
-			onNewGenerationHighScore: function(){},
+			onNewGenerationHighScore: function(generationId, highscore){
+				highscore = utils.roundScore(highscore);
+				findGenerationPoint(generationId, highScoreSeries).update(highscore, false);
+			},
 			onNewGenerationAverageScore: function(generationId, score){
 				score = utils.roundScore(score);
-				_.find(averageScoreSeries.data, function(point){
-					return point.x == generationId;
-				}).update(score, false);
-				
+				findGenerationPoint(generationId, averageScoreSeries).update(score, false);
 			},
 			onNewCar: function(){},
 			onNewCarScore: function(){},
