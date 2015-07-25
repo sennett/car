@@ -23,20 +23,23 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/ut
 				}
 			},
 			series:[{
-				name: 'Average score'
+				name: 'Average score',
+				index: 2
 			},{
-				name: 'High score'
+				name: 'High score',
+				index: 0
 			},{
 				name: 'Car score',
 				type: 'column',
-				pointInterval: carPointsPerGeneration
+				pointInterval: carPointsPerGeneration,
+				index: 1
 			}]
 		});
 		var carsAddedThisGeneration = 0;
 		var carIdToXPositionMap = {};
-		var averageScoreSeries = chart.series[0];
-		var highScoreSeries = chart.series[1];
-		var carScoreSeries = chart.series[2];
+		var averageScoreSeries = chart.series[2];
+		var highScoreSeries = chart.series[0];
+		var carScoreSeries = chart.series[1];
 		var findGenerationPoint = function (generationId, series) {
 			return _.find(series.data, function (point) {
 				return point.x == generationId;
