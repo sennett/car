@@ -28,7 +28,7 @@ define(['underscore', 'ui/presenters/GenerationsPresenter', 'Highcharts', 'ui/ut
 				name: 'High score'
 			},{
 				name: 'Car score',
-				type: 'line',
+				type: 'column',
 				pointInterval: carPointsPerGeneration
 			}]
 		});
