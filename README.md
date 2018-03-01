@@ -1,7 +1,7 @@
 car
 ===
 
-Evolving car.  Installed here: http://sennett.org/boxcar2d.js/.  Based on http://boxcar2d.com/.
+Evolving car.  ~~Installed here: http://sennett.org/boxcar2d.js/.~~  Currently not installed anywhere :(  Based on http://boxcar2d.com/.
 
 Currently the dev build is broken (index.html pointing the wrong way). Production is also far from optmised and causes requirejs timeouts on slow connections.
 
