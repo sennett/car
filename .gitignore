@@ -1,5 +1,5 @@
 node_modules
-bower_components
+# bower_components currently only using dev build, so include these files
 build
 deploy.sh
 ### JetBrains template
