@@ -1,9 +1,9 @@
 car
 ===
 
-Evolving car.  ~~Installed here: http://sennett.org/boxcar2d.js/.~~  Currently not installed anywhere :(  Based on http://boxcar2d.com/.
-
-Currently the dev build is broken (index.html pointing the wrong way). Production is also far from optmised and causes requirejs timeouts on slow connections.
+- Evolving car.  Run it here: https://sennett.github.io/car/, as long as you don't mind unbundled AMD modules :D
+- Wait for load then click "run" button.
+- Concept based on http://boxcar2d.com/.
 
 Todo:
 
