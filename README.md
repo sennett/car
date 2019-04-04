@@ -1,13 +1,17 @@
 car
 ===
 
-- Evolving car.  Run it here: https://sennett.github.io/car/, as long as you don't mind unbundled AMD modules :D
+Personal project. Evolving car implemented in JavaScript. Cars are defined by a genome, and start off randomly generated and then improve over time as the most successful genomes are selected a mated, where the most successful cars are the ones that make it furthest along the track. Leave it running for a while and see what happens.
+
+Interesting technical things: non-blocking loop to run the simulation, Model-View-Presenter with React, and use of dependency injection inspired by Ninject and used by Angular.
+
+- Run it here: https://sennett.github.io/car/, as long as you don't mind unbundled AMD modules :D
 - Wait for load then click "run" button.
 - Concept based on http://boxcar2d.com/.
 
 Todo:
 
-- create an application concept of a `generation`
+- create an application concept of a `generation`.  In fact the domain could use better encapsulation.
 - tournament selection
 
 Nice to haves:
