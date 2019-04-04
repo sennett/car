@@ -14,6 +14,7 @@ Todo
 
 - create an application concept of a `generation`.  In fact the domain could use better encapsulation.
 - tournament selection
+- make the fast-forward button work
 
 Nice to haves
 ---
