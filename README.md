@@ -5,7 +5,7 @@ Personal project. Evolving car implemented in JavaScript. Cars are defined by a 
 
 Interesting technical things: non-blocking loop to run the simulation, Model-View-Presenter with React, and use of dependency injection inspired by Ninject and used by Angular.
 
-- Run it here: https://sennett.github.io/car/, as long as you don't mind unbundled AMD modules :D
+- Run it here: https://sennett.github.io/car/, dev build only right now (unbundled AMD modules)
 - Wait for load then click "run" button.
 - Concept based on http://boxcar2d.com/.
 
