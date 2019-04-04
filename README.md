@@ -9,12 +9,14 @@ Interesting technical things: non-blocking loop to run the simulation, Model-Vie
 - Wait for load then click "run" button.
 - Concept based on http://boxcar2d.com/.
 
-Todo:
+Todo
+---
 
 - create an application concept of a `generation`.  In fact the domain could use better encapsulation.
 - tournament selection
 
-Nice to haves:
+Nice to haves
+---
 
 - run-time AMD module loading. I currently do not understand the subtleties of AMD as a module format versus AMD as a runtime module locator, along with the implications of build.
 - unit-test more things
