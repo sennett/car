@@ -23,7 +23,7 @@ Nice to haves:
 
 
 
-### Interesting points:
+### Cludges:
 
 It uses AMD for everything, and wire.js for runtime IOC.  It provides a basic 
 reference architecture for AMD, demonstrating no-build development configuration, 
